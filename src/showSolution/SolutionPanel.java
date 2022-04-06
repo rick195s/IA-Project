@@ -1,7 +1,7 @@
 package showSolution;
 
-import javax.swing.JFrame;
-import java.awt.BorderLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
 

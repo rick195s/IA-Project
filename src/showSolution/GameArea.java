@@ -1,13 +1,7 @@
 package showSolution;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class GameArea extends JPanel {
 	

@@ -1,10 +1,9 @@
-package mummyMaze;
-
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+package mummymaze;
 
 import showSolution.SolutionPanel;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
 
@@ -12,123 +11,29 @@ public class Main {
 
 		List<String> states = new LinkedList<>();
 
+
 		String state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . . . H . . \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" . . . M . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
+						" . . . . .|. \n" +
+						"     -       \n" +
+						" . . . H . . \n" +
+						"     -       \n" +
+						" . . . .|. . \n" +
+						"       -   - \n" +
+						" . . . . .|. \n" +
+						"   - -       \n" +
+						" . . . M . . \n" +
+						"         -   \n" +
+						" . . . . . . \n" +
+						"     S       \n";
+
 		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . . H . .   \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" . . . M . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . . H . .   \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" . . M . . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . H . . . . \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" . . M . . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . H . . . . \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" . M . . . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" H . . . . . \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" . M . . . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" H . . . . . \n" +
-				"     -       \n" +
-				" . . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" M . . . . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		state = 	"             \n" +
-				" . . . . .|. \n" +
-				"     -       \n" +
-				" . . . . . . \n" +
-				"     -       \n" +
-				" H . . .|. . \n" +
-				"       -   - \n" +
-				" . . . . .|. \n" +
-				"   - -       \n" +
-				" M . . . . . \n" +
-				"         -   \n" +
-				" . . . . . . \n" +
-				" S           \n";
-		states.add(state);
-		SolutionPanel.showSolution(states, states.size());
-/*int i=0, j=0;
+
+		//SolutionPanel.showSolution(states, states.size());
+
+		// transforma a string dada numa matriz facilitando os calculos das posicoes
+		int i=0, j=0;
 		char matrix[][] = new char[13][13];
-		System.out.println(state.toCharArray().length);
-		for (char t:  state.toCharArray()){
+		for (char t :  state.toCharArray()){
 			if(t!='\n') {
 				matrix[i][j] = t;
 				j++;
@@ -137,15 +42,13 @@ public class Main {
 				i++;
 			}
 		}
-		String s="";
-		for (int k = 0; k < 13; k++) {
-			s+=String.valueOf(matrix[k])+"\n";
-		}
 
 
-		System.out.println(s);
-		SolutionPanel.showState(s);
-*/
+		MummyMazeState mummyMazeState = new MummyMazeState(matrix);
+
+		mummyMazeState.humanInExit();
+		System.out.println(state);
+		SolutionPanel.showState(state);
 
 		//SolutionPanel.showSolution(states,7);
 
