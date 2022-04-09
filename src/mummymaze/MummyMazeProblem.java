@@ -29,6 +29,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
         super.actions.add(new ActionRight());
         super.actions.add(new ActionDown());
         super.actions.add(new ActionLeft());
+        super.actions.add(new ActionDontMove());
 
         goalState = new MummyMazeState(MummyMazeState.GOAL_MATRIX);
     }

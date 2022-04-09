@@ -17,8 +17,8 @@ public class MummyMazeState extends State implements Cloneable {
     private final char[][] matrix;
     private int lineExit;
     private int columnExit;
-    private int lineHuman;
-    private int columnHuman;
+    private int lineHero;
+    private int columnHero;
 
 
     public MummyMazeState(char[][] matrix) {
@@ -30,8 +30,8 @@ public class MummyMazeState extends State implements Cloneable {
             for (int j = 0; j < matrix.length; j++) {
                 this.matrix[i][j] = matrix[i][j];
                 if (this.matrix[i][j] == 'H') {
-                    lineHuman = i;
-                    columnHuman = j;
+                    lineHero = i;
+                    columnHero = j;
                 }
                 if (this.matrix[i][j] == 'S') {
                     lineExit = i;
@@ -40,28 +40,39 @@ public class MummyMazeState extends State implements Cloneable {
             }
         }
 
-          }
+    }
 
     @Override
     public void executeAction(Action action) {
         action.execute(this);
         firePuzzleChanged(null);
+
+        String s="";
+        for (int k = 0; k < 13; k++) {
+            s+=String.valueOf(matrix[k])+"\n";
+        }
+        System.out.println(s);
+
     }
 
+    // linha 0 é onde só podem existir saidas
     public boolean canMoveUp() {
-        return lineExit != 0;
+        return lineHero != 1;
     }
 
+    // coluna matrix.length - 1 é onde só podem existir saidas
     public boolean canMoveRight() {
-        return columnExit != matrix.length - 1;
+        return columnHero != matrix.length - 2;
     }
 
+    // linha matrix.length - 1 é onde só podem existir saidas
     public boolean canMoveDown() {
-        return lineExit != matrix.length - 1;
+        return lineHero != matrix.length - 2;
     }
 
+    // coluna 0 é onde só podem existir saidas
     public boolean canMoveLeft() {
-        return columnExit != 0;
+        return columnHero != 1;
     }
 
     /*
@@ -71,23 +82,29 @@ public class MummyMazeState extends State implements Cloneable {
      * state was created whether the operation could be executed or not.
      */
     public void moveUp() {
-        matrix[lineExit][columnExit] = matrix[--lineExit][columnExit];
-        matrix[lineExit][columnExit] = 0;
+        matrix[lineHero][columnHero] = matrix[--lineHero][columnHero];
+        matrix[lineHero][columnHero] = 'H';
     }
 
     public void moveRight() {
-        matrix[lineExit][columnExit] = matrix[lineExit][++columnExit];
-        matrix[lineExit][columnExit] = 0;
+        matrix[lineHero][columnHero] = matrix[lineHero][++columnHero];
+        matrix[lineHero][columnHero] = 'H';
     }
 
     public void moveDown() {
-        matrix[lineExit][columnExit] = matrix[++lineExit][columnExit];
-        matrix[lineExit][columnExit] = 0;
+        matrix[lineHero][columnHero] = matrix[++lineHero][columnHero];
+        matrix[lineHero][columnHero] = 'H';
     }
 
     public void moveLeft() {
-        matrix[lineExit][columnExit] = matrix[lineExit][--columnExit];
-        matrix[lineExit][columnExit] = 0;
+        matrix[lineHero][columnHero] = matrix[lineHero][--columnHero];
+        matrix[lineHero][columnHero] = 'H';
+    }
+
+    public void dontMove() {
+        //TODO
+        // os inimigos têm de se mexer quando o heroi nao se mexe
+        return;
     }
 
     public double computeTilesOutOfPlace(MummyMazeState finalState) {
@@ -126,33 +143,38 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public boolean humanInExit(){
-        int columnHumanShouldBe=0;
-        int lineHumanShouldBe=0;
+        int columnHeroShouldBe=0;
+        int lineHeroShouldBe=0;
+
+/*
 
         if (lineExit == matrix.length - 1){
-            lineHumanShouldBe = 11;
+            lineHeroShouldBe = 11;
 
         }else if (lineExit == 0){
-            lineHumanShouldBe = 1;
+            lineHeroShouldBe = 1;
         }
+*/
 
-        columnHumanShouldBe = columnExit;
+        // if the exit it's in the last line human should be in the line before that
+        lineHeroShouldBe = (lineExit == matrix.length - 1 ? 11 : 1);
+        columnHeroShouldBe = columnExit;
 
         if (columnExit == matrix.length - 1){
-            columnHumanShouldBe = 11;
-            lineHumanShouldBe = lineExit;
+            columnHeroShouldBe = 11;
+            lineHeroShouldBe = lineExit;
 
-        }else if (columnHumanShouldBe == 0){
-            columnHumanShouldBe = 1;
-            lineHumanShouldBe = lineExit;
+        }else if (columnHeroShouldBe == 0){
+            columnHeroShouldBe = 1;
+            lineHeroShouldBe = lineExit;
         }
 
-
+/*
         System.out.println("Linha da Saida: "+lineExit+"\nColuna da Saida: "+columnExit);
-        System.out.println("Linha onde humano devida de estar: "+lineHumanShouldBe+"\nColuna onde humano devida de estar: "+columnHumanShouldBe);
+        System.out.println("Linha onde humano devida de estar: "+lineHeroShouldBe+"\nColuna onde humano devida de estar: "+columnHeroShouldBe);
         System.out.println("Num linhas da matriz: "+matrix[0].length+"\nNum colunas da matriz: "+matrix.length);
-
-        return matrix[lineHumanShouldBe][columnHumanShouldBe] == 'H';
+*/
+        return matrix[lineHeroShouldBe][columnHeroShouldBe] == 'H';
     }
 
     public int getNumLines() {

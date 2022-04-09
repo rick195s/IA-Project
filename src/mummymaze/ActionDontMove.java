@@ -10,7 +10,7 @@ public class ActionDontMove extends Action<MummyMazeState>{
 
     @Override
     public void execute(MummyMazeState state){
-        state.moveUp(); // manda o estado modificar-se movendo a vazia para cima
+        state.dontMove(); // manda o estado modificar-se movendo a vazia para cima
         state.setAction(this); // define esta ação como sendo a ação que deu origem ao estado
     }
 
