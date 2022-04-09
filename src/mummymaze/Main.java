@@ -1,5 +1,6 @@
 package mummymaze;
 
+import agent.Solution;
 import showSolution.SolutionPanel;
 
 import java.util.LinkedList;
@@ -12,7 +13,7 @@ public class Main {
 		List<String> states = new LinkedList<>();
 
 
-		String state = 	"             \n" +
+		String state = 	"     S       \n" +
 						" . . . . .|. \n" +
 						"     -       \n" +
 						" . . . H . . \n" +
@@ -24,7 +25,7 @@ public class Main {
 						" . . . M . . \n" +
 						"         -   \n" +
 						" . . . . . . \n" +
-						"     S       \n";
+						"             \n";
 
 		states.add(state);
 
@@ -45,12 +46,13 @@ public class Main {
 
 
 		MummyMazeState mummyMazeState = new MummyMazeState(matrix);
+		MummyMazeAgent mummyMazeAgent = new MummyMazeAgent(mummyMazeState);
+		Solution solution = mummyMazeAgent.solveProblem(new MummyMazeProblem(mummyMazeState));
+		mummyMazeAgent.executeSolution();
+		System.out.println(solution);
+		// SolutionPanel.showState(state);
 
-		mummyMazeState.humanInExit();
-		System.out.println(state);
-		SolutionPanel.showState(state);
 
-		//SolutionPanel.showSolution(states,7);
 
 		/*
 		String state = 	"             \n" +
