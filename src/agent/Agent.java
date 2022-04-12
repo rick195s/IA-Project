@@ -1,7 +1,11 @@
 package agent;
 
 import java.util.ArrayList;
+
+import mummymaze.MummyMazeAgent;
+import mummymaze.MummyMazeState;
 import searchmethods.*;
+import showSolution.SolutionPanel;
 
 public class Agent<E extends State> {
 
@@ -40,7 +44,7 @@ public class Agent<E extends State> {
         return solution;
     }
 
-    public void executeSolution() {    
+    public void executeSolution() {
         for(Action action : solution.getActions()){
             environment.executeAction(action);
         }

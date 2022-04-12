@@ -37,4 +37,6 @@ public class MummyMazeAgent extends Agent<MummyMazeState>{
         resetEnvironment();
         return environment;
     }
+
+
 }
