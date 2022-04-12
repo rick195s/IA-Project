@@ -1,5 +1,6 @@
 package mummymaze;
 
+import agent.Action;
 import agent.Solution;
 import showSolution.SolutionPanel;
 
@@ -16,11 +17,11 @@ public class Main {
 		String state = 	"     S       \n" +
 						" . . . . .|. \n" +
 						"     -       \n" +
-						" . . . H . . \n" +
+						" . . . . . . \n" +
 						"     -       \n" +
 						" . . . .|. . \n" +
 						"       -   - \n" +
-						" . . . . .|. \n" +
+						" H . . . .|. \n" +
 						"   - -       \n" +
 						" . . . M . . \n" +
 						"         -   \n" +
@@ -48,8 +49,16 @@ public class Main {
 		MummyMazeState mummyMazeState = new MummyMazeState(matrix);
 		MummyMazeAgent mummyMazeAgent = new MummyMazeAgent(mummyMazeState);
 		Solution solution = mummyMazeAgent.solveProblem(new MummyMazeProblem(mummyMazeState));
-		mummyMazeAgent.executeSolution();
-		System.out.println(solution);
+
+		for (Action action : solution.getActions()) {
+			mummyMazeAgent.getEnvironment().executeAction(action);
+			states.add( mummyMazeAgent.getEnvironment().toString());
+		}
+
+		for (String s : states) {
+			System.out.println(s);
+		}
+		SolutionPanel.showSolution(states, states.size());
 		// SolutionPanel.showState(state);
 
 
@@ -68,7 +77,6 @@ public class Main {
 				"         -   \n" +
 				" . . . . . . \n" +
 				" S           \n";
-		SolutionPanel.showState(state);
 
 		 */
 	}

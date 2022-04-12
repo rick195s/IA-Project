@@ -2,17 +2,16 @@ package mummymaze;
 
 import agent.Action;
 import agent.State;
+import showSolution.SolutionPanel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MummyMazeState extends State implements Cloneable {
-
     static final char[][] GOAL_MATRIX = {{0, 1, 2},
                                        {3, 4, 5},
                                        {6, 7, 8}};
-    final int[] linesfinalMatrix = {0, 0, 0, 1, 1, 1, 2, 2, 2};
-    final int[] colsfinalMatrix = {0, 1, 2, 0, 1, 2, 0, 1, 2};
+
     public static final int SIZE = 3;
     private final char[][] matrix;
     private int lineExit;
@@ -47,40 +46,35 @@ public class MummyMazeState extends State implements Cloneable {
         action.execute(this);
         firePuzzleChanged(null);
 
-        String s="";
-        for (int k = 0; k < 13; k++) {
-            s+=String.valueOf(matrix[k])+"\n";
-        }
-        System.out.println(s);
-
     }
 
     // linha 0 é onde só podem existir saidas
+
     public boolean canMoveUp() {
         return lineHero != 1;
     }
-
     // coluna matrix.length - 1 é onde só podem existir saidas
+
     public boolean canMoveRight() {
         return columnHero != matrix.length - 2;
     }
-
     // linha matrix.length - 1 é onde só podem existir saidas
+
     public boolean canMoveDown() {
         return lineHero != matrix.length - 2;
     }
-
     // coluna 0 é onde só podem existir saidas
+
     public boolean canMoveLeft() {
         return columnHero != 1;
     }
-
     /*
      * In the next four methods we don't verify if the actions are valid.
      * This is done in method executeActions in class EightPuzzleProblem.
      * Doing the verification in these methods would imply that a clone of the
      * state was created whether the operation could be executed or not.
      */
+
     public void moveUp() {
         matrix[lineHero][columnHero] = matrix[--lineHero][columnHero];
         matrix[lineHero][columnHero] = 'H';
@@ -133,7 +127,7 @@ public class MummyMazeState extends State implements Cloneable {
 
                 // nao contabilizar a distancia da peça vazia
                 if (matrix[i][j] != 0){
-                    tileDistance += Math.abs(i-linesfinalMatrix[matrix[i][j]]) + Math.abs(j-colsfinalMatrix[matrix[i][j]]);
+                    //tileDistance += Math.abs(i-linesfinalMatrix[matrix[i][j]]) + Math.abs(j-colsfinalMatrix[matrix[i][j]]);
                 }
             }
         }
@@ -217,7 +211,14 @@ public class MummyMazeState extends State implements Cloneable {
 
     @Override
     public String toString() {
-        StringBuilder buffer = new StringBuilder();
+        String s="";
+        for (int k = 0; k < 13; k++) {
+            s+=String.valueOf(matrix[k])+"\n";
+        }
+
+
+        return s;
+        /*StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < matrix.length; i++) {
             buffer.append('\n');
             for (int j = 0; j < matrix.length; j++) {
@@ -225,14 +226,14 @@ public class MummyMazeState extends State implements Cloneable {
                 buffer.append(' ');
             }
         }
-        return buffer.toString();
+        return buffer.toString();*/
     }
-
     @Override
     public Object clone() {
         return new MummyMazeState(matrix);
     }
     //Listeners
+
     private transient ArrayList<MummyMazeListener> listeners = new ArrayList<MummyMazeListener>(3);
 
     public synchronized void removeListener(MummyMazeListener l) {
@@ -253,4 +254,21 @@ public class MummyMazeState extends State implements Cloneable {
         }
     }
 
+    // transforma a string dada numa matriz facilitando os calculos das posicoes
+
+    public static char[][] convertToMatrix(String string){
+        int i=0, j=0;
+
+        char matrix[][] = new char[13][13];
+        for (char t :  string.toCharArray()){
+            if(t!='\n') {
+                matrix[i][j] = t;
+                j++;
+            }else{
+                j=0;
+                i++;
+            }
+        }
+        return matrix;
+    }
 }
