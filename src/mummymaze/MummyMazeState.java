@@ -2,7 +2,6 @@ package mummymaze;
 
 import agent.Action;
 import agent.State;
-import showSolution.SolutionPanel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +17,9 @@ public class MummyMazeState extends State implements Cloneable {
     private int columnExit;
     private int lineHero;
     private int columnHero;
+    int columnHeroShouldBe;
+    int lineHeroShouldBe;
+
 
 
     public MummyMazeState(char[][] matrix) {
@@ -28,6 +30,7 @@ public class MummyMazeState extends State implements Cloneable {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 this.matrix[i][j] = matrix[i][j];
+
                 if (this.matrix[i][j] == 'H') {
                     lineHero = i;
                     columnHero = j;
@@ -37,6 +40,19 @@ public class MummyMazeState extends State implements Cloneable {
                     columnExit = j;
                 }
             }
+        }
+
+        // if the exit it's in the last line human should be in the line before that
+        lineHeroShouldBe = (lineExit == matrix.length - 1 ? 11 : 1);
+        columnHeroShouldBe = columnExit;
+
+        if (columnExit == matrix.length - 1){
+            columnHeroShouldBe = 11;
+            lineHeroShouldBe = lineExit;
+
+        }else if (columnHeroShouldBe == 0){
+            columnHeroShouldBe = 1;
+            lineHeroShouldBe = lineExit;
         }
 
     }
@@ -51,7 +67,7 @@ public class MummyMazeState extends State implements Cloneable {
     // linha 0 é onde só podem existir saidas
 
     public boolean canMoveUp() {
-        return lineHero != 1;
+        return lineHero != 1 && matrix[lineHero--][columnHero] != '-';
     }
     // coluna matrix.length - 1 é onde só podem existir saidas
 
@@ -136,38 +152,7 @@ public class MummyMazeState extends State implements Cloneable {
         return tileDistance;
     }
 
-    public boolean humanInExit(){
-        int columnHeroShouldBe=0;
-        int lineHeroShouldBe=0;
-
-/*
-
-        if (lineExit == matrix.length - 1){
-            lineHeroShouldBe = 11;
-
-        }else if (lineExit == 0){
-            lineHeroShouldBe = 1;
-        }
-*/
-
-        // if the exit it's in the last line human should be in the line before that
-        lineHeroShouldBe = (lineExit == matrix.length - 1 ? 11 : 1);
-        columnHeroShouldBe = columnExit;
-
-        if (columnExit == matrix.length - 1){
-            columnHeroShouldBe = 11;
-            lineHeroShouldBe = lineExit;
-
-        }else if (columnHeroShouldBe == 0){
-            columnHeroShouldBe = 1;
-            lineHeroShouldBe = lineExit;
-        }
-
-/*
-        System.out.println("Linha da Saida: "+lineExit+"\nColuna da Saida: "+columnExit);
-        System.out.println("Linha onde humano devida de estar: "+lineHeroShouldBe+"\nColuna onde humano devida de estar: "+columnHeroShouldBe);
-        System.out.println("Num linhas da matriz: "+matrix[0].length+"\nNum colunas da matriz: "+matrix.length);
-*/
+    public boolean heroInExit(){
         return matrix[lineHeroShouldBe][columnHeroShouldBe] == 'H';
     }
 
