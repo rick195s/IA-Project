@@ -67,7 +67,7 @@ public class MummyMazeState extends State implements Cloneable {
     // linha 0 é onde só podem existir saidas
 
     public boolean canMoveUp() {
-        return lineHero != 1 && matrix[lineHero--][columnHero] != '-';
+        return lineHero != 1 && matrix[lineHero-1][columnHero] != '-';
     }
     // coluna matrix.length - 1 é onde só podem existir saidas
 
