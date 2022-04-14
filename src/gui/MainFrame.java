@@ -110,7 +110,7 @@ public class MainFrame extends JFrame {
         mainPanel.add(gameArea, BorderLayout.SOUTH);
         contentPane.add(mainPanel);
         gameArea.setState(initialString);
-        //configureTabel(tablePuzzle);
+        configureTabel(tablePuzzle);
 
         pack();
     }
