@@ -14,18 +14,18 @@ public class Main {
 		List<String> states = new LinkedList<>();
 
 
-		String state = 	"     S       \n" +
+		String state = 	" S           \n" +
 						" . . . . .|. \n" +
 						"     -       \n" +
 						" . . . . . . \n" +
 						"     -       \n" +
 						" . . . .|. . \n" +
 						"       -   - \n" +
-						" H . . . .|. \n" +
+						" . . . . .|. \n" +
 						"   - -       \n" +
 						" . . . M . . \n" +
 						"         -   \n" +
-						" . . . . . . \n" +
+						" . H . . . . \n" +
 						"             \n";
 
 		states.add(state);
