@@ -25,7 +25,7 @@ public class Main {
 						"   - -       \n" +
 						" . . . M . . \n" +
 						"         -   \n" +
-						" . H . . . . \n" +
+						" . . H . . . \n" +
 						"             \n";
 
 		states.add(state);
