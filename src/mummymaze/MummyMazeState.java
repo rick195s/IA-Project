@@ -64,10 +64,12 @@ public class MummyMazeState extends State implements Cloneable {
 
     }
 
-    // linha 0 é onde só podem existir saidas
 
     public boolean canMoveUp() {
-        return lineHero != 1 && matrix[lineHero-1][columnHero] != '-';
+        // linha 1 é a linha minima onde o heroi pode estar
+        // se na linha acima estiver uma parede '-' o heroi nao pode subir
+        // se a linha duas casas acima for uma celula vazia o heroi pode subir
+        return lineHero != 1 && matrix[lineHero-1][columnHero] != '-' && matrix[lineHero-2][columnHero] == '.';
     }
     // coluna matrix.length - 1 é onde só podem existir saidas
 
@@ -92,8 +94,11 @@ public class MummyMazeState extends State implements Cloneable {
      */
 
     public void moveUp() {
-        matrix[lineHero][columnHero] = matrix[--lineHero][columnHero];
+        int aux = lineHero;
+        lineHero -= 2;
+        matrix[aux][columnHero] = matrix[lineHero][columnHero];
         matrix[lineHero][columnHero] = 'H';
+
     }
 
     public void moveRight() {
