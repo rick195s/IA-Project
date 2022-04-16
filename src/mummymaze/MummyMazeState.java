@@ -71,20 +71,26 @@ public class MummyMazeState extends State implements Cloneable {
         // se a linha duas casas acima estiver com um '.' o heroi pode subir
         return lineHero != 1 && matrix[lineHero-1][columnHero] != '-' && matrix[lineHero-2][columnHero] == '.';
     }
-    // coluna matrix.length - 1 é onde só podem existir saidas
 
     public boolean canMoveRight() {
-        return columnHero != matrix.length - 2;
+        // se tiver na ultima coluna nao pode mover para a direita
+        // se tiver uma parede à direita nao pode mover para a direita
+        // se tiver um '.' à direita pode mover para a direita
+        return columnHero != matrix.length - 2 && matrix[lineHero][columnHero+1] != '|' && matrix[lineHero][columnHero+2] == '.';
     }
-    // linha matrix.length - 1 é onde só podem existir saidas
 
     public boolean canMoveDown() {
-        return lineHero != matrix.length - 2;
+        // se tiver na ultima linha nao pode mover para baixo
+        // se tiver uma parede à baixo nao pode mover para baixo
+        // se tiver um '.' à baixo pode mover para baixo
+        return lineHero != matrix.length - 2 && matrix[lineHero+1][columnHero] != '-' && matrix[lineHero+2][columnHero] == '.';
     }
-    // coluna 0 é onde só podem existir saidas
 
     public boolean canMoveLeft() {
-        return columnHero != 1;
+        // se tiver na primeira coluna nao pode mover para a esquerda
+        // se tiver uma parede à esquerda nao pode mover para a esquerda
+        // se tiver um '.' à esquerda pode mover para a esquerda
+        return columnHero != 1 && matrix[lineHero][columnHero-1] != '|' && matrix[lineHero][columnHero-2] == '.';
     }
     /*
      * In the next four methods we don't verify if the actions are valid.
@@ -102,17 +108,23 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public void moveRight() {
-        matrix[lineHero][columnHero] = matrix[lineHero][++columnHero];
+        int aux = columnHero;
+        columnHero += 2;
+        matrix[lineHero][aux] = matrix[lineHero][columnHero];
         matrix[lineHero][columnHero] = 'H';
     }
 
     public void moveDown() {
-        matrix[lineHero][columnHero] = matrix[++lineHero][columnHero];
+        int aux = lineHero;
+        lineHero += 2;
+        matrix[aux][columnHero] = matrix[lineHero][columnHero];
         matrix[lineHero][columnHero] = 'H';
     }
 
     public void moveLeft() {
-        matrix[lineHero][columnHero] = matrix[lineHero][--columnHero];
+        int aux = columnHero;
+        columnHero -= 2;
+        matrix[lineHero][aux] = matrix[lineHero][columnHero];
         matrix[lineHero][columnHero] = 'H';
     }
 
