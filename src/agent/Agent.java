@@ -2,10 +2,7 @@ package agent;
 
 import java.util.ArrayList;
 
-import mummymaze.MummyMazeAgent;
-import mummymaze.MummyMazeState;
 import searchmethods.*;
-import showSolution.SolutionPanel;
 
 public class Agent<E extends State> {
 

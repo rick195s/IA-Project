@@ -96,7 +96,6 @@ public class MainFrame extends JFrame {
         comboBoxHeuristics.addActionListener(new ComboBoxHeuristics_ActionAdapter(this));
 
         JPanel puzzlePanel = new JPanel(new FlowLayout());
-        //puzzlePanel.add(tablePuzzle);
         gameArea = new GameArea(agent.getEnvironment());
         puzzlePanel.add(gameArea);
 
@@ -111,27 +110,15 @@ public class MainFrame extends JFrame {
         mainPanel.add(puzzlePanel, BorderLayout.SOUTH);
         contentPane.add(mainPanel);
         gameArea.setState(agent.getEnvironment());
-        //configureTabel(tablePuzzle);
+
 
         pack();
     }
 
-    /*private void configureTabel(JTable table) {
-        puzzleTableModel = new PuzzleTableModel(agent.getEnvironment());
-        tablePuzzle.setModel(puzzleTableModel);
-        table.setDefaultRenderer(Object.class, new PuzzleTileCellRenderer());
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setPreferredWidth(Properties.CELL_WIDTH);
-        }
-        table.setRowHeight(Properties.CELL_HEIGHT);
-        table.setBorder(BorderFactory.createLineBorder(Color.black));
-    }
-*/
     public void buttonInitialState_ActionPerformed(ActionEvent e) {
         JFileChooser fc = new JFileChooser(new java.io.File("."));
         try {
             if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                //puzzleTableModel.setPuzzle(agent.readInitialStateFromFile(fc.getSelectedFile()));
                 gameArea.setState(agent.readInitialStateFromFile(fc.getSelectedFile()));
                 buttonSolve.setEnabled(true);
                 buttonShowSolution.setEnabled(false);
@@ -147,7 +134,6 @@ public class MainFrame extends JFrame {
     public void comboBoxSearchMethods_ActionPerformed(ActionEvent e) {
         int index = comboBoxSearchMethods.getSelectedIndex();
         agent.setSearchMethod((SearchMethod) comboBoxSearchMethods.getItemAt(index));
-        //puzzleTableModel.setPuzzle(agent.resetEnvironment());
         gameArea.setState(agent.resetEnvironment());
         buttonSolve.setEnabled(true);
         buttonShowSolution.setEnabled(false);
@@ -161,7 +147,6 @@ public class MainFrame extends JFrame {
     public void comboBoxHeuristics_ActionPerformed(ActionEvent e) {
         int index = comboBoxHeuristics.getSelectedIndex();
         agent.setHeuristic((Heuristic) comboBoxHeuristics.getItemAt(index));
-        //puzzleTableModel.setPuzzle(agent.resetEnvironment());
         gameArea.setState(agent.resetEnvironment());
         buttonSolve.setEnabled(true);
         buttonShowSolution.setEnabled(false);
@@ -235,7 +220,6 @@ public class MainFrame extends JFrame {
     }
 
     public void buttonReset_ActionPerformed(ActionEvent e) {
-        //puzzleTableModel.setPuzzle(agent.resetEnvironment());
         gameArea.setState(agent.resetEnvironment());
         buttonShowSolution.setEnabled(true);
         buttonReset.setEnabled(false);

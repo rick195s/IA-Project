@@ -220,16 +220,8 @@ public class MummyMazeState extends State implements Cloneable {
 
 
         return s;
-        /*StringBuilder buffer = new StringBuilder();
-        for (int i = 0; i < matrix.length; i++) {
-            buffer.append('\n');
-            for (int j = 0; j < matrix.length; j++) {
-                buffer.append(matrix[i][j]);
-                buffer.append(' ');
-            }
-        }
-        return buffer.toString();*/
     }
+
     @Override
     public Object clone() {
         return new MummyMazeState(matrix);
