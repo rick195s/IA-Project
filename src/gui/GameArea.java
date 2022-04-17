@@ -1,9 +1,13 @@
-package showSolution;
+package gui;
+
+import mummymaze.MummyMazeEvent;
+import mummymaze.MummyMazeListener;
+import mummymaze.MummyMazeState;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class GameArea extends JPanel {
+public class GameArea extends JPanel implements MummyMazeListener {
 	
 	private Image trap;
 	private Image key;
@@ -26,12 +30,14 @@ public class GameArea extends JPanel {
 	private int xStart = 63;
 	private int yStart = 79;
 	
-	private String state = null;
+	private MummyMazeState state = null;
 	private boolean showSolutionCost;
 	private double solutionCost;
 	
-	public GameArea(){
+	public GameArea(MummyMazeState state){
 		super();
+		this.state = state;
+		state.addListener(this);
 		setPreferredSize(new Dimension(486,474));
 		loadImages();
 		showSolutionCost = true;
@@ -65,7 +71,7 @@ public class GameArea extends JPanel {
 		if(state == null){
 			return;
 		}
-		String[] splitString = (state.split("\\n"));
+		String[] splitString = (state.toString().split("\\n"));
 		
 		for(int i = 0; i < 13; i++) {
 			for(int j = 0; j < 13; j++) {				
@@ -95,9 +101,14 @@ public class GameArea extends JPanel {
 		
 	}
 	
-	public void setState(String state){
+	public void setState(MummyMazeState state){
+		if(state == null){
+			throw new NullPointerException("Puzzle cannot be null");
+		}
+		this.state.removeListener(this);
 		this.state = state;
-		repaint();		
+		state.addListener(this);
+		repaint();
 	}
 
 	public void setShowSolutionCost(boolean showSolutionCost) {
@@ -106,6 +117,15 @@ public class GameArea extends JPanel {
 
 	public void setSolutionCost(double solutionCost){
 		this.solutionCost = solutionCost;
+		repaint();
 	}
 
+	@Override
+	public void puzzleChanged(MummyMazeEvent pe) {
+		repaint();
+		try{
+			Thread.sleep(500);
+		}catch(InterruptedException ignore){
+		}
+	}
 }

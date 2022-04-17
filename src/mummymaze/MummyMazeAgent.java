@@ -27,15 +27,6 @@ public class MummyMazeAgent extends Agent<MummyMazeState>{
         //read all from file to string, and use mamymazestate.convertToMatrix to convert to matrix
         String fileString = scanner.useDelimiter("\\Z").next();
         scanner.close();
-/*
-        int[][] matrix = new int [3][3];
-        
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                matrix[i][j] = scanner.nextInt();
-            }
-            scanner.nextLine();
-        }*/
         initialEnvironment = new MummyMazeState(MummyMazeState.convertToMatrix(fileString));
         resetEnvironment();
         return environment;
