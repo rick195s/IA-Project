@@ -8,7 +8,6 @@ import mummymaze.MummyMazeState;
 import searchmethods.BeamSearch;
 import searchmethods.DepthLimitedSearch;
 import searchmethods.SearchMethod;
-import showSolution.GameArea;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,13 +23,13 @@ public class MainFrame extends JFrame {
     String initialString = 	"     S       \n" +
                             " . . . . .|. \n" +
                             "     -       \n" +
-                            " . . . H . . \n" +
+                            " . . . . . . \n" +
                             "     -       \n" +
                             " . . . .|. . \n" +
                             "       -   - \n" +
                             " . . . . .|. \n" +
                             "   - -       \n" +
-                            " . . . M . . \n" +
+                            " . . H M . . \n" +
                             "         -   \n" +
                             " . . . . . . \n" +
                             "             \n";
@@ -41,7 +40,8 @@ public class MainFrame extends JFrame {
     private JComboBox comboBoxHeuristics;
     private JLabel labelSearchParameter = new JLabel("limit/beam size:");
     private JTextField textFieldSearchParameter = new JTextField("0", 5);
-    private PuzzleTableModel puzzleTableModel;
+    //private PuzzleTableModel puzzleTableModel;
+    private GameArea gameArea;
     private JTable tablePuzzle = new JTable();
     private JButton buttonInitialState = new JButton("Read initial state");
     private JButton buttonSolve = new JButton("Solve");
@@ -96,7 +96,10 @@ public class MainFrame extends JFrame {
         comboBoxHeuristics.addActionListener(new ComboBoxHeuristics_ActionAdapter(this));
 
         JPanel puzzlePanel = new JPanel(new FlowLayout());
-        puzzlePanel.add(tablePuzzle);
+        //puzzlePanel.add(tablePuzzle);
+        gameArea = new GameArea(agent.getEnvironment());
+        puzzlePanel.add(gameArea);
+
         textArea = new JTextArea(15, 31);
         JScrollPane scrollPane = new JScrollPane(textArea);
         textArea.setEditable(false);
@@ -105,17 +108,15 @@ public class MainFrame extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(panelButtons, BorderLayout.NORTH);
         mainPanel.add(panelSearchMethods, BorderLayout.CENTER);
-        //mainPanel.add(puzzlePanel, BorderLayout.SOUTH);
-        GameArea gameArea = new GameArea();
-        mainPanel.add(gameArea, BorderLayout.SOUTH);
+        mainPanel.add(puzzlePanel, BorderLayout.SOUTH);
         contentPane.add(mainPanel);
-        gameArea.setState(initialString);
-        configureTabel(tablePuzzle);
+        gameArea.setState(agent.getEnvironment());
+        //configureTabel(tablePuzzle);
 
         pack();
     }
 
-    private void configureTabel(JTable table) {
+    /*private void configureTabel(JTable table) {
         puzzleTableModel = new PuzzleTableModel(agent.getEnvironment());
         tablePuzzle.setModel(puzzleTableModel);
         table.setDefaultRenderer(Object.class, new PuzzleTileCellRenderer());
@@ -125,12 +126,13 @@ public class MainFrame extends JFrame {
         table.setRowHeight(Properties.CELL_HEIGHT);
         table.setBorder(BorderFactory.createLineBorder(Color.black));
     }
-
+*/
     public void buttonInitialState_ActionPerformed(ActionEvent e) {
         JFileChooser fc = new JFileChooser(new java.io.File("."));
         try {
             if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                puzzleTableModel.setPuzzle(agent.readInitialStateFromFile(fc.getSelectedFile()));
+                //puzzleTableModel.setPuzzle(agent.readInitialStateFromFile(fc.getSelectedFile()));
+                gameArea.setState(agent.readInitialStateFromFile(fc.getSelectedFile()));
                 buttonSolve.setEnabled(true);
                 buttonShowSolution.setEnabled(false);
                 buttonReset.setEnabled(false);
@@ -145,7 +147,8 @@ public class MainFrame extends JFrame {
     public void comboBoxSearchMethods_ActionPerformed(ActionEvent e) {
         int index = comboBoxSearchMethods.getSelectedIndex();
         agent.setSearchMethod((SearchMethod) comboBoxSearchMethods.getItemAt(index));
-        puzzleTableModel.setPuzzle(agent.resetEnvironment());
+        //puzzleTableModel.setPuzzle(agent.resetEnvironment());
+        gameArea.setState(agent.resetEnvironment());
         buttonSolve.setEnabled(true);
         buttonShowSolution.setEnabled(false);
         buttonReset.setEnabled(false);
@@ -158,7 +161,8 @@ public class MainFrame extends JFrame {
     public void comboBoxHeuristics_ActionPerformed(ActionEvent e) {
         int index = comboBoxHeuristics.getSelectedIndex();
         agent.setHeuristic((Heuristic) comboBoxHeuristics.getItemAt(index));
-        puzzleTableModel.setPuzzle(agent.resetEnvironment());
+        //puzzleTableModel.setPuzzle(agent.resetEnvironment());
+        gameArea.setState(agent.resetEnvironment());
         buttonSolve.setEnabled(true);
         buttonShowSolution.setEnabled(false);
         buttonReset.setEnabled(false);
@@ -177,6 +181,7 @@ public class MainFrame extends JFrame {
                     prepareSearchAlgorithm();
                     MummyMazeProblem problem = new MummyMazeProblem((MummyMazeState) agent.getEnvironment().clone());
                     agent.solveProblem(problem);
+
                 } catch (Exception e) {
                     e.printStackTrace(System.err);
                 }
@@ -189,6 +194,8 @@ public class MainFrame extends JFrame {
                     textArea.setText(agent.getSearchReport());
                     if (agent.hasSolution()) {
                         buttonShowSolution.setEnabled(true);
+                        buttonReset.setEnabled(true);
+
                     }
                 }
                 buttonSolve.setEnabled(true);
@@ -228,7 +235,8 @@ public class MainFrame extends JFrame {
     }
 
     public void buttonReset_ActionPerformed(ActionEvent e) {
-        puzzleTableModel.setPuzzle(agent.resetEnvironment());
+        //puzzleTableModel.setPuzzle(agent.resetEnvironment());
+        gameArea.setState(agent.resetEnvironment());
         buttonShowSolution.setEnabled(true);
         buttonReset.setEnabled(false);
     }

@@ -11,7 +11,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		List<String> states = new LinkedList<>();
+		List<MummyMazeState> states = new LinkedList<>();
 
 
 		String state = 	"           S \n" +
@@ -28,7 +28,7 @@ public class Main {
 						" . . . . . . \n" +
 						"             \n";
 
-		states.add(state);
+		states.add(new MummyMazeState(MummyMazeState.convertToMatrix(state)));
 
 		//SolutionPanel.showSolution(states, states.size());
 
@@ -52,10 +52,10 @@ public class Main {
 
 		for (Action action : solution.getActions()) {
 			mummyMazeAgent.getEnvironment().executeAction(action);
-			states.add( mummyMazeAgent.getEnvironment().toString());
+			states.add( mummyMazeAgent.getEnvironment());
 		}
 
-		for (String s : states) {
+		for (MummyMazeState s : states) {
 			System.out.println(s);
 		}
 		SolutionPanel.showSolution(states, states.size());

@@ -1,5 +1,8 @@
 package showSolution;
 
+import gui.GameArea;
+import mummymaze.MummyMazeState;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -118,7 +121,7 @@ public class SolutionPanel extends JFrame{
 	
 	private SolutionPanel(){
 		super("Show solution");
-		gameArea = new GameArea();
+		//gameArea = new GameArea();
 		getContentPane().setLayout(new BorderLayout());
         getContentPane().add(gameArea,BorderLayout.CENTER);
 //        addWindowListener(new WindowAdapter() {
@@ -129,14 +132,14 @@ public class SolutionPanel extends JFrame{
 //        });
 	}
 	
-	public static void showSolution(final List<String> states, final double solutionCost){
+	public static void showSolution(final List<MummyMazeState> states, final double solutionCost){
 		final SolutionPanel p = new SolutionPanel();
 		p.setVisible(true);
 		p.pack();		
 		Thread t = new Thread(){
             public void run(){
             	p.setSolutionCost(solutionCost);
-            	for(String s : states)  {
+            	for(MummyMazeState s : states)  {
                 	p.setState(s);
                 	try {
 						sleep(1000);
@@ -150,7 +153,7 @@ public class SolutionPanel extends JFrame{
         t.start();
 	}
 
-	public static void showState(final String state){
+	public static void showState(final MummyMazeState state){
 		final SolutionPanel p = new SolutionPanel();
 		p.setVisible(true);
 		p.pack();
@@ -170,7 +173,7 @@ public class SolutionPanel extends JFrame{
 	}
 
 	
-	private void setState(String state){
+	private void setState(MummyMazeState state){
 		gameArea.setState(state);
 	}
 
