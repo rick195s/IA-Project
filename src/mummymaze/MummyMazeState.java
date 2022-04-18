@@ -27,6 +27,8 @@ public class MummyMazeState extends State implements Cloneable {
     private int columnScorpion;
     private int lineKey;
     private int columnKey;
+    private int lineDoor;
+    private int columnDoor;
 
     int columnHeroShouldBe;
     int lineHeroShouldBe;
@@ -70,6 +72,10 @@ public class MummyMazeState extends State implements Cloneable {
                     lineKey = i;
                     columnKey = j;
                 }
+                if (this.matrix[i][j] == '=' || this.matrix[i][j] == '_' || this.matrix[i][j] == '”' || this.matrix[i][j] == ')') {
+                    lineDoor = i;
+                    columnDoor = j;
+                }
             }
         }
 
@@ -85,7 +91,7 @@ public class MummyMazeState extends State implements Cloneable {
             columnHeroShouldBe = 1;
             lineHeroShouldBe = lineExit;
         }
-        
+
     }
 
     @Override
