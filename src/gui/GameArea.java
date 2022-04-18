@@ -40,7 +40,7 @@ public class GameArea extends JPanel implements MummyMazeListener {
 		state.addListener(this);
 		setPreferredSize(new Dimension(486,474));
 		loadImages();
-		showSolutionCost = true;
+		showSolutionCost = false;
 	}
 	
 	private void loadImages(){
