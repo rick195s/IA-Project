@@ -98,7 +98,6 @@ public class MummyMazeState extends State implements Cloneable {
     public void executeAction(Action action) {
         action.execute(this);
         firePuzzleChanged(null);
-
     }
 
 
@@ -147,7 +146,11 @@ public class MummyMazeState extends State implements Cloneable {
     public void moveUp() {
         int aux = lineHero;
         lineHero -= 2;
-        matrix[aux][columnHero] = matrix[lineHero][columnHero];
+        if(matrix[lineHero][columnHero] == 'C'){
+            System.out.println("You found the key");
+            matrix[lineDoor][columnDoor] = '_';
+        }
+        matrix[aux][columnHero] = '.';
         matrix[lineHero][columnHero] = 'H';
 
     }
@@ -155,21 +158,33 @@ public class MummyMazeState extends State implements Cloneable {
     public void moveRight() {
         int aux = columnHero;
         columnHero += 2;
-        matrix[lineHero][aux] = matrix[lineHero][columnHero];
+        if(matrix[lineHero][columnHero] == 'C'){
+            System.out.println("You found the key");
+            matrix[lineDoor][columnDoor] = '_';
+        }
+        matrix[lineHero][aux] = '.';
         matrix[lineHero][columnHero] = 'H';
     }
 
     public void moveDown() {
         int aux = lineHero;
         lineHero += 2;
-        matrix[aux][columnHero] = matrix[lineHero][columnHero];
+        if(matrix[lineHero][columnHero] == 'C'){
+            System.out.println("You found the key");
+            matrix[lineDoor][columnDoor] = '_';
+        }
+        matrix[aux][columnHero] = '.';
         matrix[lineHero][columnHero] = 'H';
     }
 
     public void moveLeft() {
         int aux = columnHero;
         columnHero -= 2;
-        matrix[lineHero][aux] = matrix[lineHero][columnHero];
+        if(matrix[lineHero][columnHero] == 'C'){
+            System.out.println("You found the key");
+            matrix[lineDoor][columnDoor] = '_';
+        }
+        matrix[lineHero][aux] = '.';
         matrix[lineHero][columnHero] = 'H';
     }
 
