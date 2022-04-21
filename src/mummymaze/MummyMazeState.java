@@ -29,6 +29,7 @@ public class MummyMazeState extends State implements Cloneable {
     private int columnKey;
     private int lineDoor;
     private int columnDoor;
+    private boolean key = false;
 
     int columnHeroShouldBe;
     int lineHeroShouldBe;
@@ -72,7 +73,7 @@ public class MummyMazeState extends State implements Cloneable {
                     lineKey = i;
                     columnKey = j;
                 }
-                if (this.matrix[i][j] == '=' || this.matrix[i][j] == '_' || this.matrix[i][j] == '”' || this.matrix[i][j] == ')') {
+                if (this.matrix[i][j] == '=' || this.matrix[i][j] == '_' || this.matrix[i][j] == '"' || this.matrix[i][j] == ')') {
                     lineDoor = i;
                     columnDoor = j;
                 }
@@ -106,7 +107,7 @@ public class MummyMazeState extends State implements Cloneable {
         // se na linha acima estiver uma parede '-' o heroi nao pode subir
         // se a linha duas casas acima estiver com um '.' o heroi pode subir
         // se tiver uma chave 'C' o heroi pode subir
-        return lineHero != 1 && matrix[lineHero-1][columnHero] != '-'
+        return lineHero != 1 && matrix[lineHero-1][columnHero] != '-' && matrix[lineHero-1][columnHero] != '=' && matrix[lineHero-1][columnHero] == '_'
                 && (matrix[lineHero-2][columnHero] == '.' || matrix[lineHero-2][columnHero] == 'C');
     }
 
@@ -115,7 +116,7 @@ public class MummyMazeState extends State implements Cloneable {
         // se tiver uma parede à direita nao pode mover para a direita
         // se tiver um '.' à direita pode mover para a direita
         // se tiver uma chave 'C' o heroi pode mover para a direita
-        return columnHero != matrix.length - 2 && matrix[lineHero][columnHero+1] != '|'
+        return columnHero != matrix.length - 2 && matrix[lineHero][columnHero+1] != '|' && matrix[lineHero][columnHero+1] != '"' && matrix[lineHero][columnHero+1] == ')'
                 && (matrix[lineHero][columnHero+2] == '.' || matrix[lineHero][columnHero+2] == 'C');
     }
 
@@ -124,7 +125,7 @@ public class MummyMazeState extends State implements Cloneable {
         // se tiver uma parede à baixo nao pode mover para baixo
         // se tiver um '.' à baixo pode mover para baixo
         // se tiver uma chave 'C' o heroi pode mover para baixo
-        return lineHero != matrix.length - 2 && matrix[lineHero+1][columnHero] != '-'
+        return lineHero != matrix.length - 2 && matrix[lineHero+1][columnHero] != '-' && matrix[lineHero+1][columnHero] != '=' && matrix[lineHero+1][columnHero] == '_'
                 && (matrix[lineHero+2][columnHero] == '.' || matrix[lineHero+2][columnHero] == 'C');
     }
 
@@ -133,7 +134,7 @@ public class MummyMazeState extends State implements Cloneable {
         // se tiver uma parede à esquerda nao pode mover para a esquerda
         // se tiver um '.' à esquerda pode mover para a esquerda
         // se tiver uma chave 'C' o heroi pode mover para a esquerda
-        return columnHero != 1 && matrix[lineHero][columnHero-1] != '|'
+        return columnHero != 1 && matrix[lineHero][columnHero-1] != '|' && matrix[lineHero][columnHero-1] != '"' && matrix[lineHero][columnHero-1] == ')'
                 && (matrix[lineHero][columnHero-2] == '.' || matrix[lineHero][columnHero-2] == 'C');
     }
     /*
@@ -171,7 +172,23 @@ public class MummyMazeState extends State implements Cloneable {
         }
         if(matrix[lineHero][columnHero] == 'C'){
             System.out.println("You found the key");
-            matrix[lineDoor][columnDoor] = '_';
+            key = !key;
+        }
+
+        if (key){
+            if (matrix[lineDoor][columnDoor] == '=') {
+                matrix[lineDoor][columnDoor] = '_';
+            }
+            if (matrix[lineDoor][columnDoor] == '"') {
+                matrix[lineDoor][columnDoor] = ')';
+            }
+        }else{
+            if (matrix[lineDoor][columnDoor] == '_'){
+                matrix[lineDoor][columnDoor] = '=';
+            }
+            if (matrix[lineDoor][columnDoor] == ')') {
+                matrix[lineDoor][columnDoor] = '"';
+            }
         }
         matrix[lineHero][columnHero] = 'H';
 
