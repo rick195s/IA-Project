@@ -108,7 +108,7 @@ public class MummyMazeState extends State implements Cloneable {
         // se a linha duas casas acima estiver com um '.' o heroi pode subir
         // se tiver uma chave 'C' o heroi pode subir
         return lineHero != 1 && matrix[lineHero-1][columnHero] != '-'
-                && matrix[lineHero-1][columnHero] != '=' && matrix[lineHero-1][columnHero] == '_'
+                && (matrix[lineHero-1][columnHero] != '=' || matrix[lineHero-1][columnHero] == '_')
                 && (matrix[lineHero-2][columnHero] == '.' || matrix[lineHero-2][columnHero] == 'C');
     }
 
@@ -118,7 +118,7 @@ public class MummyMazeState extends State implements Cloneable {
         // se tiver um '.' à direita pode mover para a direita
         // se tiver uma chave 'C' o heroi pode mover para a direita
         return columnHero != matrix.length - 2 && matrix[lineHero][columnHero+1] != '|'
-                && matrix[lineHero][columnHero+1] != '"' && matrix[lineHero][columnHero+1] == ')'
+                && (matrix[lineHero][columnHero+1] != '"' )
                 && (matrix[lineHero][columnHero+2] == '.' || matrix[lineHero][columnHero+2] == 'C');
     }
 
@@ -127,8 +127,9 @@ public class MummyMazeState extends State implements Cloneable {
         // se tiver uma parede à baixo nao pode mover para baixo
         // se tiver um '.' à baixo pode mover para baixo
         // se tiver uma chave 'C' o heroi pode mover para baixo
+
         return lineHero != matrix.length - 2 && matrix[lineHero+1][columnHero] != '-'
-                && matrix[lineHero+1][columnHero] != '=' && matrix[lineHero+1][columnHero] == '_'
+                && (matrix[lineHero+1][columnHero] != '=' || matrix[lineHero+1][columnHero] == '_')
                 && (matrix[lineHero+2][columnHero] == '.' || matrix[lineHero+2][columnHero] == 'C');
     }
 
@@ -138,7 +139,7 @@ public class MummyMazeState extends State implements Cloneable {
         // se tiver um '.' à esquerda pode mover para a esquerda
         // se tiver uma chave 'C' o heroi pode mover para a esquerda
         return columnHero != 1 && matrix[lineHero][columnHero-1] != '|'
-                && matrix[lineHero][columnHero-1] != '"' && matrix[lineHero][columnHero-1] == ')'
+                && (matrix[lineHero][columnHero-1] != '"' || matrix[lineHero][columnHero-1] == ')')
                 && (matrix[lineHero][columnHero-2] == '.' || matrix[lineHero][columnHero-2] == 'C');
     }
     /*
