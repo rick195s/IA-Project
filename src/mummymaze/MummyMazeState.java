@@ -44,39 +44,7 @@ public class MummyMazeState extends State implements Cloneable {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 this.matrix[i][j] = matrix[i][j];
-
-                if (this.matrix[i][j] == 'H') {
-                    lineHero = i;
-                    columnHero = j;
-                }
-                if (this.matrix[i][j] == 'S') {
-                    lineExit = i;
-                    columnExit = j;
-                }
-                if (this.matrix[i][j] == 'M') {
-                    lineWhiteMummy = i;
-                    columnWhiteMummy = j;
-                }
-                if (this.matrix[i][j] == 'V') {
-                    lineRedMummy = i;
-                    columnRedMummy = j;
-                }
-                if (this.matrix[i][j] == 'A') {
-                    lineTrap = i;
-                    columnTrap = j;
-                }
-                if (this.matrix[i][j] == 'E') {
-                    lineScorpion = i;
-                    columnScorpion = j;
-                }
-                if (this.matrix[i][j] == 'C') {
-                    lineKey = i;
-                    columnKey = j;
-                }
-                if (this.matrix[i][j] == '=' || this.matrix[i][j] == '_' || this.matrix[i][j] == '"' || this.matrix[i][j] == ')') {
-                    lineDoor = i;
-                    columnDoor = j;
-                }
+                findEnteties( i, j);
             }
         }
 
@@ -93,6 +61,46 @@ public class MummyMazeState extends State implements Cloneable {
             lineHeroShouldBe = lineExit;
         }
 
+    }
+
+    private void findEnteties(int i, int j) {
+        switch (matrix[i][j]) {
+            case 'H':
+                lineHero = i;
+                columnHero = j;
+                break;
+            case 'S':
+                lineExit = i;
+                columnExit = j;
+                break;
+            case 'M':
+                lineWhiteMummy = i;
+                columnWhiteMummy = j;
+                break;
+            case 'V':
+                lineRedMummy = i;
+                columnRedMummy = j;
+                break;
+            case 'A':
+                lineTrap = i;
+                columnTrap = j;
+                break;
+            case 'E':
+                lineScorpion = i;
+                columnScorpion = j;
+                break;
+            case 'C':
+                lineKey = i;
+                columnKey = j;
+                break;
+            case '=':
+            case '_':
+            case '"':
+            case ')':
+                lineDoor = i;
+                columnDoor = j;
+                break;
+        }
     }
 
     @Override
