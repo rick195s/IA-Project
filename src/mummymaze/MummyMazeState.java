@@ -169,14 +169,11 @@ public class MummyMazeState extends State implements Cloneable {
         move(-2, "column");
     }
 
-    // funcao usada para mover o heroi
     public void move(int number , String direction){
 
         matrix[lineHero][columnHero] = '.';
 
-        // Caso a chave tenha sido ativada pelo heroi a chave passa para a quadricula imediatamente à esquerda e o heroi
-        // fica na quadricula da chave (isto é feito para a chave nao desaparecer).
-        // Depois do heroi sair da quadricula da chave, a chave tem de voltar à sua quadricula inicial
+        // meter a chave na posicao anterior depois do heroi passar-lhe por cima
         if(lineHero == lineKey && columnHero-1 == columnKey){
             matrix[lineKey][columnKey] = ' ';
             columnKey++;
@@ -197,33 +194,28 @@ public class MummyMazeState extends State implements Cloneable {
 
     }
 
-    // metodo que altera o estado da porta alterando tambem o estado da chave
     private void changeDoorState() {
         columnKey--;
         matrix[lineKey][columnKey] = 'C';
         key = !key;
 
-        // se a chave estiver ativa, as portas sao abertas senao sao fechadas
         if (key){
-            switch (matrix[lineHero][columnHero]){
-                case '=':
-                    matrix[lineHero][columnHero] = '_';
-                    break;
-                case '"':
-                    matrix[lineHero][columnHero] = ')';
-                    break;
+            if (matrix[lineDoor][columnDoor] == '=') {
+                matrix[lineDoor][columnDoor] = '_';
+            }
+            if (matrix[lineDoor][columnDoor] == '"') {
+                matrix[lineDoor][columnDoor] = ')';
             }
         }else{
-            switch (matrix[lineHero][columnHero]){
-                case '_':
-                    matrix[lineHero][columnHero] = '_';
-                    break;
-                case ')':
-                    matrix[lineHero][columnHero] = '"';
-                    break;
+            if (matrix[lineDoor][columnDoor] == '_') {
+                matrix[lineDoor][columnDoor] = '=';
+            }
+            if (matrix[lineDoor][columnDoor] == ')') {
+                matrix[lineDoor][columnDoor] = '"';
             }
         }
     }
+
 
     public void dontMove() {
         //TODO
