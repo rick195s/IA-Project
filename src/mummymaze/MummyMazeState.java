@@ -193,8 +193,25 @@ public class MummyMazeState extends State implements Cloneable {
             changeDoorState();
         }
 
-        matrix[lineHero][columnHero] = 'H';
+        if (!isHeroDead()){
+            // se o heroi desaparecer do jogo o jogo acaba, logo um estado em que heroi morre torna-se
+            // um estado invalido
+            matrix[lineHero][columnHero] = 'H';
+        }
 
+
+    }
+
+    // se na posicao do heroi estiver algum inimigo, o heroi morre
+    public boolean isHeroDead() {
+        switch (matrix[lineHero][columnHero]){
+            case 'M':
+            case 'V':
+            case 'A':
+            case 'E':
+                return true;
+        }
+        return false;
     }
 
     private void changeDoorState() {
