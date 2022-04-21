@@ -187,21 +187,37 @@ public class MummyMazeState extends State implements Cloneable {
         }
 
         if(lineHero == lineKey && columnHero == columnKey){
-            columnKey--;
-            matrix[lineKey][columnKey] = 'C';
-            key = !key;
+            changeDoorState();
         }
 
-        if (key){
-            if (matrix[lineDoor][columnDoor] == '=') {
-                matrix[lineDoor][columnDoor] = '_';
-            }
-            if (matrix[lineDoor][columnDoor] == '"') {
-                matrix[lineDoor][columnDoor] = ')';
-            }
-        }
         matrix[lineHero][columnHero] = 'H';
 
+    }
+
+    private void changeDoorState() {
+        columnKey--;
+        matrix[lineKey][columnKey] = 'C';
+        key = !key;
+
+        if (key){
+            switch (matrix[lineHero][columnHero]){
+                case '=':
+                    matrix[lineHero][columnHero] = '_';
+                    break;
+                case '"':
+                    matrix[lineHero][columnHero] = ')';
+                    break;
+            }
+        }else{
+            switch (matrix[lineHero][columnHero]){
+                case '_':
+                    matrix[lineHero][columnHero] = '_';
+                    break;
+                case ')':
+                    matrix[lineHero][columnHero] = '"';
+                    break;
+            }
+        }
     }
 
     public void dontMove() {
