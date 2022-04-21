@@ -171,21 +171,28 @@ public class MummyMazeState extends State implements Cloneable {
 
     public void move(int number , String direction){
 
-        if (direction.equals("column")){
-            int aux = columnHero;
-            columnHero = columnHero + number;
-            matrix[lineHero][aux] = '.';
-        }else if (direction.equals("line")){
-            int aux = lineHero;
-            lineHero = lineHero + number;
-            matrix[aux][columnHero] = '.';
+        matrix[lineHero][columnHero] = '.';
+
+        // meter a chave na posicao anterior depois do heroi passar-lhe por cima
+        if(lineHero == lineKey && columnHero-1 == columnKey){
+            matrix[lineKey][columnKey] = ' ';
+            columnKey++;
+            matrix[lineHero][columnKey] = 'C';
         }
 
-        if(matrix[lineHero][columnHero] == 'C'){
+        if (direction.equals("column")){
+            columnHero += number;
+        }else if (direction.equals("line")){
+            lineHero += number;
+        }
+
+        if(lineHero == lineKey && columnHero == columnKey){
+            columnKey--;
+            matrix[lineKey][columnKey] = 'C';
             System.out.println("You found the key");
             key = !key;
-        }
 
+        }
 
         if (key){
             if (matrix[lineDoor][columnDoor] == '=') {
@@ -195,7 +202,9 @@ public class MummyMazeState extends State implements Cloneable {
                 matrix[lineDoor][columnDoor] = ')';
             }
         }
+
         matrix[lineHero][columnHero] = 'H';
+        System.out.println(this.toString());
 
     }
 

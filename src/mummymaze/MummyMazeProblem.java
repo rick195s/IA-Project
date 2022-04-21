@@ -54,6 +54,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
                 MummyMazeState sucessorState = (MummyMazeState) state.clone();
                 sucessorState.executeAction(action);
                 sucessors.add(sucessorState);
+
             }
 
         }
