@@ -1,0 +1,5 @@
+fazer com que a chave nao desapareça:
+	se colocarmos a chave no lado esquerdo do heroi a chave nao aparece no GUI mas a chave continua escondida na matriz (nao sao precisas alteracoes para esta funcionalidade ser possivel);
+	quando o heroi fica em cima da chave vamos mover a chave para o lado esquerdo do heroi;
+	quando o heroi se mexe verificamos se a chave esta imediatamente à sua esquerda, se estiver depois do heroi se mexer a chave é colocada na quadricula onde estava;
+	
