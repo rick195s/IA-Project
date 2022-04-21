@@ -107,9 +107,8 @@ public class MummyMazeState extends State implements Cloneable {
         // se na linha acima estiver uma parede '-' o heroi nao pode subir
         // se a linha duas casas acima estiver com um '.' o heroi pode subir
         // se tiver uma chave 'C' o heroi pode subir
-        return lineHero != 1 && matrix[lineHero-1][columnHero] != '-'
-                && (matrix[lineHero-1][columnHero] != '=' || matrix[lineHero-1][columnHero] == '_')
-                && (matrix[lineHero-2][columnHero] == '.' || matrix[lineHero-2][columnHero] == 'C');
+        return lineHero != 1 && matrix[lineHero-1][columnHero] != '-' && matrix[lineHero-1][columnHero] != '='
+                && (matrix[lineHero-2][columnHero] == '.' || matrix[lineHero-2][columnHero] == 'C' || matrix[lineHero-1][columnHero] == '_' );
     }
 
     public boolean canMoveRight() {
@@ -117,9 +116,8 @@ public class MummyMazeState extends State implements Cloneable {
         // se tiver uma parede à direita nao pode mover para a direita
         // se tiver um '.' à direita pode mover para a direita
         // se tiver uma chave 'C' o heroi pode mover para a direita
-        return columnHero != matrix.length - 2 && matrix[lineHero][columnHero+1] != '|'
-                && (matrix[lineHero][columnHero+1] != '"' )
-                && (matrix[lineHero][columnHero+2] == '.' || matrix[lineHero][columnHero+2] == 'C');
+        return columnHero != matrix.length - 2 && matrix[lineHero][columnHero+1] != '|' && matrix[lineHero][columnHero+1] != '"'
+                && (matrix[lineHero][columnHero+2] == '.' || matrix[lineHero][columnHero+2] == 'C' || matrix[lineHero][columnHero+1] == ')');
     }
 
     public boolean canMoveDown() {
@@ -128,9 +126,8 @@ public class MummyMazeState extends State implements Cloneable {
         // se tiver um '.' à baixo pode mover para baixo
         // se tiver uma chave 'C' o heroi pode mover para baixo
 
-        return lineHero != matrix.length - 2 && matrix[lineHero+1][columnHero] != '-'
-                && (matrix[lineHero+1][columnHero] != '=' || matrix[lineHero+1][columnHero] == '_')
-                && (matrix[lineHero+2][columnHero] == '.' || matrix[lineHero+2][columnHero] == 'C');
+        return lineHero != matrix.length - 2 && matrix[lineHero+1][columnHero] != '-' && matrix[lineHero+1][columnHero] != '='
+                && (matrix[lineHero+2][columnHero] == '.' || matrix[lineHero+2][columnHero] == 'C' || matrix[lineHero+1][columnHero] == '_');
     }
 
     public boolean canMoveLeft() {
@@ -138,9 +135,8 @@ public class MummyMazeState extends State implements Cloneable {
         // se tiver uma parede à esquerda nao pode mover para a esquerda
         // se tiver um '.' à esquerda pode mover para a esquerda
         // se tiver uma chave 'C' o heroi pode mover para a esquerda
-        return columnHero != 1 && matrix[lineHero][columnHero-1] != '|'
-                && (matrix[lineHero][columnHero-1] != '"' || matrix[lineHero][columnHero-1] == ')')
-                && (matrix[lineHero][columnHero-2] == '.' || matrix[lineHero][columnHero-2] == 'C');
+        return columnHero != 1 && matrix[lineHero][columnHero-1] != '|' && matrix[lineHero][columnHero-1] != '"'
+                && (matrix[lineHero][columnHero-2] == '.' || matrix[lineHero][columnHero-2] == 'C' || matrix[lineHero][columnHero-1] == ')');
     }
     /*
      * In the next four methods we don't verify if the actions are valid.
