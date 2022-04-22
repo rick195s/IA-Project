@@ -44,7 +44,7 @@ public class Being {
     }
 
 
-    public void move(int number, String direction,MummyMazeState state) {
+    public void move(int number, String direction, MummyMazeState state) {
         char[][] matrix = state.getMatrix();
 
         matrix[line][column] = '.';
