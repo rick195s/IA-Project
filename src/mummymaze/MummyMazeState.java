@@ -15,8 +15,6 @@ public class MummyMazeState extends State implements Cloneable {
     private final char[][] matrix;
     private int lineExit;
     private int columnExit;
-    private int lineHero;
-    private int columnHero;
     private int lineWhiteMummy=-1;
     private int columnWhiteMummy=-1;
     private int lineRedMummy=-1;
@@ -25,8 +23,8 @@ public class MummyMazeState extends State implements Cloneable {
     private int columnTrap;
     private int lineScorpion=-1;
     private int columnScorpion=-1;
-    private int lineKey;
-    private int columnKey;
+    public int lineKey;
+    public int columnKey;
     private int lineDoor;
     private int columnDoor;
     private boolean key = false;
@@ -34,10 +32,10 @@ public class MummyMazeState extends State implements Cloneable {
     int columnHeroShouldBe;
     int lineHeroShouldBe;
 
+    Hero hero;
 
     public MummyMazeState(char[][] matrix) {
         // calcular o estado final para cada nivel
-
         this.matrix = new char[matrix.length][matrix.length];
 
         for (int i = 0; i < matrix.length; i++) {
@@ -60,13 +58,13 @@ public class MummyMazeState extends State implements Cloneable {
             lineHeroShouldBe = lineExit;
         }
 
+
     }
 
     private void findEnteties(int i, int j) {
         switch (matrix[i][j]) {
             case 'H':
-                lineHero = i;
-                columnHero = j;
+                hero = new Hero(i, j);
                 break;
             case 'S':
                 lineExit = i;
@@ -108,17 +106,21 @@ public class MummyMazeState extends State implements Cloneable {
         firePuzzleChanged(null);
     }
 
+    public char[][] getMatrix() {
+        return matrix;
+    }
+
     public boolean canMoveUp() {
-        return  canMoveUp(lineHero, columnHero);
+        return hero.canMoveUp(matrix);
     }
     public boolean canMoveRight() {
-        return canMoveRight(lineHero, columnHero);
+        return hero.canMoveRight(matrix);
     }
     public boolean canMoveDown() {
-        return canMoveDown(lineHero, columnHero);
+        return hero.canMoveDown(matrix);
     }
     public boolean canMoveLeft() {
-        return canMoveLeft(lineHero, columnHero);
+        return hero.canMoveLeft(matrix);
     }
 
     public void dontMove() {
@@ -142,71 +144,13 @@ public class MummyMazeState extends State implements Cloneable {
     public void moveLeft() {
         move(-2, "column");
     }
-    public boolean canMoveUp(int line, int column) {
-        // so pode ir para cima se nao estiver na primeira linha jogavel
-        // se na linha acima estiver uma parede '-' o heroi nao pode subir
-        // se tiver uma porta em cima nao pode mover para cima
-        return  line > 2 && matrix[line-1][column] != '-' && matrix[line-1][column] != '=';
-    }
-    public boolean canMoveRight(int line, int column) {
-        // so pode ir para a direita se nao estiver na última coluna jogavel
-        // se tiver uma parede à direita nao pode mover para a direita
-        // se tiver uma porta à diretia nao pode mover para a direita
-        return column < matrix.length - 2 && matrix[line][column+1] != '|' && matrix[line][column+1] != '"';
-    }
-    public boolean canMoveDown(int line, int column) {
-        // so pode ir para baixo se nao estiver na última linha jogavel
-        // se tiver na ultima linha nao pode mover para baixo
-        // se tiver uma porta abaxio nao pode mover para baixo
-        return line < matrix.length - 2 && matrix[line+1][column] != '-' && matrix[line+1][column] != '=';
-    }
-
-    public boolean canMoveLeft(int line, int column) {
-        // so pode ir para a esquerda se nao estiver na primeira coluna jogavel
-        // se tiver uma parede à esquerda nao pode mover para a esquerda
-        // se tiver uma porta à esquerda nao pode mover para a esquerda
-        return column > 2 && matrix[line][column-1] != '|' && matrix[line][column-1] != '"';
-    }
-
-    /*
-     * In the next four methods we don't verify if the actions are valid.
-     * This is done in method executeActions in class EightPuzzleProblem.
-     * Doing the verification in these methods would imply that a clone of the
-     * state was created whether the operation could be executed or not.
-     */
 
     // funcao usada para mover o heroi
     public void move(int number , String direction){
-
-        matrix[lineHero][columnHero] = '.';
-
-        // Caso a chave tenha sido ativada pelo heroi a chave passa para a quadricula imediatamente à esquerda e o heroi
-        // fica na quadricula da chave (isto é feito para a chave nao desaparecer).
-        // Depois do heroi sair da quadricula da chave, a chave tem de voltar à sua quadricula inicial
-        if(lineHero == lineKey && columnHero-1 == columnKey){
-            matrix[lineKey][columnKey] = ' ';
-            columnKey++;
-            matrix[lineHero][columnKey] = 'C';
-        }
-
-        if (direction.equals("column")){
-            columnHero += number;
-        }else if (direction.equals("line")){
-            lineHero += number;
-        }
-
-        if(lineHero == lineKey && columnHero == columnKey){
-            changeDoorState();
-        }
-
-        if (!isHeroDead()){
-            matrix[lineHero][columnHero] = 'H';
-            enemiesMove();
-        }
-
+        hero.move(number, direction, this);
     }
 
-    private void enemiesMove() {
+    public void enemiesMove() {
         // TODO
         // os inimigos têm de se mexer quando o heroi se mexe ou opta por ficar na mesma casa
 
@@ -214,7 +158,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     // se na posicao do heroi estiver algum inimigo, o heroi morre
     public boolean isHeroDead() {
-        switch (matrix[lineHero][columnHero]){
+        switch (matrix[hero.line][hero.column]){
             case 'M':
             case 'V':
             case 'A':
@@ -224,7 +168,7 @@ public class MummyMazeState extends State implements Cloneable {
         return false;
     }
 
-    private void changeDoorState() {
+    public void changeDoorState() {
         columnKey--;
         matrix[lineKey][columnKey] = 'C';
         key = !key;
