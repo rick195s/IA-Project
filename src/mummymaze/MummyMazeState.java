@@ -146,7 +146,7 @@ public class MummyMazeState extends State implements Cloneable {
     public void dontMove() {
         //TODO
         // os inimigos têm de se mexer quando o heroi nao se mexe
-        return;
+        enemiesMove();
     }
 
     public void moveUp() {
@@ -192,6 +192,14 @@ public class MummyMazeState extends State implements Cloneable {
         if (!isHeroDead()){
             matrix[lineHero][columnHero] = 'H';
         }
+
+        enemiesMove();
+    }
+
+    private void enemiesMove() {
+        // TODO
+        // os inimigos têm de se mexer quando o heroi se mexe ou opta por ficar na mesma casa
+
     }
 
     // se na posicao do heroi estiver algum inimigo, o heroi morre
