@@ -269,25 +269,6 @@ public class MummyMazeState extends State implements Cloneable {
         return matrix[lineHeroShouldBe][columnHeroShouldBe] == 'H' ;
     }
 
-    public int getNumLines() {
-        return matrix.length;
-    }
-
-    public int getNumColumns() {
-        return matrix[0].length;
-    }
-
-    public int getTileValue(int line, int column) {
-        if (!isValidPosition(line, column)) {
-            throw new IndexOutOfBoundsException("Invalid position!");
-        }
-        return matrix[line][column];
-    }
-
-    public boolean isValidPosition(int line, int column) {
-        return line >= 0 && line < matrix.length && column >= 0 && column < matrix[0].length;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof MummyMazeState)) {
