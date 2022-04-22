@@ -15,8 +15,6 @@ public class MummyMazeState extends State implements Cloneable {
     private final char[][] matrix;
     private int lineExit;
     private int columnExit;
-    private int lineRedMummy=-1;
-    private int columnRedMummy=-1;
     private int lineTrap;
     private int columnTrap;
     private int lineScorpion=-1;
@@ -32,10 +30,12 @@ public class MummyMazeState extends State implements Cloneable {
 
     Hero hero;
     WhiteMummy whiteMummy;
+    RedMummy redMummy;
 
     private ArrayList<Enemie> enemies;
 
     public MummyMazeState(char[][] matrix) {
+
         // calcular o estado final para cada nivel
         this.matrix = new char[matrix.length][matrix.length];
         enemies = new ArrayList<>();
@@ -77,8 +77,8 @@ public class MummyMazeState extends State implements Cloneable {
                 enemies.add(whiteMummy);
                 break;
             case 'V':
-                lineRedMummy = i;
-                columnRedMummy = j;
+                redMummy = new RedMummy(i,j);
+                enemies.add(redMummy);
                 break;
             case 'A':
                 lineTrap = i;
