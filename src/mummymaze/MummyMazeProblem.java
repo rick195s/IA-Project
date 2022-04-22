@@ -50,7 +50,7 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
         for (Action action:
              actions) {
 
-            if (action.isValid(state)){
+            if (action.isValid(state) && !state.isHeroDead()){
                 MummyMazeState sucessorState = (MummyMazeState) state.clone();
                 sucessorState.executeAction(action);
                 sucessors.add(sucessorState);

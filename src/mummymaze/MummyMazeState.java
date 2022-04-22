@@ -35,7 +35,6 @@ public class MummyMazeState extends State implements Cloneable {
     int lineHeroShouldBe;
 
 
-
     public MummyMazeState(char[][] matrix) {
         // calcular o estado final para cada nivel
 
@@ -144,6 +143,12 @@ public class MummyMazeState extends State implements Cloneable {
      * state was created whether the operation could be executed or not.
      */
 
+    public void dontMove() {
+        //TODO
+        // os inimigos têm de se mexer quando o heroi nao se mexe
+        return;
+    }
+
     public void moveUp() {
         move(-2, "line");
     }
@@ -184,10 +189,9 @@ public class MummyMazeState extends State implements Cloneable {
             changeDoorState();
         }
 
-        // se o heroi desaparecer do jogo o jogo acaba, logo um estado em que heroi morre torna-se
-        // um estado invalido
-        matrix[lineHero][columnHero] = 'H';
-
+        if (!isHeroDead()){
+            matrix[lineHero][columnHero] = 'H';
+        }
     }
 
     // se na posicao do heroi estiver algum inimigo, o heroi morre
@@ -226,12 +230,6 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
 
-    public void dontMove() {
-        //TODO
-        // os inimigos têm de se mexer quando o heroi nao se mexe
-        return;
-    }
-
     public double computeTilesOutOfPlace(MummyMazeState finalState) {
 
         //TODO
@@ -268,7 +266,7 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public boolean heroInExit(){
-        return matrix[lineHeroShouldBe][columnHeroShouldBe] == 'H';
+        return matrix[lineHeroShouldBe][columnHeroShouldBe] == 'H' ;
     }
 
     public int getNumLines() {
