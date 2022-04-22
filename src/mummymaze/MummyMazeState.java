@@ -17,14 +17,14 @@ public class MummyMazeState extends State implements Cloneable {
     private int columnExit;
     private int lineHero;
     private int columnHero;
-    private int lineWhiteMummy;
-    private int columnWhiteMummy;
-    private int lineRedMummy;
-    private int columnRedMummy;
+    private int lineWhiteMummy=-1;
+    private int columnWhiteMummy=-1;
+    private int lineRedMummy=-1;
+    private int columnRedMummy=-1;
     private int lineTrap;
     private int columnTrap;
-    private int lineScorpion;
-    private int columnScorpion;
+    private int lineScorpion=-1;
+    private int columnScorpion=-1;
     private int lineKey;
     private int columnKey;
     private int lineDoor;
@@ -108,40 +108,18 @@ public class MummyMazeState extends State implements Cloneable {
         firePuzzleChanged(null);
     }
 
-
     public boolean canMoveUp() {
-        // so pode ir para cima se nao estiver na primeira linha jogavel
-        // se na linha acima estiver uma parede '-' o heroi nao pode subir
-        // se tiver uma porta em cima nao pode mover para cima
-        return  lineHero > 2 && matrix[lineHero-1][columnHero] != '-' && matrix[lineHero-1][columnHero] != '=';
+        return  canMoveUp(lineHero, columnHero);
     }
-
     public boolean canMoveRight() {
-        // so pode ir para a direita se nao estiver na última coluna jogavel
-        // se tiver uma parede à direita nao pode mover para a direita
-        // se tiver uma porta à diretia nao pode mover para a direita
-        return columnHero < matrix.length - 2 && matrix[lineHero][columnHero+1] != '|' && matrix[lineHero][columnHero+1] != '"';
+        return canMoveRight(lineHero, columnHero);
     }
-
     public boolean canMoveDown() {
-        // so pode ir para baixo se nao estiver na última linha jogavel
-        // se tiver na ultima linha nao pode mover para baixo
-        // se tiver uma porta abaxio nao pode mover para baixo
-        return lineHero < matrix.length - 2 && matrix[lineHero+1][columnHero] != '-' && matrix[lineHero+1][columnHero] != '=';
+        return canMoveDown(lineHero, columnHero);
     }
-
     public boolean canMoveLeft() {
-        // so pode ir para a esquerda se nao estiver na primeira coluna jogavel
-        // se tiver uma parede à esquerda nao pode mover para a esquerda
-        // se tiver uma porta à esquerda nao pode mover para a esquerda
-        return columnHero > 2 && matrix[lineHero][columnHero-1] != '|' && matrix[lineHero][columnHero-1] != '"';
+        return canMoveLeft(lineHero, columnHero);
     }
-    /*
-     * In the next four methods we don't verify if the actions are valid.
-     * This is done in method executeActions in class EightPuzzleProblem.
-     * Doing the verification in these methods would imply that a clone of the
-     * state was created whether the operation could be executed or not.
-     */
 
     public void dontMove() {
         //TODO
@@ -164,6 +142,38 @@ public class MummyMazeState extends State implements Cloneable {
     public void moveLeft() {
         move(-2, "column");
     }
+    public boolean canMoveUp(int line, int column) {
+        // so pode ir para cima se nao estiver na primeira linha jogavel
+        // se na linha acima estiver uma parede '-' o heroi nao pode subir
+        // se tiver uma porta em cima nao pode mover para cima
+        return  line > 2 && matrix[line-1][column] != '-' && matrix[line-1][column] != '=';
+    }
+    public boolean canMoveRight(int line, int column) {
+        // so pode ir para a direita se nao estiver na última coluna jogavel
+        // se tiver uma parede à direita nao pode mover para a direita
+        // se tiver uma porta à diretia nao pode mover para a direita
+        return column < matrix.length - 2 && matrix[line][column+1] != '|' && matrix[line][column+1] != '"';
+    }
+    public boolean canMoveDown(int line, int column) {
+        // so pode ir para baixo se nao estiver na última linha jogavel
+        // se tiver na ultima linha nao pode mover para baixo
+        // se tiver uma porta abaxio nao pode mover para baixo
+        return line < matrix.length - 2 && matrix[line+1][column] != '-' && matrix[line+1][column] != '=';
+    }
+
+    public boolean canMoveLeft(int line, int column) {
+        // so pode ir para a esquerda se nao estiver na primeira coluna jogavel
+        // se tiver uma parede à esquerda nao pode mover para a esquerda
+        // se tiver uma porta à esquerda nao pode mover para a esquerda
+        return column > 2 && matrix[line][column-1] != '|' && matrix[line][column-1] != '"';
+    }
+
+    /*
+     * In the next four methods we don't verify if the actions are valid.
+     * This is done in method executeActions in class EightPuzzleProblem.
+     * Doing the verification in these methods would imply that a clone of the
+     * state was created whether the operation could be executed or not.
+     */
 
     // funcao usada para mover o heroi
     public void move(int number , String direction){
@@ -191,9 +201,9 @@ public class MummyMazeState extends State implements Cloneable {
 
         if (!isHeroDead()){
             matrix[lineHero][columnHero] = 'H';
+            enemiesMove();
         }
 
-        enemiesMove();
     }
 
     private void enemiesMove() {
