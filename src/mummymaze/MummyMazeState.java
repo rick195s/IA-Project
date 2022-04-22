@@ -112,6 +112,14 @@ public class MummyMazeState extends State implements Cloneable {
         return matrix;
     }
 
+    public int getLineHero() {
+        return hero.line;
+    }
+
+    public int getColumnHero() {
+        return hero.column;
+    }
+
     public boolean canMoveUp() {
         return hero.canMoveUp(matrix);
     }
@@ -156,7 +164,7 @@ public class MummyMazeState extends State implements Cloneable {
         // TODO
         // os inimigos têm de se mexer quando o heroi se mexe ou opta por ficar na mesma casa
         for (Enemie enemy : enemies) {
-            enemy.move(matrix, hero.line, hero.column);
+            enemy.move(this);
         }
     }
 

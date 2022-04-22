@@ -9,14 +9,6 @@ public class Being {
         this.column = column;
     }
 
-    public int getLine() {
-        return line;
-    }
-
-    public int getColumn() {
-        return column;
-    }
-
     public boolean canMoveUp(char[][] matrix) {
         // so pode ir para cima se nao estiver na primeira linha jogavel
         // se na linha acima estiver uma parede '-' o heroi nao pode subir

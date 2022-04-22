@@ -6,24 +6,25 @@ public class WhiteMummy extends Being implements Enemie{
     }
 
     @Override
-    public void move(char[][] matrix, int lineHero, int columnHero) {
-        for (int i = 0; i < 2; i++) {
-            matrix[line][column] = '.';
+    public void move(MummyMazeState state) {
+        char[][] matrix = state.getMatrix();
 
-            if(columnHero < column){
+        for (int i = 0; i < 2; i++) {
+
+            if(state.getColumnHero() < column){
                 if (canMoveLeft(matrix)){
-                    column -=2;
+                    move(-2, "column", state);
                 }else {
-                    moveInLine(matrix, lineHero);
+                    moveInLine(state);
                 }
-            }else if (columnHero > column){
+            }else if (state.getColumnHero() > column){
                 if (canMoveRight(matrix)){
-                    column +=2;
+                    move(2, "column", state);
                 }else {
-                    moveInLine(matrix, lineHero);
+                    moveInLine(state);
                 }
             }else {
-                moveInLine(matrix, lineHero);
+                moveInLine(state);
             }
 
             matrix[line][column] = 'M';
@@ -32,14 +33,16 @@ public class WhiteMummy extends Being implements Enemie{
 
     }
 
-    private void moveInLine(char[][] matrix, int lineHero) {
-        if(lineHero < line){
+    private void moveInLine(MummyMazeState state){
+        char[][] matrix = state.getMatrix();
+
+        if(state.getLineHero() < line){
             if (canMoveUp(matrix)){
-                line-=2;
+                move(-2, "line", state);
             }
-        }else if (lineHero > line) {
+        }else if (state.getLineHero() > line) {
             if (canMoveDown(matrix)){
-                line+=2;
+                move(2, "line", state);
             }
         }
     }
