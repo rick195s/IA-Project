@@ -1,3 +1,9 @@
+O que esta a fazer:
+	Atraves da funcao heroInExit() ele consegue perceber quando é que está na saida ou nao (logo percebe se um estado é bom ou mau);
+	escolhe estados em que o heroi nao morreu;
+	consegue apanhar chave para abrir porta;
+	consegue ir para a saida com paredes à volta;
+	
 fazer com que a chave nao desapareça:
 	se colocarmos a chave no lado esquerdo do heroi a chave nao aparece no GUI mas a chave continua escondida na matriz (nao sao precisas alteracoes para esta funcionalidade ser possivel);
 	quando o heroi fica em cima da chave vamos mover a chave para o lado esquerdo do heroi;
