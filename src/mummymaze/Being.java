@@ -45,7 +45,7 @@ public class Being {
 
         // se o "ser" quando se mexeu ficou em cima de algum elemento diferente de '.'
         // o elemento é reposto onde estava
-        matrix[line][column] = onTopOf != '.' ? onTopOf : '.';
+        matrix[line][column] = onTopOf;
 
         if (direction.equals("column")){
             column += number;
@@ -53,9 +53,9 @@ public class Being {
             line += number;
         }
 
-        // se o "ser" depois de se mexer ficou em cima do heroi ou de uma quadricula normal
+        // se um "ser" depois de se mexer ficar em cima de um outro "ser" ou de uma quadricula normal
         // o elemento não é reposto
-        if (matrix[line][column] != '.' && matrix[line][column] != 'H') {
+        if (matrix[line][column] != '.' && matrix[line][column] != 'H' && matrix[line][column] != 'M' && matrix[line][column] != 'V' ) {
             onTopOf = matrix[line][column];
         }else {
             onTopOf = '.';

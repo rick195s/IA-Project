@@ -15,12 +15,6 @@ public class MummyMazeState extends State implements Cloneable {
     private final char[][] matrix;
     private int lineExit;
     private int columnExit;
-    private int lineTrap;
-    private int columnTrap;
-    private int lineScorpion=-1;
-    private int columnScorpion=-1;
-    public int lineKey;
-    public int columnKey;
     private int lineDoor;
     private int columnDoor;
     private boolean key = false;
@@ -79,18 +73,6 @@ public class MummyMazeState extends State implements Cloneable {
             case 'V':
                 redMummy = new RedMummy(i,j);
                 enemies.add(redMummy);
-                break;
-            case 'A':
-                lineTrap = i;
-                columnTrap = j;
-                break;
-            case 'E':
-                lineScorpion = i;
-                columnScorpion = j;
-                break;
-            case 'C':
-                lineKey = i;
-                columnKey = j;
                 break;
             case '=':
             case '_':
