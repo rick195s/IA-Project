@@ -28,6 +28,7 @@ public class RedMummy extends Being implements Enemie{
             }
 
             matrix[line][column] = 'V';
+            updateGUI(state);
         }
 
 

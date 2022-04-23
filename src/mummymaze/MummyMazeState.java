@@ -105,7 +105,7 @@ public class MummyMazeState extends State implements Cloneable {
     @Override
     public void executeAction(Action action) {
         action.execute(this);
-        firePuzzleChanged(null);
+        //firePuzzleChanged(null);
     }
 
     public char[][] getMatrix() {

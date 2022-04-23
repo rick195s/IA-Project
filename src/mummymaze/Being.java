@@ -3,10 +3,11 @@ package mummymaze;
 public class Being {
     protected int line;
     protected int column;
-
+    private boolean moved;
     public Being(int line, int column) {
         this.line = line;
         this.column = column;
+        moved = false;
     }
 
     public boolean canMoveUp(char[][] matrix) {
@@ -57,6 +58,16 @@ public class Being {
 
         if(line == state.lineKey && column == state.columnKey){
             state.changeDoorState();
+        }
+
+        moved = true;
+
+    }
+
+    public void updateGUI(MummyMazeState state){
+        if (moved) {
+            state.firePuzzleChanged(null);
+            moved = false;
         }
     }
 }

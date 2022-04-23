@@ -11,6 +11,7 @@ public class Hero extends Being{
         char[][] matrix = state.getMatrix();
         if (!state.isHeroDead()){
             matrix[line][column] = 'H';
+            updateGUI(state);
             state.enemiesMove();
         }
     }
