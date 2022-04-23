@@ -4,10 +4,13 @@ public class Being {
     protected int line;
     protected int column;
     private boolean moved;
+    private char onTopOf;
+
     public Being(int line, int column) {
         this.line = line;
         this.column = column;
         moved = false;
+        onTopOf = '.';
     }
 
     public boolean canMoveUp(char[][] matrix) {
@@ -40,15 +43,9 @@ public class Being {
     public void move(int number, String direction, MummyMazeState state) {
         char[][] matrix = state.getMatrix();
 
-        matrix[line][column] = '.';
-        // Caso a chave tenha sido ativada pelo heroi a chave passa para a quadricula imediatamente à esquerda e o heroi
-        // fica na quadricula da chave (isto é feito para a chave nao desaparecer).
-        // Depois do heroi sair da quadricula da chave, a chave tem de voltar à sua quadricula inicial
-        if(line == state.lineKey && column-1 == state.columnKey){
-            matrix[state.lineKey][state.columnKey] = ' ';
-            state.columnKey++;
-            matrix[state.lineKey][state.columnKey] = 'C';
-        }
+        // se o "ser" quando se mexeu ficou em cima de algum elemento diferente de '.'
+        // o elemento é reposto onde estava
+        matrix[line][column] = onTopOf != '.' ? onTopOf : '.';
 
         if (direction.equals("column")){
             column += number;
@@ -56,7 +53,15 @@ public class Being {
             line += number;
         }
 
-        if(line == state.lineKey && column == state.columnKey){
+        // se o "ser" depois de se mexer ficou em cima do heroi ou de uma quadricula normal
+        // o elemento não é reposto
+        if (matrix[line][column] != '.' && matrix[line][column] != 'H') {
+            onTopOf = matrix[line][column];
+        }else {
+            onTopOf = '.';
+        }
+
+        if(onTopOf == 'C'){
             state.changeDoorState();
         }
 

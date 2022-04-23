@@ -161,7 +161,6 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public void enemiesMove() {
-        // TODO
         // os inimigos têm de se mexer quando o heroi se mexe ou opta por ficar na mesma casa
         for (Enemie enemy : enemies) {
             enemy.move(this);
@@ -181,8 +180,6 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public void changeDoorState() {
-        columnKey--;
-        matrix[lineKey][columnKey] = 'C';
         key = !key;
 
         // se a chave estiver ativa, as portas sao abertas senao sao fechadas
