@@ -8,11 +8,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 public class MummyMazeState extends State implements Cloneable {
-    static final char[][] GOAL_MATRIX = {{0, 1, 2},
-                                       {3, 4, 5},
-                                       {6, 7, 8}};
 
-    public static final int SIZE = 3;
     private final char[][] matrix;
     private int lineExit;
     private int columnExit;
@@ -177,14 +173,14 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
 
-    public double computeTilesOutOfPlace(MummyMazeState finalState) {
+    public double computeTilesOutOfPlace() {
 
         //TODO
         double numTilesOutOfPLace=0;
 
         for (int i = 0; i< this.matrix.length; i++){
             for (int j = 0; j< this.matrix.length; j++){
-                if (this.matrix[i][j] != finalState.matrix[i][j]){
+                if (this.matrix[i][j] != matrix[i][j]){
                     numTilesOutOfPLace++;
                 }
             }
@@ -193,7 +189,7 @@ public class MummyMazeState extends State implements Cloneable {
         return numTilesOutOfPLace;
     }
 
-    public double computeTileDistances(MummyMazeState finalState) {
+    public double computeTileDistances() {
 
         //TODO
         int tileDistance = 0;

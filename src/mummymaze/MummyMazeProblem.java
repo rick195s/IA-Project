@@ -21,7 +21,6 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
     same and that it corresponds to the goalMatrix attribute defined in the EightPuzzleState class.*/
 
 
-    private MummyMazeState goalState;
 
     public MummyMazeProblem(MummyMazeState initialState) {
         super(initialState, new ArrayList<>(4));
@@ -31,7 +30,6 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
         super.actions.add(new ActionLeft());
         super.actions.add(new ActionDontMove());
 
-        goalState = new MummyMazeState(MummyMazeState.GOAL_MATRIX);
     }
 
     // devole a lista de estados sucessores ( estados para onde é possivel transitar a partir
@@ -78,7 +76,4 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
         return path.size(); // porque as ações no eightpuzzleproblem têm todas o mesmo custo, custo 1
     }
 
-    public MummyMazeState getGoalState(){
-        return goalState;
-    }
 }
