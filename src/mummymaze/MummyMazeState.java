@@ -27,7 +27,7 @@ public class MummyMazeState extends State implements Cloneable {
     WhiteMummy whiteMummy;
     RedMummy redMummy;
 
-    public LinkedList<Enemie> enemies;
+    public LinkedList<Enemy> enemies;
 
     public MummyMazeState(char[][] matrix) {
 
@@ -146,7 +146,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     public void enemiesMove() {
         // os inimigos têm de se mexer quando o heroi se mexe ou opta por ficar na mesma casa
-        for (Enemie enemy : enemies) {
+        for (Enemy enemy : enemies) {
             enemy.move(this);
         }
     }
@@ -266,7 +266,7 @@ public class MummyMazeState extends State implements Cloneable {
         }
     }
 
-    public void firePuzzleChanged(MummyMazeEvent pe) {
+    public void fireMatrixChanged(MummyMazeEvent pe) {
         for (MummyMazeListener listener : listeners) {
             listener.puzzleChanged(null);
         }

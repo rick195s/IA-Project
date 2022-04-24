@@ -2,13 +2,13 @@ package mummymaze;
 
 public class Hero extends Being{
     public Hero(int line, int column) {
-        super(line, column);
+        super(line, column, 'H');
     }
 
     @Override
     public void move(int number, String direction, MummyMazeState state) {
         super.move(number, direction, state);
-        state.getMatrix()[line][column] = 'H';
+        state.getMatrix()[line][column] = this.symbol;
         updateGUI(state);
     }
 

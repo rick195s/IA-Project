@@ -3,12 +3,14 @@ package mummymaze;
 public abstract class Being {
     protected int line;
     protected int column;
+    protected char symbol;
     private boolean moved;
     private char onTopOf;
 
-    public Being(int line, int column) {
+    public Being(int line, int column, char symbol) {
         this.line = line;
         this.column = column;
+        this.symbol = symbol;
         moved = false;
         onTopOf = '.';
     }
@@ -72,10 +74,11 @@ public abstract class Being {
 
     public void updateGUI(MummyMazeState state){
         if (moved) {
-            state.firePuzzleChanged(null);
+            state.fireMatrixChanged(null);
             moved = false;
         }
     }
 
+    // cada "ser" é que sabe quais sao os "seres" que os podem matar
     public abstract boolean isBeingDead(MummyMazeState state);
 }

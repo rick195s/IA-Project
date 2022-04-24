@@ -1,55 +1,27 @@
 package mummymaze;
 
-public class WhiteMummy extends Being implements Enemie{
+public class WhiteMummy extends Enemy {
     public WhiteMummy(int line, int column) {
-        super(line, column);
+        super(line, column, 'M', 2);
     }
 
     @Override
-    public boolean isBeingDead(MummyMazeState state) {
-        switch (state.getMatrix()[line][column]){
-            case 'V':
-            case 'M':
-            case 'E':
-                return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void move(MummyMazeState state) {
-        char[][] matrix = state.getMatrix();
-
-        for (int i = 0; i < 2; i++) {
-            int oldLine = line;
-            int oldColumn = column;
-
-            if(state.getColumnHero() < column){
-                if (canMoveLeft(matrix)){
-                    move(-2, "column", state);
-                }else {
-                    moveInLine(state);
-                }
-            }else if (state.getColumnHero() > column){
-                if (canMoveRight(matrix)){
-                    move(2, "column", state);
-                }else {
-                    moveInLine(state);
-                }
+    protected void particularMove(MummyMazeState state) {
+        if(state.getColumnHero() < column){
+            if (canMoveLeft(state.getMatrix())){
+                move(-2, "column", state);
             }else {
                 moveInLine(state);
             }
-
-            if ((oldLine != line || oldColumn != column) && isBeingDead(state) ){
-                    state.enemies.remove(this);
-                    updateGUI(state);
-                    break;
+        }else if (state.getColumnHero() > column){
+            if (canMoveRight(state.getMatrix())){
+                move(2, "column", state);
+            }else {
+                moveInLine(state);
             }
-
-            matrix[line][column] = 'M';
-            updateGUI(state);
+        }else {
+            moveInLine(state);
         }
-
 
     }
 

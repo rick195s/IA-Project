@@ -1,58 +1,32 @@
 package mummymaze;
 
-public class RedMummy extends Being implements Enemie{
+public class RedMummy extends Enemy {
     public RedMummy(int line, int column) {
-        super(line, column);
+        super(line, column,'V', 2);
     }
 
-    @Override
-    public boolean isBeingDead(MummyMazeState state) {
-        switch (state.getMatrix()[line][column]){
-            case 'V':
-            case 'M':
-            case 'E':
-                return true;
-        }
-        return false;
-    }
 
     @Override
-    public void move(MummyMazeState state) {
-        char[][] matrix = state.getMatrix();
-        int oldLine = line;
-        int oldColumn = column;
+    public void particularMove(MummyMazeState state) {
 
-        for (int i = 0; i < 2; i++) {
-
-            if(state.getLineHero() < line){
-                if (canMoveUp(matrix)){
-                    move(-2, "line", state);
-                }else {
-                    moveInColumn(state);
-                }
-            }else if (state.getLineHero() > line){
-                if (canMoveDown(matrix)){
-                    move(2, "line", state);
-                }else {
-                    moveInColumn(state);
-                }
+        if(state.getLineHero() < line){
+            if (canMoveUp(state.getMatrix())){
+                move(-2, "line", state);
             }else {
                 moveInColumn(state);
             }
-
-
-            if ((oldLine != line || oldColumn != column) && isBeingDead(state) ){
-                state.enemies.remove(this);
-                updateGUI(state);
-                break;
+        }else if (state.getLineHero() > line){
+            if (canMoveDown(state.getMatrix())){
+                move(2, "line", state);
+            }else {
+                moveInColumn(state);
             }
-            matrix[line][column] = 'V';
-            updateGUI(state);
-
+        }else {
+            moveInColumn(state);
         }
 
-
     }
+
 
     private void moveInColumn(MummyMazeState state){
         char[][] matrix = state.getMatrix();
