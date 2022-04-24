@@ -47,14 +47,16 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
 
         ArrayList<MummyMazeState> sucessors = new ArrayList<>(4) ;
 
-        for (Action action:
-             actions) {
+        if (!state.isHeroDead()) {
+            for (Action action:
+                 actions) {
 
-            if (!state.isHeroDead() && action.isValid(state) ){
-                MummyMazeState sucessorState = (MummyMazeState) state.clone();
-                sucessorState.executeAction(action);
-                sucessors.add(sucessorState);
+                if (action.isValid(state)){
+                    MummyMazeState sucessorState = (MummyMazeState) state.clone();
+                    sucessorState.executeAction(action);
+                    sucessors.add(sucessorState);
 
+                }
             }
 
         }

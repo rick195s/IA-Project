@@ -13,3 +13,8 @@ mostrar os enimigs a mexerem-se:
     para vermos os inimigos a mexer a unica coisa que foi preciso fazer foi dar firePuzzleChange ou updateGUI quando o heroi se mexe;
 
     variavel "moved" adicionada à classe Being porque a GUI so vai ser atualizada se o being se mexer;
+
+a mumia nao esta a desaparecer no nivel 1 quando uma mumia fica em cima dela porque nao estamos a remover a mumia da lista de inimigos do estado
+
+o inimigo que se mexer para cima de outro inimigo é que morre
+

@@ -1,6 +1,6 @@
 package mummymaze;
 
-public class Being {
+public abstract class Being {
     protected int line;
     protected int column;
     private boolean moved;
@@ -53,9 +53,9 @@ public class Being {
             line += number;
         }
 
-        // se um "ser" depois de se mexer ficar em cima de um outro "ser" ou de uma quadricula normal
-        // o elemento não é reposto
-        if (matrix[line][column] != '.' && matrix[line][column] != 'H' && matrix[line][column] != 'M' && matrix[line][column] != 'V' ) {
+        // se um "ser" depois de se mexer ficar em cima de um outro "ser"
+        // o "ser" sobreposto não é reposto
+        if (matrix[line][column] != 'H' && matrix[line][column] != 'M' && matrix[line][column] != 'V' ) {
             onTopOf = matrix[line][column];
         }else {
             onTopOf = '.';
@@ -64,6 +64,7 @@ public class Being {
         if(onTopOf == 'C'){
             state.changeDoorState();
         }
+
 
         moved = true;
 
@@ -75,4 +76,6 @@ public class Being {
             moved = false;
         }
     }
+
+    public abstract boolean isBeingDead(MummyMazeState state);
 }

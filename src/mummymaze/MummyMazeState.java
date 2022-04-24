@@ -5,6 +5,7 @@ import agent.State;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class MummyMazeState extends State implements Cloneable {
     static final char[][] GOAL_MATRIX = {{0, 1, 2},
@@ -26,13 +27,13 @@ public class MummyMazeState extends State implements Cloneable {
     WhiteMummy whiteMummy;
     RedMummy redMummy;
 
-    private ArrayList<Enemie> enemies;
+    public LinkedList<Enemie> enemies;
 
     public MummyMazeState(char[][] matrix) {
 
         // calcular o estado final para cada nivel
         this.matrix = new char[matrix.length][matrix.length];
-        enemies = new ArrayList<>();
+        enemies = new LinkedList<>();
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
@@ -140,6 +141,7 @@ public class MummyMazeState extends State implements Cloneable {
     // funcao usada para mover o heroi
     public void move(int number , String direction){
         hero.move(number, direction, this);
+        enemiesMove();
     }
 
     public void enemiesMove() {
@@ -148,18 +150,10 @@ public class MummyMazeState extends State implements Cloneable {
             enemy.move(this);
         }
     }
-
-    // se na posicao do heroi estiver algum inimigo, o heroi morre
     public boolean isHeroDead() {
-        switch (matrix[hero.line][hero.column]){
-            case 'M':
-            case 'V':
-            case 'A':
-            case 'E':
-                return true;
-        }
-        return false;
+        return hero.isBeingDead(this);
     }
+
 
     public void changeDoorState() {
         key = !key;

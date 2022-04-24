@@ -6,8 +6,21 @@ public class RedMummy extends Being implements Enemie{
     }
 
     @Override
+    public boolean isBeingDead(MummyMazeState state) {
+        switch (state.getMatrix()[line][column]){
+            case 'V':
+            case 'M':
+            case 'E':
+                return true;
+        }
+        return false;
+    }
+
+    @Override
     public void move(MummyMazeState state) {
         char[][] matrix = state.getMatrix();
+        int oldLine = line;
+        int oldColumn = column;
 
         for (int i = 0; i < 2; i++) {
 
@@ -27,8 +40,15 @@ public class RedMummy extends Being implements Enemie{
                 moveInColumn(state);
             }
 
+
+            if ((oldLine != line || oldColumn != column) && isBeingDead(state) ){
+                state.enemies.remove(this);
+                updateGUI(state);
+                break;
+            }
             matrix[line][column] = 'V';
             updateGUI(state);
+
         }
 
 
