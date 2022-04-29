@@ -20,3 +20,6 @@ a mumia nao esta a desaparecer no nivel 1 quando uma mumia fica em cima dela por
 
 o inimigo que se mexer para cima de outro inimigo é que morre
 
+Heuristicas:
+    
+    se a mumia for branca move nas laterais e se for vermelha mover para as horizontais

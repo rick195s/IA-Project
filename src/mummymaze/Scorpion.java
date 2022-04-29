@@ -38,4 +38,6 @@ public class Scorpion extends Enemy {
             }
         }
     }
+
+
 }
