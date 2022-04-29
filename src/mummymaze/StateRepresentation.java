@@ -10,5 +10,7 @@ public final class StateRepresentation {
     public static final char HORIZONTAL_OPEN = '_';
     public static final char VERTICAL_CLOSE = '"';
     public static final char VERTICAL_OPEN = ')';
+    public static final char SCORPION = 'E';
+    public static final char TRAP = 'A';
 
 }
