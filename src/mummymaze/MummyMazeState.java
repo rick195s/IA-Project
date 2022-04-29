@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class MummyMazeState extends State implements Cloneable {
 
-    private final char[][] matrix;
+    public char[][] matrix;
     private int lineExit;
     private int columnExit;
     private int lineDoor;
