@@ -20,6 +20,7 @@ a mumia nao esta a desaparecer no nivel 1 quando uma mumia fica em cima dela por
 
 o inimigo que se mexer para cima de outro inimigo é que morre
 
+<<<<<<< HEAD
 
 Matriz Nao estatica:
     
@@ -36,3 +37,8 @@ Matriz Estatica:
 
 
 
+=======
+Heuristicas:
+    
+    se a mumia for branca move nas laterais e se for vermelha mover para as horizontais
+>>>>>>> c456a582433817d9e21601abacb2037898cd01cd

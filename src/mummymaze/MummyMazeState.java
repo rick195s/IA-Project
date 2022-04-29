@@ -193,6 +193,25 @@ public class MummyMazeState extends State implements Cloneable {
         return numTilesOutOfPLace;
     }
 
+    public double getNumberOfWallsNearEnemy(){
+        int numWallsNearEnemy = 0;
+        for (Enemy enemy : enemies){
+            if (enemy.symbol == StateRepresentation.WHITEMUMMY || enemy.symbol == StateRepresentation.SCORPION){
+                if (matrix[enemy.line][enemy.column-1] == StateRepresentation.HORIZONTAL_WALL ||
+                    matrix[enemy.line][enemy.column+1] == StateRepresentation.HORIZONTAL_WALL ) {
+                    numWallsNearEnemy++;
+                }
+            }
+            if (enemy.symbol == StateRepresentation.REDMUMMY){
+                if (matrix[enemy.line-1][enemy.column] == StateRepresentation.VERTICAL_WALL ||
+                    matrix[enemy.line+1][enemy.column] == StateRepresentation.VERTICAL_WALL ) {
+                    numWallsNearEnemy++;
+                }
+            }
+        }
+        return numWallsNearEnemy;
+    }
+
     public double computeTileDistances() {
 
         //TODO
