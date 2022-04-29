@@ -56,25 +56,25 @@ public class MummyMazeState extends State implements Cloneable {
 
     private void findEnteties(int i, int j) {
         switch (matrix[i][j]) {
-            case 'H':
+            case StateRepresentation.HERO:
                 hero = new Hero(i, j);
                 break;
-            case 'S':
+            case StateRepresentation.EXIT:
                 lineExit = i;
                 columnExit = j;
                 break;
-            case 'M':
+            case StateRepresentation.WHITEMUMMY:
                 whiteMummy = new WhiteMummy(i,j);
                 enemies.add(whiteMummy);
                 break;
-            case 'V':
+            case StateRepresentation.REDMUMMY:
                 redMummy = new RedMummy(i,j);
                 enemies.add(redMummy);
                 break;
-            case '=':
-            case '_':
-            case '"':
-            case ')':
+            case StateRepresentation.HORIZONTAL_CLOSE:
+            case StateRepresentation.HORIZONTAL_OPEN:
+            case StateRepresentation.VERTICAL_CLOSE:
+            case StateRepresentation.VERTICAL_OPEN:
                 lineDoor = i;
                 columnDoor = j;
                 break;
@@ -138,6 +138,7 @@ public class MummyMazeState extends State implements Cloneable {
     public void move(int number , String direction){
         hero.move(number, direction, this);
         enemiesMove();
+        //System.out.println(this.toString());
     }
 
     public void enemiesMove() {
@@ -156,18 +157,18 @@ public class MummyMazeState extends State implements Cloneable {
 
         // se a chave estiver ativa, as portas sao abertas senao sao fechadas
         if (key){
-            if (matrix[lineDoor][columnDoor] == '=') {
-                matrix[lineDoor][columnDoor] = '_';
+            if (matrix[lineDoor][columnDoor] == StateRepresentation.HORIZONTAL_CLOSE){
+                matrix[lineDoor][columnDoor] = StateRepresentation.HORIZONTAL_OPEN;
             }
-            if (matrix[lineDoor][columnDoor] == '"') {
-                matrix[lineDoor][columnDoor] = ')';
+            if (matrix[lineDoor][columnDoor] == StateRepresentation.VERTICAL_CLOSE){
+                matrix[lineDoor][columnDoor] = StateRepresentation.VERTICAL_OPEN;
             }
         }else{
-            if (matrix[lineDoor][columnDoor] == '_') {
-                matrix[lineDoor][columnDoor] = '=';
+            if (matrix[lineDoor][columnDoor] == StateRepresentation.HORIZONTAL_OPEN){
+                matrix[lineDoor][columnDoor] = StateRepresentation.HORIZONTAL_CLOSE;
             }
-            if (matrix[lineDoor][columnDoor] == ')') {
-                matrix[lineDoor][columnDoor] = '"';
+            if (matrix[lineDoor][columnDoor] == StateRepresentation.VERTICAL_OPEN){
+                matrix[lineDoor][columnDoor] = StateRepresentation.VERTICAL_CLOSE;
             }
         }
     }
@@ -209,7 +210,7 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public boolean heroInExit(){
-        return matrix[lineHeroShouldBe][columnHeroShouldBe] == 'H' ;
+        return matrix[lineHeroShouldBe][columnHeroShouldBe] == StateRepresentation.HERO ;
     }
 
     @Override

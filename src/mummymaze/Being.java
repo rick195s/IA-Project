@@ -57,13 +57,13 @@ public abstract class Being {
 
         // se um "ser" depois de se mexer ficar em cima de um outro "ser"
         // o "ser" sobreposto não é reposto
-        if (matrix[line][column] != 'H' && matrix[line][column] != 'M' && matrix[line][column] != 'V' ) {
+        if (matrix[line][column] != StateRepresentation.HERO && matrix[line][column] != StateRepresentation.WHITEMUMMY && matrix[line][column] != StateRepresentation.REDMUMMY ) {
             onTopOf = matrix[line][column];
         }else {
             onTopOf = '.';
         }
 
-        if(onTopOf == 'C'){
+        if(onTopOf == StateRepresentation.KEY){
             state.changeDoorState();
         }
 
