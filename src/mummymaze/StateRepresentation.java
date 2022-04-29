@@ -14,4 +14,5 @@ public final class StateRepresentation {
     public static final char TRAP = 'A';
     public static final char HORIZONTAL_WALL = '|';
     public static final char VERTICAL_WALL = '-';
+    public static final char EMPTY = '.';
 }
