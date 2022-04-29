@@ -19,12 +19,10 @@ public class Hero extends Being{
 
     @Override
     public boolean isBeingDead(MummyMazeState state) {
-        switch (state.getMatrix()[line][column]){
-            case StateRepresentation.WHITEMUMMY:
-            case StateRepresentation.REDMUMMY:
-            case StateRepresentation.TRAP:
-            case StateRepresentation.SCORPION:
+        for (Enemy enemy : state.enemies) {
+            if (enemy.line == line && enemy.column == column) {
                 return true;
+            }
         }
         return false;
     }

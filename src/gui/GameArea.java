@@ -72,9 +72,11 @@ public class GameArea extends JPanel implements MummyMazeListener {
 			return;
 		}
 
+		String[] splitString = (state.toString().split("\\n"));
+
 		for(int i = 0; i < 13; i++) {
-			for(int j = 0; j < 13; j++) {				
-				switch(state.getMatrix()[i][j]){
+			for(int j = 0; j < 13; j++) {
+				switch(splitString[i].charAt(j)) {
 					case '-' : g.drawImage(wallHorizontal,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
 					case '=' : g.drawImage(doorHorizontalClosed,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;
 					case '_' : g.drawImage(doorHorizontalOpen,xStart + j/2 * 60,yStart + i/2 * 60 - 6,this); break;

@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class MummyMazeState extends State implements Cloneable {
 
-    public char[][] matrix;
+    public static char[][] matrix;
     private int lineExit;
     private int columnExit;
     private int lineDoor;
@@ -24,13 +24,12 @@ public class MummyMazeState extends State implements Cloneable {
     RedMummy redMummy;
     Scorpion scoprion;
 
-    public LinkedList<Enemy> enemies;
+    public LinkedList<Enemy> enemies = new LinkedList<>();
 
     public MummyMazeState(char[][] matrix) {
 
         // calcular o estado final para cada nivel
         this.matrix = new char[matrix.length][matrix.length];
-        enemies = new LinkedList<>();
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
@@ -55,10 +54,45 @@ public class MummyMazeState extends State implements Cloneable {
 
     }
 
+    public MummyMazeState(MummyMazeState state) {
+
+        lineDoor = state.lineDoor;
+        columnDoor = state.columnDoor;
+        lineExit = state.lineExit;
+        columnExit = state.columnExit;
+        lineHeroShouldBe = state.lineHeroShouldBe;
+        columnHeroShouldBe = state.columnHeroShouldBe;
+        key = state.key;
+
+        hero = new Hero(state.hero.line, state.hero.column);
+
+        System.out.println("hero: " + hero.line + " " + hero.column);
+
+        for (Enemy enemy : enemies) {
+            switch (enemy.symbol) {
+                case StateRepresentation.WHITEMUMMY:
+                    whiteMummy = new WhiteMummy(enemy.line, enemy.column);
+                    enemies.add(whiteMummy);
+                    break;
+                case StateRepresentation.REDMUMMY:
+                    redMummy = new RedMummy(enemy.line, enemy.column);
+                    enemies.add(redMummy);
+                    break;
+                case StateRepresentation.SCORPION:
+                    scoprion = new Scorpion(enemy.line, enemy.column);
+                    enemies.add(scoprion);
+                    break;
+
+            }
+        }
+
+    }
+
     private void findEnteties(int i, int j) {
         switch (matrix[i][j]) {
             case StateRepresentation.HERO:
                 hero = new Hero(i, j);
+                MummyMazeState.matrix[i][j] = StateRepresentation.EMPTY;
                 break;
             case StateRepresentation.EXIT:
                 lineExit = i;
@@ -67,14 +101,17 @@ public class MummyMazeState extends State implements Cloneable {
             case StateRepresentation.WHITEMUMMY:
                 whiteMummy = new WhiteMummy(i,j);
                 enemies.add(whiteMummy);
+                MummyMazeState.matrix[i][j] = StateRepresentation.EMPTY;
                 break;
             case StateRepresentation.REDMUMMY:
                 redMummy = new RedMummy(i,j);
                 enemies.add(redMummy);
+                MummyMazeState.matrix[i][j] = StateRepresentation.EMPTY;
                 break;
             case StateRepresentation.SCORPION:
                 scoprion = new Scorpion(i,j);
                 enemies.add(scoprion);
+                MummyMazeState.matrix[i][j] = StateRepresentation.EMPTY;
                 break;
             case StateRepresentation.HORIZONTAL_CLOSE:
             case StateRepresentation.HORIZONTAL_OPEN:
@@ -119,7 +156,7 @@ public class MummyMazeState extends State implements Cloneable {
     public void dontMove() {
         //TODO
         // os inimigos têm de se mexer quando o heroi nao se mexe
-        enemiesMove();
+       // enemiesMove();
     }
 
     public void moveUp() {
@@ -141,7 +178,7 @@ public class MummyMazeState extends State implements Cloneable {
     // funcao usada para mover o heroi
     public void move(int number , String direction){
         hero.move(number, direction, this);
-        enemiesMove();
+        //enemiesMove();
     }
 
     public void enemiesMove() {
@@ -232,7 +269,7 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public boolean heroInExit(){
-        return matrix[lineHeroShouldBe][columnHeroShouldBe] == StateRepresentation.HERO ;
+        return MummyMazeState.matrix[lineHeroShouldBe][columnHeroShouldBe] == StateRepresentation.HERO;
     }
 
     @Override
@@ -251,12 +288,17 @@ public class MummyMazeState extends State implements Cloneable {
 
     @Override
     public int hashCode() {
-        return 97 * 7 + Arrays.deepHashCode(this.matrix);
+        return 97 * 7 + Arrays.deepHashCode(matrix);
     }
 
     @Override
     public String toString() {
         String s="";
+
+        for (Enemy enemy : enemies) {
+            matrix[enemy.line][enemy.column] = enemy.symbol;
+        }
+        matrix[hero.line][hero.column] = StateRepresentation.HERO;
         for (int k = 0; k < 13; k++) {
             s+=String.valueOf(matrix[k])+"\n";
         }
@@ -267,7 +309,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     @Override
     public Object clone() {
-        return new MummyMazeState(matrix);
+        return new MummyMazeState(this);
     }
     //Listeners
 
