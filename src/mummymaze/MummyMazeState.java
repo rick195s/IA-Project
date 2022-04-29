@@ -209,7 +209,6 @@ public class MummyMazeState extends State implements Cloneable {
                 }
             }
         }
-        System.out.println(numWallsNearEnemy);
         return numWallsNearEnemy;
     }
 
