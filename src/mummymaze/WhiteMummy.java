@@ -2,7 +2,7 @@ package mummymaze;
 
 public class WhiteMummy extends Enemy {
     public WhiteMummy(int line, int column) {
-        super(line, column, 'M', 2);
+        super(line, column, StateRepresentation.WHITEMUMMY, 2);
     }
 
     @Override

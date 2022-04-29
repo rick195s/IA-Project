@@ -1,8 +1,8 @@
 package mummymaze;
 
-public class WhiteMummy extends Enemy {
-    public WhiteMummy(int line, int column) {
-        super(line, column, 'M', 2);
+public class Scorpion extends Enemy {
+    public Scorpion(int line, int column) {
+        super(line, column, StateRepresentation.SCORPION, 1);
     }
 
     @Override

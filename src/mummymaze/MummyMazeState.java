@@ -22,6 +22,7 @@ public class MummyMazeState extends State implements Cloneable {
     Hero hero;
     WhiteMummy whiteMummy;
     RedMummy redMummy;
+    Scorpion scoprion;
 
     public LinkedList<Enemy> enemies;
 
@@ -71,6 +72,10 @@ public class MummyMazeState extends State implements Cloneable {
                 redMummy = new RedMummy(i,j);
                 enemies.add(redMummy);
                 break;
+            case StateRepresentation.SCORPION:
+                scoprion = new Scorpion(i,j);
+                enemies.add(scoprion);
+                break;
             case StateRepresentation.HORIZONTAL_CLOSE:
             case StateRepresentation.HORIZONTAL_OPEN:
             case StateRepresentation.VERTICAL_CLOSE:
@@ -84,7 +89,6 @@ public class MummyMazeState extends State implements Cloneable {
     @Override
     public void executeAction(Action action) {
         action.execute(this);
-        //firePuzzleChanged(null);
     }
 
     public char[][] getMatrix() {
@@ -138,7 +142,6 @@ public class MummyMazeState extends State implements Cloneable {
     public void move(int number , String direction){
         hero.move(number, direction, this);
         enemiesMove();
-        //System.out.println(this.toString());
     }
 
     public void enemiesMove() {

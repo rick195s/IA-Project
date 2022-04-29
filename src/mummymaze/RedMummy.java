@@ -1,8 +1,10 @@
 package mummymaze;
 
+import agent.State;
+
 public class RedMummy extends Enemy {
     public RedMummy(int line, int column) {
-        super(line, column,'V', 2);
+        super(line, column, StateRepresentation.REDMUMMY, 2);
     }
 
 

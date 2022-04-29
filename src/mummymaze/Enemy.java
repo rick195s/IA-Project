@@ -16,9 +16,9 @@ public abstract class Enemy extends Being {
     @Override
     public boolean isBeingDead(MummyMazeState state) {
         switch (state.getMatrix()[line][column]){
-            case 'V':
-            case 'M':
-            case 'E':
+            case StateRepresentation.WHITEMUMMY:
+            case StateRepresentation.REDMUMMY:
+            case StateRepresentation.SCORPION:
                 return true;
         }
         return false;
