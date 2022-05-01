@@ -5,13 +5,7 @@ O que esta a fazer:
 	consegue apanhar chave para abrir porta;
 	consegue ir para a saida com paredes à volta;
 	
-fazer com que a chave nao desapareça:
-
-	se colocarmos a chave no lado esquerdo do heroi a chave nao aparece no GUI mas a chave continua escondida na matriz (nao sao precisas alteracoes para esta funcionalidade ser possivel);
-	quando o heroi fica em cima da chave vamos mover a chave para o lado esquerdo do heroi;
-	quando o heroi se mexe verificamos se a chave esta imediatamente à sua esquerda, se estiver depois do heroi se mexer a chave é colocada na quadricula onde estava;
-	
-mostrar os enimigs a mexerem-se:
+mostrar os enimigos a mexerem-se:
 
     para vermos os inimigos a mexer a unica coisa que foi preciso fazer foi dar firePuzzleChange ou updateGUI quando o heroi se mexe;
     variavel "moved" adicionada à classe Being porque a GUI so vai ser atualizada se o being se mexer;
