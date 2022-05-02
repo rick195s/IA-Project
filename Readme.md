@@ -1,3 +1,8 @@
+Erros:
+
+    nivel 9, 10 e 11 sem solução;
+    nivel 11 da erro de concorrencia;
+
 O que esta a fazer:
 
 	Atraves da funcao heroInExit() ele consegue perceber quando é que está na saida ou nao (logo percebe se um estado é bom ou mau);
@@ -37,8 +42,6 @@ Matriz Estatica:
 
 
 
-=======
 Heuristicas:
     
     se a mumia for branca move nas laterais e se for vermelha mover para as horizontais
->>>>>>> c456a582433817d9e21601abacb2037898cd01cd
