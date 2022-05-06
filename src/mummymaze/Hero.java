@@ -10,10 +10,8 @@ public class Hero extends Being{
         super.move(number, direction, state);
         // se nao verificarmos se o heroi morreu, o heroi nao morre quando cai numa armadilha
         // (nao sei porque)
-        if (!isBeingDead(state)){
             state.getMatrix()[line][column] = this.symbol;
             updateGUI(state);
-        }
 
     }
 
@@ -23,6 +21,7 @@ public class Hero extends Being{
             case StateRepresentation.WHITEMUMMY:
             case StateRepresentation.REDMUMMY:
             case StateRepresentation.TRAP:
+                System.out.println("encontrou trap");
             case StateRepresentation.SCORPION:
                 return true;
         }

@@ -296,7 +296,7 @@ public class MummyMazeState extends State implements Cloneable {
     public static char[][] convertToMatrix(String string){
         int i=0, j=0;
 
-        char matrix[][] = new char[13][13];
+        char[][] matrix = new char[13][13];
         for (char t :  string.toCharArray()){
             if(t!='\n') {
                 matrix[i][j] = t;

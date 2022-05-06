@@ -57,7 +57,7 @@ public abstract class Being {
 
         // se um "ser" depois de se mexer ficar em cima de um outro "ser"
         // o "ser" sobreposto não é reposto
-        if (matrix[line][column] != StateRepresentation.HERO && matrix[line][column] != StateRepresentation.WHITEMUMMY && matrix[line][column] != StateRepresentation.REDMUMMY ) {
+        if (matrix[line][column] != StateRepresentation.HERO && matrix[line][column] != StateRepresentation.WHITEMUMMY && matrix[line][column] != StateRepresentation.REDMUMMY && matrix[line][column] != StateRepresentation.SCORPION) {
             onTopOf = matrix[line][column];
         }else {
             onTopOf = '.';
