@@ -10,9 +10,9 @@ import java.util.LinkedList;
 public class MummyMazeState extends State implements Cloneable {
 
     public char[][] matrix;
-    Cell exit;
-    Cell door;
-    Cell trap;
+    Cell cellExit;
+    Cell cellDoor;
+    Cell cellTrap;
     private boolean key = false;
 
     int columnHeroShouldBe;
@@ -39,16 +39,16 @@ public class MummyMazeState extends State implements Cloneable {
         }
 
         // if the exit it's in the last line human should be in the line before that
-        lineHeroShouldBe = (exit.getLine() == matrix.length - 1 ? 11 : 1);
-        columnHeroShouldBe = exit.getColumn();
+        lineHeroShouldBe = (cellExit.getLine() == matrix.length - 1 ? 11 : 1);
+        columnHeroShouldBe = cellExit.getColumn();
 
-        if (exit.getColumn() == matrix.length - 1){
+        if (cellExit.getColumn() == matrix.length - 1){
             columnHeroShouldBe = 11;
-            lineHeroShouldBe = exit.getLine();
+            lineHeroShouldBe = cellExit.getLine();
 
         }else if (columnHeroShouldBe == 0){
             columnHeroShouldBe = 1;
-            lineHeroShouldBe = exit.getLine();
+            lineHeroShouldBe = cellExit.getLine();
         }
 
 
@@ -60,7 +60,7 @@ public class MummyMazeState extends State implements Cloneable {
                 hero = new Hero(i, j);
                 break;
             case StateRepresentation.EXIT:
-                exit = new Cell(i, j);
+                cellExit = new Cell(i, j);
                 break;
             case StateRepresentation.WHITEMUMMY:
                 whiteMummy = new WhiteMummy(i,j);
@@ -75,12 +75,12 @@ public class MummyMazeState extends State implements Cloneable {
                 enemies.add(scoprion);
                 break;
             case StateRepresentation.TRAP:
-                trap = new Cell(i,j);
+                cellTrap = new Cell(i,j);
             case StateRepresentation.HORIZONTAL_CLOSE:
             case StateRepresentation.HORIZONTAL_OPEN:
             case StateRepresentation.VERTICAL_CLOSE:
             case StateRepresentation.VERTICAL_OPEN:
-                door = new Cell(i, j);
+                cellDoor = new Cell(i, j);
                 break;
         }
     }
@@ -159,18 +159,18 @@ public class MummyMazeState extends State implements Cloneable {
 
         // se a chave estiver ativa, as portas sao abertas senao sao fechadas
         if (key){
-            if (matrix[door.getLine()][door.getColumn()] == StateRepresentation.HORIZONTAL_CLOSE){
-                matrix[door.getLine()][door.getColumn()] = StateRepresentation.HORIZONTAL_OPEN;
+            if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.HORIZONTAL_CLOSE){
+                matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.HORIZONTAL_OPEN;
             }
-            if (matrix[door.getLine()][door.getColumn()] == StateRepresentation.VERTICAL_CLOSE){
-                matrix[door.getLine()][door.getColumn()] = StateRepresentation.VERTICAL_OPEN;
+            if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.VERTICAL_CLOSE){
+                matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.VERTICAL_OPEN;
             }
         }else{
-            if (matrix[door.getLine()][door.getColumn()] == StateRepresentation.HORIZONTAL_OPEN){
-                matrix[door.getLine()][door.getColumn()] = StateRepresentation.HORIZONTAL_CLOSE;
+            if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.HORIZONTAL_OPEN){
+                matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.HORIZONTAL_CLOSE;
             }
-            if (matrix[door.getLine()][door.getColumn()] == StateRepresentation.VERTICAL_OPEN){
-                matrix[door.getLine()][door.getColumn()] = StateRepresentation.VERTICAL_CLOSE;
+            if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.VERTICAL_OPEN){
+                matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.VERTICAL_CLOSE;
             }
         }
     }
