@@ -59,8 +59,6 @@ public abstract class Being {
         // o "ser" sobreposto não é reposto
         if (matrix[line][column] != StateRepresentation.HERO && matrix[line][column] != StateRepresentation.WHITEMUMMY && matrix[line][column] != StateRepresentation.REDMUMMY && matrix[line][column] != StateRepresentation.SCORPION) {
             onTopOf = matrix[line][column];
-        }else {
-            onTopOf = '.';
         }
 
         if(onTopOf == StateRepresentation.KEY){
