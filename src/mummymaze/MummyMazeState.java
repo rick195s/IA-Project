@@ -187,8 +187,15 @@ public class MummyMazeState extends State implements Cloneable {
 
     public void enemiesMove() {
         // os inimigos têm de se mexer quando o heroi se mexe ou opta por ficar na mesma casa
+        LinkedList<Enemy> enemiesToRemove = new LinkedList<>();
         for (Enemy enemy : enemies) {
             enemy.move(this);
+            if (enemy.isBeingDead(this)){
+                enemiesToRemove.add(enemy);
+            }
+        }
+        for (Enemy enemy : enemiesToRemove) {
+            enemies.remove(enemy);
         }
     }
     public boolean isHeroDead() {
