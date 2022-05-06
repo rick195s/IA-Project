@@ -19,7 +19,6 @@ a mumia nao esta a desaparecer no nivel 1 quando uma mumia fica em cima dela por
 
 o inimigo que se mexer para cima de outro inimigo é que morre
 
-<<<<<<< HEAD
 
 Matriz Nao estatica:
     
@@ -34,9 +33,8 @@ Matriz Estatica:
         Sempre que quisermos comparar um estado vamos à matriz estatica, limpamos a matriz e depois colocamos as entidades na matriz e continuamos os calculos        
         
 
-
-
 Heuristicas:
     
     se a mumia for branca move nas laterais e se for vermelha mover para as horizontais
     Distancia aos inimigos + distancia á saida
+    
