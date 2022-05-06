@@ -39,3 +39,4 @@ Matriz Estatica:
 Heuristicas:
     
     se a mumia for branca move nas laterais e se for vermelha mover para as horizontais
+    Distancia aos inimigos + distancia á saida
