@@ -28,8 +28,7 @@ public abstract class Enemy extends Being {
     public void move(MummyMazeState state) {
 
         for (int i = 0; i < possibleMoves; i++) {
-            int oldLine = line;
-            int oldColumn = column;
+            Cell oldCell = cellBeing.clone();
 
             particularMove(state);
 

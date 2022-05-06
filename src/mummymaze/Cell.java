@@ -24,4 +24,15 @@ public class Cell {
     public void setLine(int line) {
         this.line = line;
     }
+
+    public Cell clone() {
+        return new Cell(this.getLine(), this.getColumn());
+    }
+
+    public boolean equals(Cell cell) {
+        if (cell != null) {
+            return this.getLine() == cell.getLine() && this.getColumn() == cell.getColumn();
+        }
+        return false;
+    }
 }
