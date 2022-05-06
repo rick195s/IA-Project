@@ -95,11 +95,11 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public int getLineHero() {
-        return hero.line;
+        return hero.cellBeing.getLine();
     }
 
     public int getColumnHero() {
-        return hero.column;
+        return hero.cellBeing.getColumn();
     }
 
     public boolean canMoveUp() {
