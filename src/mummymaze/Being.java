@@ -7,7 +7,7 @@ public abstract class Being {
     private char onTopOf;
 
     public Being(int line, int column, char symbol) {
-        cellBeing = new Cell(line, column);
+        cellBeing = new Cell(line, column); 
         this.symbol = symbol;
         moved = false;
         onTopOf = '.';
