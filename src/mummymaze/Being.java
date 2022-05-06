@@ -40,6 +40,7 @@ public abstract class Being {
 
     public void move(int number, String direction, MummyMazeState state) {
         char[][] matrix = state.getMatrix();
+        Cell oldCell = cellBeing.clone();
 
         // se o "ser" quando se mexeu ficou em cima de algum elemento diferente de '.'
         // o elemento é reposto onde estava
@@ -64,6 +65,9 @@ public abstract class Being {
             state.changeDoorState();
         }
 
+        if (!oldCell.equals(cellBeing)) {
+            state.moved = true;
+        }
 
 
     }

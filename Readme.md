@@ -1,6 +1,4 @@
 Erros:
-
-    nivel 9, 10 e 11 sem solução;
     nivel 11 da erro de concorrencia;
 
 O que esta a fazer:

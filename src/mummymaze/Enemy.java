@@ -26,13 +26,12 @@ public abstract class Enemy extends Being {
 
     public void move(MummyMazeState state) {
         for (int i = 0; i < possibleMoves; i++) {
-            Cell oldCell = cellBeing.clone();
 
             particularMove(state);
 
             // so se o inimigo se mexer é que verificamos se ele morreu e se sim fazemos as
             // operacoes necessarias
-            if (oldCell.equals(cellBeing) && isBeingDead(state) ){
+            if (isBeingDead(state) ){
                 state.enemies.remove(this);
                 break;
             }

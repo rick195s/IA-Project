@@ -16,6 +16,7 @@ public class MummyMazeState extends State implements Cloneable {
     Cell cellHeroShouldBe;
     private boolean key = false;
 
+    boolean moved=false;
     Cell cellKey;
     Hero hero;
     public LinkedList<Enemy> enemies;
@@ -195,8 +196,11 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public void changeMatrixCell(Cell cell, char symbol) {
-        matrix[cell.getLine()][cell.getColumn()] = symbol;
-        fireMatrixChanged(null);
+        if (moved){
+            matrix[cell.getLine()][cell.getColumn()] = symbol;
+            fireMatrixChanged(null);
+            moved = false;
+        }
     }
 
     public void changeDoorState() {
