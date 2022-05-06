@@ -7,13 +7,13 @@ public class Scorpion extends Enemy {
 
     @Override
     protected void particularMove(MummyMazeState state) {
-        if(state.getColumnHero() < column){
+        if(state.getColumnHero() < cellBeing.getLine()){
             if (canMoveLeft(state.getMatrix())){
                 move(-2, "column", state);
             }else {
                 moveInLine(state);
             }
-        }else if (state.getColumnHero() > column){
+        }else if (state.getColumnHero() > cellBeing.getColumn()){
             if (canMoveRight(state.getMatrix())){
                 move(2, "column", state);
             }else {
@@ -28,11 +28,11 @@ public class Scorpion extends Enemy {
     private void moveInLine(MummyMazeState state){
         char[][] matrix = state.getMatrix();
 
-        if(state.getLineHero() < line){
+        if(state.getLineHero() < cellBeing.getLine()){
             if (canMoveUp(matrix)){
                 move(-2, "line", state);
             }
-        }else if (state.getLineHero() > line) {
+        }else if (state.getLineHero() > cellBeing.getLine()) {
             if (canMoveDown(matrix)){
                 move(2, "line", state);
             }
