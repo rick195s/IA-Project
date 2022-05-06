@@ -13,10 +13,10 @@ public class MummyMazeState extends State implements Cloneable {
     Cell cellExit;
     Cell cellDoor;
     Cell cellTrap;
+
+    Cell cellHeroShouldBe;
     private boolean key = false;
 
-    int columnHeroShouldBe;
-    int lineHeroShouldBe;
 
     Hero hero;
     WhiteMummy whiteMummy;
@@ -38,17 +38,18 @@ public class MummyMazeState extends State implements Cloneable {
             }
         }
 
+        cellHeroShouldBe = new Cell(0, 0);
         // if the exit it's in the last line human should be in the line before that
-        lineHeroShouldBe = (cellExit.getLine() == matrix.length - 1 ? 11 : 1);
-        columnHeroShouldBe = cellExit.getColumn();
+        cellHeroShouldBe.setLine(cellExit.getLine() == matrix.length - 1 ? 11 : 1);
+        cellHeroShouldBe.setColumn(cellExit.getColumn());
 
         if (cellExit.getColumn() == matrix.length - 1){
-            columnHeroShouldBe = 11;
-            lineHeroShouldBe = cellExit.getLine();
+            cellHeroShouldBe.setColumn(11);
+            cellHeroShouldBe.setLine(cellExit.getLine());
 
-        }else if (columnHeroShouldBe == 0){
-            columnHeroShouldBe = 1;
-            lineHeroShouldBe = cellExit.getLine();
+        }else if (cellHeroShouldBe.getColumn() == 0){
+            cellHeroShouldBe.setColumn(1);
+            cellHeroShouldBe.setLine(cellExit.getLine());
         }
 
 
@@ -234,7 +235,7 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public boolean heroInExit(){
-        return matrix[lineHeroShouldBe][columnHeroShouldBe] == StateRepresentation.HERO ;
+        return cellHeroShouldBe.equals(hero.cellBeing);
     }
 
     @Override
