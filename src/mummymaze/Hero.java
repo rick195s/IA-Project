@@ -20,6 +20,10 @@ public class Hero extends Being{
             }
         }
 
+        if (state.cellTrap != null && state.cellTrap.equals(this.cellBeing)) {
+            return true;
+        }
+
         return false;
     }
 

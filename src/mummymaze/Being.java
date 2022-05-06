@@ -54,11 +54,9 @@ public abstract class Being {
         }
 
         // se um "ser" depois de se mexer ficar em cima de um outro "ser"
-        // o "ser" sobreposto não é reposto
-        if (matrix[cellBeing.getLine()][cellBeing.getColumn()] != StateRepresentation.HERO && matrix[cellBeing.getLine()][cellBeing.getColumn()] != StateRepresentation.WHITEMUMMY && matrix[cellBeing.getLine()][cellBeing.getColumn()] != StateRepresentation.REDMUMMY && matrix[cellBeing.getLine()][cellBeing.getColumn()] != StateRepresentation.SCORPION) {
+        // o "ser" que se mexeu não é reposto
+        if (matrix[cellBeing.getLine()][cellBeing.getColumn()] != StateRepresentation.WHITEMUMMY && matrix[cellBeing.getLine()][cellBeing.getColumn()] != StateRepresentation.REDMUMMY && matrix[cellBeing.getLine()][cellBeing.getColumn()] != StateRepresentation.SCORPION) {
             onTopOf = matrix[cellBeing.getLine()][cellBeing.getColumn()];
-        }else {
-            onTopOf = '.';
         }
 
         if(onTopOf == StateRepresentation.KEY){

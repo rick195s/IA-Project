@@ -20,7 +20,6 @@ public abstract class Enemy extends Being {
                 return true;
             }
         }
-
         return false;
     }
 

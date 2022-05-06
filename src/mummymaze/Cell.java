@@ -30,9 +30,11 @@ public class Cell {
     }
 
     public boolean equals(Cell cell) {
-        if (cell != null) {
-            return this.getLine() == cell.getLine() && this.getColumn() == cell.getColumn();
+        if (cell == null) {
+            return false;
         }
-        return false;
+
+        return this.getLine() == cell.getLine() && this.getColumn() == cell.getColumn();
+
     }
 }

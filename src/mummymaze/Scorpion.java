@@ -7,7 +7,7 @@ public class Scorpion extends Enemy {
 
     @Override
     protected void particularMove(MummyMazeState state) {
-        if(state.getColumnHero() < cellBeing.getLine()){
+        if(state.getColumnHero() < cellBeing.getColumn()){
             if (canMoveLeft(state.getMatrix())){
                 move(-2, "column", state);
             }else {
@@ -38,6 +38,5 @@ public class Scorpion extends Enemy {
             }
         }
     }
-
 
 }
