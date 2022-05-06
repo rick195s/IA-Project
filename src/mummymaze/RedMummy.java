@@ -11,13 +11,13 @@ public class RedMummy extends Enemy {
     @Override
     public void particularMove(MummyMazeState state) {
 
-        if(state.getLineHero() < line){
+        if(state.getLineHero() < cellBeing.getLine()){
             if (canMoveUp(state.getMatrix())){
                 move(-2, "line", state);
             }else {
                 moveInColumn(state);
             }
-        }else if (state.getLineHero() > line){
+        }else if (state.getLineHero() > cellBeing.getLine()){
             if (canMoveDown(state.getMatrix())){
                 move(2, "line", state);
             }else {
@@ -33,11 +33,11 @@ public class RedMummy extends Enemy {
     private void moveInColumn(MummyMazeState state){
         char[][] matrix = state.getMatrix();
 
-        if(state.getColumnHero() < column){
+        if(state.getColumnHero() < cellBeing.getColumn()){
             if (canMoveLeft(matrix)){
                 move(-2, "column", state);
             }
-        }else if (state.getColumnHero() > column) {
+        }else if (state.getColumnHero() > cellBeing.getColumn()) {
             if (canMoveRight(matrix)){
                 move(2, "column", state);
             }
