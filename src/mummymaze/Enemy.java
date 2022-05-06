@@ -35,13 +35,11 @@ public abstract class Enemy extends Being {
             // operacoes necessarias
             if (oldCell.equals(cellBeing) && isBeingDead(state) ){
                 state.enemies.remove(this);
-                updateGUI(state);
                 break;
             }
 
 
             state.changeMatrixCell(this.cellBeing, this.symbol);
-            updateGUI(state);
 
         }
 

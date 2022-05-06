@@ -19,10 +19,6 @@ public class MummyMazeState extends State implements Cloneable {
 
 
     Hero hero;
-    WhiteMummy whiteMummy;
-    RedMummy redMummy;
-    Scorpion scoprion;
-
     public LinkedList<Enemy> enemies;
 
     public MummyMazeState(char[][] matrix) {
@@ -64,16 +60,13 @@ public class MummyMazeState extends State implements Cloneable {
                 cellExit = new Cell(i, j);
                 break;
             case StateRepresentation.WHITEMUMMY:
-                whiteMummy = new WhiteMummy(i,j);
-                enemies.add(whiteMummy);
+                enemies.add(new WhiteMummy(i,j));
                 break;
             case StateRepresentation.REDMUMMY:
-                redMummy = new RedMummy(i,j);
-                enemies.add(redMummy);
+                enemies.add(new RedMummy(i,j));
                 break;
             case StateRepresentation.SCORPION:
-                scoprion = new Scorpion(i,j);
-                enemies.add(scoprion);
+                enemies.add(new Scorpion(i,j));
                 break;
             case StateRepresentation.TRAP:
                 cellTrap = new Cell(i,j);
@@ -156,6 +149,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     public void changeMatrixCell(Cell cell, char symbol) {
         matrix[cell.getLine()][cell.getColumn()] = symbol;
+        fireMatrixChanged(null);
     }
 
     public void changeDoorState() {

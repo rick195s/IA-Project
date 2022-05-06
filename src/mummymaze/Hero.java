@@ -9,7 +9,6 @@ public class Hero extends Being{
     public void move(int number, String direction, MummyMazeState state) {
         super.move(number, direction, state);
         state.changeMatrixCell(this.cellBeing, this.symbol);
-        updateGUI(state);
     }
 
     @Override
