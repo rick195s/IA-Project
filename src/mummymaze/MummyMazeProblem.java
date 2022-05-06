@@ -51,7 +51,6 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
                 MummyMazeState sucessorState = (MummyMazeState) state.clone();
                 sucessorState.executeAction(action);
                 if (!sucessorState.isHeroDead()) {
-                    System.out.println(sucessorState.toString());
                     sucessors.add(sucessorState);
                 }
             }
