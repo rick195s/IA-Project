@@ -16,10 +16,46 @@ public class MummyMazeState extends State implements Cloneable {
     Cell cellHeroShouldBe;
     private boolean key = false;
 
-
+    Cell cellKey;
     Hero hero;
     public LinkedList<Enemy> enemies;
     public LinkedList<Cell> traps;
+
+    public MummyMazeState(MummyMazeState state) {
+        this.matrix = new char[state.matrix.length][state.matrix.length];
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                this.matrix[i][j] = state.matrix[i][j];
+            }
+        }
+        enemies = new LinkedList<>();
+        for (Enemy enemy : state.enemies) {
+            if (enemy instanceof WhiteMummy) {
+                enemies.add(new WhiteMummy(enemy.cellBeing.getLine(), enemy.cellBeing.getColumn()));
+            }
+            if (enemy instanceof RedMummy) {
+                enemies.add(new RedMummy(enemy.cellBeing.getLine(), enemy.cellBeing.getColumn()));
+            }
+            if (enemy instanceof Scorpion) {
+                enemies.add(new Scorpion(enemy.cellBeing.getLine(), enemy.cellBeing.getColumn()));
+            }
+        }
+
+        this.traps = new LinkedList<>(state.traps);
+        this.cellExit = state.cellExit.clone();
+
+        if (state.cellDoor != null)
+            this.cellDoor = state.cellDoor.clone();
+
+        if (state.cellKey != null){
+            this.cellKey = state.cellKey.clone();
+            this.key = state.key;
+        }
+
+        this.cellHeroShouldBe = state.cellHeroShouldBe.clone();
+        this.hero = new Hero(state.hero.cellBeing.getLine(), state.hero.cellBeing.getColumn());
+    }
 
     public MummyMazeState(char[][] matrix) {
 
@@ -71,6 +107,10 @@ public class MummyMazeState extends State implements Cloneable {
                 break;
             case StateRepresentation.TRAP:
                 traps.add(new Cell(i,j));
+                break;
+            case StateRepresentation.KEY:
+                cellKey = new Cell(i,j);
+                break;
             case StateRepresentation.HORIZONTAL_CLOSE:
             case StateRepresentation.HORIZONTAL_OPEN:
             case StateRepresentation.VERTICAL_CLOSE:
@@ -136,6 +176,12 @@ public class MummyMazeState extends State implements Cloneable {
     public void move(int number , String direction){
         hero.move(number, direction, this);
         enemiesMove();
+        for (Cell trap : traps) {
+            matrix[trap.getLine()][trap.getColumn()] = StateRepresentation.TRAP;
+        }
+        if(cellKey != null){
+            matrix[cellKey.getLine()][cellKey.getColumn()] = StateRepresentation.KEY;
+        }
     }
 
     public void enemiesMove() {
@@ -265,7 +311,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     @Override
     public Object clone() {
-        return new MummyMazeState(matrix);
+        return new MummyMazeState(this);
     }
     //Listeners
 

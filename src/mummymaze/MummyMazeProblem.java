@@ -65,8 +65,6 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
         // o state é igual ao finalState
         // neste caso é nos dito que o finalState é o GOAL_MATRIX que está dentro
         // do objeto state
-        if (state.heroInExit())
-            System.out.println(state.toString());
         return state.heroInExit();
     }
 

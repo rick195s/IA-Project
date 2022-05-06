@@ -25,7 +25,6 @@ public abstract class Enemy extends Being {
 
 
     public void move(MummyMazeState state) {
-
         for (int i = 0; i < possibleMoves; i++) {
             Cell oldCell = cellBeing.clone();
 
@@ -38,12 +37,8 @@ public abstract class Enemy extends Being {
                 break;
             }
 
-
             state.changeMatrixCell(this.cellBeing, this.symbol);
-
         }
-
-
     }
 
     // cada inimigo mexe-se de forma diferente por isso cada um é que implementa este metodo
