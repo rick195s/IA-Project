@@ -153,6 +153,9 @@ public class MummyMazeState extends State implements Cloneable {
         return hero.isBeingDead(this);
     }
 
+    public void changeMatrixCell(Cell cell, char symbol) {
+        matrix[cell.getLine()][cell.getColumn()] = symbol;
+    }
 
     public void changeDoorState() {
         key = !key;

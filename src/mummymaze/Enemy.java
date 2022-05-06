@@ -15,12 +15,12 @@ public abstract class Enemy extends Being {
 
     @Override
     public boolean isBeingDead(MummyMazeState state) {
-        switch (state.getMatrix()[line][column]){
-            case StateRepresentation.WHITEMUMMY:
-            case StateRepresentation.REDMUMMY:
-            case StateRepresentation.SCORPION:
+        for (Enemy enemy : state.enemies) {
+            if (this != enemy && this.cellBeing.equals(enemy.cellBeing)) {
                 return true;
+            }
         }
+
         return false;
     }
 
@@ -34,13 +34,14 @@ public abstract class Enemy extends Being {
 
             // so se o inimigo se mexer é que verificamos se ele morreu e se sim fazemos as
             // operacoes necessarias
-            if ((oldLine != line || oldColumn != column) && isBeingDead(state) ){
+            if (oldCell.equals(cellBeing) && isBeingDead(state) ){
                 state.enemies.remove(this);
                 updateGUI(state);
                 break;
             }
 
-            state.getMatrix()[line][column] = this.symbol;
+
+            state.changeMatrixCell(this.cellBeing, this.symbol);
             updateGUI(state);
 
         }
