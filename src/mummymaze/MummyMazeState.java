@@ -11,8 +11,8 @@ public class MummyMazeState extends State implements Cloneable {
 
     public char[][] matrix;
     Cell exit;
-    private int lineDoor;
-    private int columnDoor;
+    Cell door;
+    Cell trap;
     private boolean key = false;
 
     int columnHeroShouldBe;
@@ -74,12 +74,13 @@ public class MummyMazeState extends State implements Cloneable {
                 scoprion = new Scorpion(i,j);
                 enemies.add(scoprion);
                 break;
+            case StateRepresentation.TRAP:
+                trap = new Cell(i,j);
             case StateRepresentation.HORIZONTAL_CLOSE:
             case StateRepresentation.HORIZONTAL_OPEN:
             case StateRepresentation.VERTICAL_CLOSE:
             case StateRepresentation.VERTICAL_OPEN:
-                lineDoor = i;
-                columnDoor = j;
+                door = new Cell(i, j);
                 break;
         }
     }
@@ -158,18 +159,18 @@ public class MummyMazeState extends State implements Cloneable {
 
         // se a chave estiver ativa, as portas sao abertas senao sao fechadas
         if (key){
-            if (matrix[lineDoor][columnDoor] == StateRepresentation.HORIZONTAL_CLOSE){
-                matrix[lineDoor][columnDoor] = StateRepresentation.HORIZONTAL_OPEN;
+            if (matrix[door.getLine()][door.getColumn()] == StateRepresentation.HORIZONTAL_CLOSE){
+                matrix[door.getLine()][door.getColumn()] = StateRepresentation.HORIZONTAL_OPEN;
             }
-            if (matrix[lineDoor][columnDoor] == StateRepresentation.VERTICAL_CLOSE){
-                matrix[lineDoor][columnDoor] = StateRepresentation.VERTICAL_OPEN;
+            if (matrix[door.getLine()][door.getColumn()] == StateRepresentation.VERTICAL_CLOSE){
+                matrix[door.getLine()][door.getColumn()] = StateRepresentation.VERTICAL_OPEN;
             }
         }else{
-            if (matrix[lineDoor][columnDoor] == StateRepresentation.HORIZONTAL_OPEN){
-                matrix[lineDoor][columnDoor] = StateRepresentation.HORIZONTAL_CLOSE;
+            if (matrix[door.getLine()][door.getColumn()] == StateRepresentation.HORIZONTAL_OPEN){
+                matrix[door.getLine()][door.getColumn()] = StateRepresentation.HORIZONTAL_CLOSE;
             }
-            if (matrix[lineDoor][columnDoor] == StateRepresentation.VERTICAL_OPEN){
-                matrix[lineDoor][columnDoor] = StateRepresentation.VERTICAL_CLOSE;
+            if (matrix[door.getLine()][door.getColumn()] == StateRepresentation.VERTICAL_OPEN){
+                matrix[door.getLine()][door.getColumn()] = StateRepresentation.VERTICAL_CLOSE;
             }
         }
     }
