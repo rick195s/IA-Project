@@ -10,8 +10,7 @@ import java.util.LinkedList;
 public class MummyMazeState extends State implements Cloneable {
 
     public char[][] matrix;
-    private int lineExit;
-    private int columnExit;
+    Cell exit;
     private int lineDoor;
     private int columnDoor;
     private boolean key = false;
@@ -40,16 +39,16 @@ public class MummyMazeState extends State implements Cloneable {
         }
 
         // if the exit it's in the last line human should be in the line before that
-        lineHeroShouldBe = (lineExit == matrix.length - 1 ? 11 : 1);
-        columnHeroShouldBe = columnExit;
+        lineHeroShouldBe = (exit.getLine() == matrix.length - 1 ? 11 : 1);
+        columnHeroShouldBe = exit.getColumn();
 
-        if (columnExit == matrix.length - 1){
+        if (exit.getColumn() == matrix.length - 1){
             columnHeroShouldBe = 11;
-            lineHeroShouldBe = lineExit;
+            lineHeroShouldBe = exit.getLine();
 
         }else if (columnHeroShouldBe == 0){
             columnHeroShouldBe = 1;
-            lineHeroShouldBe = lineExit;
+            lineHeroShouldBe = exit.getLine();
         }
 
 
@@ -61,8 +60,7 @@ public class MummyMazeState extends State implements Cloneable {
                 hero = new Hero(i, j);
                 break;
             case StateRepresentation.EXIT:
-                lineExit = i;
-                columnExit = j;
+                exit = new Cell(i, j);
                 break;
             case StateRepresentation.WHITEMUMMY:
                 whiteMummy = new WhiteMummy(i,j);
