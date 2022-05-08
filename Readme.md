@@ -1,5 +1,3 @@
-Erros:
-    nivel 11 da erro de concorrencia;
 
 O que esta a fazer:
 
