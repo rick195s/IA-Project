@@ -1,6 +1,5 @@
 package mummymaze;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public abstract class Being {

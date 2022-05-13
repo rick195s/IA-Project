@@ -5,7 +5,6 @@ import agent.State;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class MummyMazeState extends State implements Cloneable {
