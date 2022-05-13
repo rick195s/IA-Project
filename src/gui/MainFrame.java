@@ -202,6 +202,7 @@ public class MainFrame extends JFrame {
         buttonShowSolution.setEnabled(false);
         buttonStop.setEnabled(false);
         buttonSolve.setEnabled(false);
+        buttonReset.setEnabled(true);
         SwingWorker worker = new SwingWorker<Void, Void>() {
             @Override
             public Void doInBackground() {

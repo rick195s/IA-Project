@@ -1,3 +1,4 @@
+
 O que esta a fazer:
 
 	Atraves da funcao heroInExit() ele consegue perceber quando é que está na saida ou nao (logo percebe se um estado é bom ou mau);
