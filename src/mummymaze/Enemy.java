@@ -24,13 +24,18 @@ public abstract class Enemy extends Being {
     }
 
 
+    // antes de se mexer um inimigo vê se ainda está vivo,
+    // e se sim, mexe-se, se não, não se mexe e sai da lista de inimigos
     public void move(MummyMazeState state) {
         for (int i = 0; i < possibleMoves; i++) {
-
-            particularMove(state);
-            state.changeMatrixCell(this.cellBeing, this.symbol);
+            if (!isBeingDead(state)) {
+                particularMove(state);
+            }else {
+                state.enemies.remove(this);
+            }
         }
     }
+
 
     // cada inimigo mexe-se de forma diferente por isso cada um é que implementa este metodo
     protected abstract void particularMove(MummyMazeState state);

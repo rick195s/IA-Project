@@ -191,9 +191,6 @@ public class MummyMazeState extends State implements Cloneable {
 
         for (Enemy enemy : auxEnemies) {
             enemy.move(this);
-            if (enemy.isBeingDead(this)){
-                enemies.remove(enemy);
-            }
         }
     }
     public boolean isHeroDead() {

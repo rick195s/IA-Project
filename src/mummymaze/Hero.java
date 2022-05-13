@@ -5,11 +5,6 @@ public class Hero extends Being{
         super(line, column, StateRepresentation.HERO);
     }
 
-    @Override
-    public void move(int number, String direction, MummyMazeState state) {
-        super.move(number, direction, state);
-        state.changeMatrixCell(this.cellBeing, this.symbol);
-    }
 
     @Override
     public boolean isBeingDead(MummyMazeState state) {
