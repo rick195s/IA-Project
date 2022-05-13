@@ -24,14 +24,12 @@ public abstract class Enemy extends Being {
     }
 
 
-    // antes de se mexer um inimigo vê se ainda está vivo,
-    // e se sim, mexe-se, se não, não se mexe e sai da lista de inimigos
+    // antes de um inimigo se mexer ele verifica se ainda está vivo
+    // (ve se ainda está na lista de inimigos)
     public void move(MummyMazeState state) {
         for (int i = 0; i < possibleMoves; i++) {
-            if (!isBeingDead(state)) {
+            if (state.enemies.contains(this)) {
                 particularMove(state);
-            }else {
-                state.enemies.remove(this);
             }
         }
     }

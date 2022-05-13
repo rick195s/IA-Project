@@ -1,5 +1,7 @@
 package mummymaze;
 
+import java.util.LinkedList;
+
 public abstract class Being {
     Cell cellBeing;
     protected char symbol;
@@ -59,9 +61,12 @@ public abstract class Being {
         // se um "inimigo" depois de se mexer ficar em cima de um outro "inimigo"
         // o "inimigo" que se mexeu mata o outro
         boolean onTopOfBeing = false;
-        for (Enemy enemy : state.enemies) {
-            if (this != enemy && cellBeing.equals(enemy.cellBeing)){
+        LinkedList<Enemy> auxEnemies = new LinkedList<> (state.enemies);
+
+        for (Enemy enemy : auxEnemies) {
+            if (this != enemy && this != state.hero && cellBeing.equals(enemy.cellBeing)){
                onTopOfBeing = true;
+               state.enemies.remove(enemy);
             }
         }
 
