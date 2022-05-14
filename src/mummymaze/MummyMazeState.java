@@ -176,13 +176,14 @@ public class MummyMazeState extends State implements Cloneable {
     // funcao usada para mover o heroi
     public void move(int number , String direction){
         hero.move(number, direction, this);
-        enemiesMove();
         for (Cell trap : traps) {
             matrix[trap.getLine()][trap.getColumn()] = StateRepresentation.TRAP;
         }
         if(cellKey != null){
             matrix[cellKey.getLine()][cellKey.getColumn()] = StateRepresentation.KEY;
         }
+        enemiesMove();
+
     }
 
     public void enemiesMove() {
