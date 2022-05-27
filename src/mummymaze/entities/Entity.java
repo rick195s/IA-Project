@@ -84,8 +84,7 @@ public abstract class Entity {
         }
 
         if (!oldCell.equals(cellBeing)){
-            state.moved = true;
-            state.changeMatrixCell(this.cellBeing, this.symbol);
+            state.changeMatrixCell(this.cellBeing, this.symbol, true);
         }
     }
 

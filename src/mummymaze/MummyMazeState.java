@@ -21,7 +21,6 @@ public class MummyMazeState extends State implements Cloneable {
     Cell cellHeroShouldBe;
     private boolean key = false;
 
-    public boolean moved=false;
     Cell cellKey;
     public Hero hero;
     public LinkedList<Enemy> enemies;
@@ -182,10 +181,10 @@ public class MummyMazeState extends State implements Cloneable {
     public void move(int number , String direction){
         hero.move(number, direction, this);
         for (Cell trap : traps) {
-            matrix[trap.getLine()][trap.getColumn()] = StateRepresentation.TRAP;
+            changeMatrixCell(trap, StateRepresentation.TRAP, false);
         }
         if(cellKey != null){
-            matrix[cellKey.getLine()][cellKey.getColumn()] = StateRepresentation.KEY;
+            changeMatrixCell(cellKey, StateRepresentation.KEY, false);
         }
         enemiesMove();
 
@@ -203,11 +202,10 @@ public class MummyMazeState extends State implements Cloneable {
         return hero.isBeingDead(this);
     }
 
-    public void changeMatrixCell(Cell cell, char symbol) {
-        if (moved){
-            matrix[cell.getLine()][cell.getColumn()] = symbol;
+    public void changeMatrixCell(Cell cell, char symbol, boolean updateGUI) {
+        matrix[cell.getLine()][cell.getColumn()] = symbol;
+        if (updateGUI){
             fireMatrixChanged(null);
-            moved = false;
         }
     }
 
@@ -217,21 +215,21 @@ public class MummyMazeState extends State implements Cloneable {
         // se a chave estiver ativa, as portas sao abertas senao sao fechadas
         if (key) {
             if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.HORIZONTAL_CLOSE) {
-                matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.HORIZONTAL_OPEN;
+                changeMatrixCell(cellDoor, StateRepresentation.HORIZONTAL_OPEN, false);
                 return;
             }
             if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.VERTICAL_CLOSE) {
-                matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.VERTICAL_OPEN;
+                changeMatrixCell(cellDoor, StateRepresentation.VERTICAL_OPEN, false);
                 return;
             }
         }
 
         if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.HORIZONTAL_OPEN){
-            matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.HORIZONTAL_CLOSE;
+            changeMatrixCell(cellDoor, StateRepresentation.HORIZONTAL_CLOSE, false);
             return;
         }
         if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.VERTICAL_OPEN){
-            matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.VERTICAL_CLOSE;
+            changeMatrixCell(cellDoor, StateRepresentation.VERTICAL_CLOSE, false);
             return;
         }
     }
