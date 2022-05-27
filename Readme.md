@@ -24,5 +24,7 @@ Heuristicas:
 	inimigos têm parede no mesmo sitio que a saida;
 	menor numero de inimigos possiveis;
     manhathan distance;
+    
+    Atraves da funcao heorInExit conseguimos criar outra heuristica
 
     

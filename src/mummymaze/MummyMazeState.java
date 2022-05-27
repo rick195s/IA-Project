@@ -208,8 +208,8 @@ public class MummyMazeState extends State implements Cloneable {
         }
     }
 
-    public boolean isMatrixCellEquals(Cell cell, char symbol) {
-        return matrix[cell.getLine()][cell.getColumn()] == symbol;
+    public boolean isMatrixCellEquals(int line, int column, char symbol) {
+        return matrix[line][column] == symbol;
     }
 
     public void changeDoorState() {
@@ -217,21 +217,21 @@ public class MummyMazeState extends State implements Cloneable {
 
         // se a chave estiver ativa, as portas sao abertas senao sao fechadas
         if (key) {
-            if (isMatrixCellEquals(cellDoor,  StateRepresentation.HORIZONTAL_CLOSE)) {
+            if (isMatrixCellEquals(cellDoor.getLine(), cellDoor.getColumn(),  StateRepresentation.HORIZONTAL_CLOSE)) {
                 changeMatrixCell(cellDoor, StateRepresentation.HORIZONTAL_OPEN, false);
                 return;
             }
-            if (isMatrixCellEquals(cellDoor,  StateRepresentation.VERTICAL_CLOSE)) {
+            if (isMatrixCellEquals(cellDoor.getLine(), cellDoor.getColumn(),  StateRepresentation.VERTICAL_CLOSE)) {
                 changeMatrixCell(cellDoor, StateRepresentation.VERTICAL_OPEN, false);
                 return;
             }
         }
 
-        if (isMatrixCellEquals(cellDoor,  StateRepresentation.HORIZONTAL_OPEN)){
+        if (isMatrixCellEquals(cellDoor.getLine(), cellDoor.getColumn(),  StateRepresentation.HORIZONTAL_OPEN)){
             changeMatrixCell(cellDoor, StateRepresentation.HORIZONTAL_CLOSE, false);
             return;
         }
-        if (isMatrixCellEquals(cellDoor,  StateRepresentation.VERTICAL_OPEN)){
+        if (isMatrixCellEquals(cellDoor.getLine(), cellDoor.getColumn(),  StateRepresentation.VERTICAL_OPEN)){
             changeMatrixCell(cellDoor, StateRepresentation.VERTICAL_CLOSE, false);
             return;
         }
