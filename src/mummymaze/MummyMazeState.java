@@ -215,20 +215,24 @@ public class MummyMazeState extends State implements Cloneable {
         key = !key;
 
         // se a chave estiver ativa, as portas sao abertas senao sao fechadas
-        if (key){
-            if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.HORIZONTAL_CLOSE){
+        if (key) {
+            if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.HORIZONTAL_CLOSE) {
                 matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.HORIZONTAL_OPEN;
+                return;
             }
-            if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.VERTICAL_CLOSE){
+            if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.VERTICAL_CLOSE) {
                 matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.VERTICAL_OPEN;
+                return;
             }
-        }else{
-            if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.HORIZONTAL_OPEN){
-                matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.HORIZONTAL_CLOSE;
-            }
-            if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.VERTICAL_OPEN){
-                matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.VERTICAL_CLOSE;
-            }
+        }
+
+        if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.HORIZONTAL_OPEN){
+            matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.HORIZONTAL_CLOSE;
+            return;
+        }
+        if (matrix[cellDoor.getLine()][cellDoor.getColumn()] == StateRepresentation.VERTICAL_OPEN){
+            matrix[cellDoor.getLine()][cellDoor.getColumn()] = StateRepresentation.VERTICAL_CLOSE;
+            return;
         }
     }
 
