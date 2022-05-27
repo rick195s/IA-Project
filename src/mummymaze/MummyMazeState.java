@@ -234,8 +234,8 @@ public class MummyMazeState extends State implements Cloneable {
         }
     }
 
-    //HEURISTICAS
 
+    //region Heuristicas
     public double computeTilesOutOfPlace() {
 
         //TODO
@@ -316,7 +316,7 @@ public class MummyMazeState extends State implements Cloneable {
         return numWallsNearHero;
     }
 
-    // END HEURISTICAS
+    //endregion
 
     public boolean heroInExit(){
         return cellHeroShouldBe.equals(hero.cellBeing);
