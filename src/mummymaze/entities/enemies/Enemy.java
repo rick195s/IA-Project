@@ -1,6 +1,10 @@
-package mummymaze;
+package mummymaze.entities.enemies;
 
-public abstract class Enemy extends Being {
+import mummymaze.MummyMazeState;
+import mummymaze.entities.Entity;
+import mummymaze.Cell;
+
+public abstract class Enemy extends Entity {
 
     // existem inimigos que mexem-se menos vezes que outros (ex: escorpiao)
     private int possibleMoves;

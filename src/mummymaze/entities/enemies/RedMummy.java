@@ -1,6 +1,7 @@
-package mummymaze;
+package mummymaze.entities.enemies;
 
-import agent.State;
+import mummymaze.MummyMazeState;
+import mummymaze.StateRepresentation;
 
 public class RedMummy extends Enemy {
     public RedMummy(int line, int column) {

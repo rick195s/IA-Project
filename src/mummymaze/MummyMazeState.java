@@ -2,6 +2,11 @@ package mummymaze;
 
 import agent.Action;
 import agent.State;
+import mummymaze.entities.Hero;
+import mummymaze.entities.enemies.Enemy;
+import mummymaze.entities.enemies.RedMummy;
+import mummymaze.entities.enemies.Scorpion;
+import mummymaze.entities.enemies.WhiteMummy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,9 +21,9 @@ public class MummyMazeState extends State implements Cloneable {
     Cell cellHeroShouldBe;
     private boolean key = false;
 
-    boolean moved=false;
+    public boolean moved=false;
     Cell cellKey;
-    Hero hero;
+    public Hero hero;
     public LinkedList<Enemy> enemies;
     public LinkedList<Cell> traps;
 

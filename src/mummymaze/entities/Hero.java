@@ -1,6 +1,11 @@
-package mummymaze;
+package mummymaze.entities;
 
-public class Hero extends Being{
+import mummymaze.Cell;
+import mummymaze.entities.enemies.Enemy;
+import mummymaze.MummyMazeState;
+import mummymaze.StateRepresentation;
+
+public class Hero extends Entity {
     public Hero(int line, int column) {
         super(line, column, StateRepresentation.HERO);
     }

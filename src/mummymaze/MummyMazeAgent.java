@@ -1,6 +1,9 @@
 package mummymaze;
 
 import agent.Agent;
+import mummymaze.heuristics.HeuristicNumeroOfWalls;
+import mummymaze.heuristics.HeuristicTileDistance;
+import mummymaze.heuristics.HeuristicTilesOutOfPlace;
 
 import java.io.File;
 import java.io.IOException;

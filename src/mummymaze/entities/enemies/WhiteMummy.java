@@ -1,8 +1,11 @@
-package mummymaze;
+package mummymaze.entities.enemies;
 
-public class Scorpion extends Enemy {
-    public Scorpion(int line, int column) {
-        super(line, column, StateRepresentation.SCORPION, 1);
+import mummymaze.MummyMazeState;
+import mummymaze.StateRepresentation;
+
+public class WhiteMummy extends Enemy {
+    public WhiteMummy(int line, int column) {
+        super(line, column, StateRepresentation.WHITEMUMMY, 2);
     }
 
     @Override
@@ -38,5 +41,4 @@ public class Scorpion extends Enemy {
             }
         }
     }
-
 }

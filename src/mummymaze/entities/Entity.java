@@ -1,13 +1,18 @@
-package mummymaze;
+package mummymaze.entities;
+
+import mummymaze.Cell;
+import mummymaze.entities.enemies.Enemy;
+import mummymaze.MummyMazeState;
+import mummymaze.StateRepresentation;
 
 import java.util.LinkedList;
 
-public abstract class Being {
-    Cell cellBeing;
-    protected char symbol;
+public abstract class Entity {
+    public Cell cellBeing;
+    public char symbol;
     private char onTopOf;
 
-    public Being(int line, int column, char symbol) {
+    public Entity(int line, int column, char symbol) {
         cellBeing = new Cell(line, column);
         this.symbol = symbol;
         onTopOf = '.';
