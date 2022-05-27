@@ -1,9 +1,7 @@
 package mummymaze;
 
 import agent.Agent;
-import mummymaze.heuristics.HeuristicNumeroOfWalls;
-import mummymaze.heuristics.HeuristicTileDistance;
-import mummymaze.heuristics.HeuristicTilesOutOfPlace;
+import mummymaze.heuristics.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +16,8 @@ public class MummyMazeAgent extends Agent<MummyMazeState>{
         heuristics.add(new HeuristicTileDistance());
         heuristics.add(new HeuristicTilesOutOfPlace());
         heuristics.add(new HeuristicNumeroOfWalls());
+        heuristics.add(new HeuristicNumeroOfWallsAllEnemies());
+        heuristics.add(new HeuristicNumerOfWallsHero());
         heuristic = heuristics.get(0);
     }
             

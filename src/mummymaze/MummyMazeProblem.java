@@ -24,11 +24,11 @@ public class MummyMazeProblem extends Problem<MummyMazeState> {
 
     public MummyMazeProblem(MummyMazeState initialState) {
         super(initialState, new ArrayList<>(4));
-        super.actions.add(new ActionUp());
-        super.actions.add(new ActionRight());
-        super.actions.add(new ActionDown());
-        super.actions.add(new ActionLeft());
-        super.actions.add(new ActionDontMove());
+        super.actions.add(new mummymaze.ActionUp());
+        super.actions.add(new mummymaze.ActionRight());
+        super.actions.add(new mummymaze.ActionDown());
+        super.actions.add(new mummymaze.ActionLeft());
+        super.actions.add(new mummymaze.ActionDontMove());
 
     }
 
