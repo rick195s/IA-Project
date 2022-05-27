@@ -12,13 +12,13 @@ public class Scorpion extends Enemy {
     protected void particularMove(MummyMazeState state) {
         if(state.getColumnHero() < cellBeing.getColumn()){
             if (canMoveLeft(state.getMatrix())){
-                move(-2, "column", state);
+                move(-2, StateRepresentation.COLUMN, state);
             }else {
                 moveInLine(state);
             }
         }else if (state.getColumnHero() > cellBeing.getColumn()){
             if (canMoveRight(state.getMatrix())){
-                move(2, "column", state);
+                move(2, StateRepresentation.COLUMN, state);
             }else {
                 moveInLine(state);
             }
@@ -33,11 +33,11 @@ public class Scorpion extends Enemy {
 
         if(state.getLineHero() < cellBeing.getLine()){
             if (canMoveUp(matrix)){
-                move(-2, "line", state);
+                move(-2, StateRepresentation.LINE, state);
             }
         }else if (state.getLineHero() > cellBeing.getLine()) {
             if (canMoveDown(matrix)){
-                move(2, "line", state);
+                move(2, StateRepresentation.LINE, state);
             }
         }
     }

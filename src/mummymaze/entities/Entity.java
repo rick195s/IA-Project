@@ -57,9 +57,9 @@ public abstract class Entity {
         // o elemento é reposto onde estava
         matrix[cellBeing.getLine()][cellBeing.getColumn()] = onTopOf;
 
-        if (direction.equals("column")){
+        if (direction.equals(StateRepresentation.COLUMN)){
             cellBeing.setColumn(cellBeing.getColumn() + number);
-        }else if (direction.equals("line")){
+        }else if (direction.equals(StateRepresentation.LINE)){
             cellBeing.setLine(cellBeing.getLine() + number);
         }
 

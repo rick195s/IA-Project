@@ -163,19 +163,19 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public void moveUp() {
-        move(-2, "line");
+        move(-2, StateRepresentation.LINE);
     }
 
     public void moveRight() {
-        move(2, "column");
+        move(2, StateRepresentation.COLUMN);
     }
 
     public void moveDown() {
-        move(2, "line");
+        move(2, StateRepresentation.LINE);
     }
 
     public void moveLeft() {
-        move(-2, "column");
+        move(-2, StateRepresentation.COLUMN);
     }
 
     // funcao usada para mover o heroi

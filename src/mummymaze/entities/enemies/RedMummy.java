@@ -14,13 +14,13 @@ public class RedMummy extends Enemy {
 
         if(state.getLineHero() < cellBeing.getLine()){
             if (canMoveUp(state.getMatrix())){
-                move(-2, "line", state);
+                move(-2, StateRepresentation.LINE, state);
             }else {
                 moveInColumn(state);
             }
         }else if (state.getLineHero() > cellBeing.getLine()){
             if (canMoveDown(state.getMatrix())){
-                move(2, "line", state);
+                move(2, StateRepresentation.LINE, state);
             }else {
                 moveInColumn(state);
             }
@@ -36,11 +36,11 @@ public class RedMummy extends Enemy {
 
         if(state.getColumnHero() < cellBeing.getColumn()){
             if (canMoveLeft(matrix)){
-                move(-2, "column", state);
+                move(-2, StateRepresentation.COLUMN, state);
             }
         }else if (state.getColumnHero() > cellBeing.getColumn()) {
             if (canMoveRight(matrix)){
-                move(2, "column", state);
+                move(2, StateRepresentation.COLUMN, state);
             }
         }
     }

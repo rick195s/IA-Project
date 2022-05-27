@@ -15,4 +15,6 @@ public final class StateRepresentation {
     public static final char HORIZONTAL_WALL = '|';
     public static final char VERTICAL_WALL = '-';
     public static final char EMPTY = '.';
+    public static final String LINE = "line";
+    public static final String COLUMN = "column";
 }
