@@ -234,6 +234,7 @@ public class MummyMazeState extends State implements Cloneable {
         }
     }
 
+    //HEURISTICAS
 
     public double computeTilesOutOfPlace() {
 
@@ -288,6 +289,34 @@ public class MummyMazeState extends State implements Cloneable {
         // sum of manhattan distance between the piece place and the place it should be
         return tileDistance;
     }
+
+    public double getNumberOfWallAllEnemies(){
+        int numWallsNearEnemy = 0;
+        for (Enemy enemy : enemies){
+            if ((matrix[enemy.cellBeing.getLine()][enemy.cellBeing.getColumn()-1] == StateRepresentation.HORIZONTAL_WALL ||
+                matrix[enemy.cellBeing.getLine()][enemy.cellBeing.getColumn()+1] == StateRepresentation.HORIZONTAL_WALL) ||
+                (matrix[enemy.cellBeing.getLine()-1][enemy.cellBeing.getColumn()] == StateRepresentation.VERTICAL_WALL ||
+                matrix[enemy.cellBeing.getLine()+1][enemy.cellBeing.getColumn()] == StateRepresentation.VERTICAL_WALL )) {
+
+                numWallsNearEnemy++;
+            }
+        }
+        return numWallsNearEnemy;
+    }
+
+
+    public double getNumberOfWallsHero(){
+        int numWallsNearHero = 0;
+            if ((matrix[hero.cellBeing.getLine()][hero.cellBeing.getColumn()-1] == StateRepresentation.HORIZONTAL_WALL ||
+                matrix[hero.cellBeing.getLine()][hero.cellBeing.getColumn()+1] == StateRepresentation.HORIZONTAL_WALL) ||
+               (matrix[hero.cellBeing.getLine()-1][hero.cellBeing.getColumn()] == StateRepresentation.VERTICAL_WALL ||
+                matrix[hero.cellBeing.getLine()+1][hero.cellBeing.getColumn()] == StateRepresentation.VERTICAL_WALL )) {
+                numWallsNearHero++;
+            }
+        return numWallsNearHero;
+    }
+
+    // END HEURISTICAS
 
     public boolean heroInExit(){
         return cellHeroShouldBe.equals(hero.cellBeing);
