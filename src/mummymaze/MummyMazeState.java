@@ -55,7 +55,7 @@ public class MummyMazeState extends State implements Cloneable {
         if (state.cellDoor != null)
             this.cellDoor = state.cellDoor.clone();
 
-        if (state.cellKey != null){
+        if (state.cellKey != null) {
             this.cellKey = state.cellKey.clone();
             this.key = state.key;
         }
@@ -74,7 +74,7 @@ public class MummyMazeState extends State implements Cloneable {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 this.matrix[i][j] = matrix[i][j];
-                findEnteties( i, j);
+                findEnteties(i, j);
             }
         }
 
@@ -83,11 +83,11 @@ public class MummyMazeState extends State implements Cloneable {
         cellHeroShouldBe.setLine(cellExit.getLine() == matrix.length - 1 ? 11 : 1);
         cellHeroShouldBe.setColumn(cellExit.getColumn());
 
-        if (cellExit.getColumn() == matrix.length - 1){
+        if (cellExit.getColumn() == matrix.length - 1) {
             cellHeroShouldBe.setColumn(11);
             cellHeroShouldBe.setLine(cellExit.getLine());
 
-        }else if (cellHeroShouldBe.getColumn() == 0){
+        } else if (cellHeroShouldBe.getColumn() == 0) {
             cellHeroShouldBe.setColumn(1);
             cellHeroShouldBe.setLine(cellExit.getLine());
         }
@@ -104,19 +104,19 @@ public class MummyMazeState extends State implements Cloneable {
                 cellExit = new Cell(i, j);
                 break;
             case WHITEMUMMY:
-                enemies.add(new WhiteMummy(i,j));
+                enemies.add(new WhiteMummy(i, j));
                 break;
             case REDMUMMY:
-                enemies.add(new RedMummy(i,j));
+                enemies.add(new RedMummy(i, j));
                 break;
             case SCORPION:
-                enemies.add(new Scorpion(i,j));
+                enemies.add(new Scorpion(i, j));
                 break;
             case TRAP:
-                traps.add(new Cell(i,j));
+                traps.add(new Cell(i, j));
                 break;
             case KEY:
-                cellKey = new Cell(i,j);
+                cellKey = new Cell(i, j);
                 break;
             case HORIZONTAL_CLOSE:
             case HORIZONTAL_OPEN:
@@ -148,9 +148,7 @@ public class MummyMazeState extends State implements Cloneable {
     public boolean canMoveRight() {
         return hero.canMoveRight(this);
     }
-    public boolean canMoveDown() {
-        return hero.canMoveDown(this);
-    }
+    public boolean canMoveDown() {return hero.canMoveDown(this);}
     public boolean canMoveLeft() {
         return hero.canMoveLeft(this);
     }
@@ -177,12 +175,12 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     // funcao usada para mover o heroi
-    public void move(int number , String direction){
+    public void move(int number, String direction) {
         hero.move(number, direction, this);
         for (Cell trap : traps) {
             changeMatrixCell(trap, TRAP, false);
         }
-        if(cellKey != null){
+        if (cellKey != null) {
             changeMatrixCell(cellKey, KEY, false);
         }
         enemiesMove();
@@ -197,13 +195,14 @@ public class MummyMazeState extends State implements Cloneable {
             enemy.move(this);
         }
     }
+
     public boolean isHeroDead() {
         return hero.isBeingDead(this);
     }
 
     public void changeMatrixCell(Cell cell, char symbol, boolean updateGUI) {
         matrix[cell.getLine()][cell.getColumn()] = symbol;
-        if (updateGUI){
+        if (updateGUI) {
             fireMatrixChanged(null);
         }
     }
@@ -221,21 +220,21 @@ public class MummyMazeState extends State implements Cloneable {
 
         // se a chave estiver ativa, as portas sao abertas senao sao fechadas
         if (key) {
-            if (isMatrixCellEquals(cellDoor,  HORIZONTAL_CLOSE)) {
+            if (isMatrixCellEquals(cellDoor, HORIZONTAL_CLOSE)) {
                 changeMatrixCell(cellDoor, HORIZONTAL_OPEN, false);
                 return;
             }
-            if (isMatrixCellEquals(cellDoor,  VERTICAL_CLOSE)) {
+            if (isMatrixCellEquals(cellDoor, VERTICAL_CLOSE)) {
                 changeMatrixCell(cellDoor, VERTICAL_OPEN, false);
                 return;
             }
         }
 
-        if (isMatrixCellEquals(cellDoor,  HORIZONTAL_OPEN)){
+        if (isMatrixCellEquals(cellDoor, HORIZONTAL_OPEN)) {
             changeMatrixCell(cellDoor, HORIZONTAL_CLOSE, false);
             return;
         }
-        if (isMatrixCellEquals(cellDoor,  VERTICAL_OPEN)){
+        if (isMatrixCellEquals(cellDoor, VERTICAL_OPEN)) {
             changeMatrixCell(cellDoor, VERTICAL_CLOSE, false);
             return;
         }
@@ -243,36 +242,22 @@ public class MummyMazeState extends State implements Cloneable {
 
 
     //region Heuristicas
-    public double computeTilesOutOfPlace() {
 
-        //TODO
-        double numTilesOutOfPLace=0;
-
-        for (int i = 0; i< this.matrix.length; i++){
-            for (int j = 0; j< this.matrix.length; j++){
-                if (this.matrix[i][j] != matrix[i][j]){
-                    numTilesOutOfPLace++;
-                }
-            }
-        }
-
-        return numTilesOutOfPLace;
-    }
-
-    public double getNumberOfWallsNearEnemy(){
+    public double getNumberOfEnemyPossibleMovesRelative() {
         int numWallsNearEnemy = 0;
-        for (Enemy enemy : enemies){
-            if (enemy.symbol == WHITEMUMMY || enemy.symbol == SCORPION){
-                if (isMatrixCellEquals(enemy.cell.getLine(), enemy.cell.getColumn()-1, VERTICAL_WALL) ||
-                        isMatrixCellEquals(enemy.cell.getLine(),  enemy.cell.getColumn()+1, VERTICAL_WALL)) {
-                    numWallsNearEnemy++;
-                }
+        for (Enemy enemy : enemies) {
+
+            // como a mumia branca e o escorpiao primeiro tentam andar para a mesma coluna do heroi
+            // nesta heuristica só nos interessa saber se esses inimigos conseguem andar para a esquerda ou direita
+            if (enemy.symbol == WHITEMUMMY || enemy.symbol == SCORPION) {
+                numWallsNearEnemy += enemy.canMoveRight(this) ? 1 : 0;
+                numWallsNearEnemy += enemy.canMoveLeft(this) ? 1 : 0;
             }
-            if (enemy.symbol == REDMUMMY){
-                if (matrix[enemy.cell.getLine()-1][enemy.cell.getColumn()] == HORIZONTAL_WALL ||
-                        matrix[enemy.cell.getLine()+1][enemy.cell.getColumn()] == HORIZONTAL_WALL) {
-                    numWallsNearEnemy++;
-                }
+
+            // como a mumia vermelha primeiro tenta andar para a mesma linha do heroi
+            // nesta heuristica só nos interessa saber se o inimigo consegue andar para cima ou baixo
+            if (enemy.symbol == REDMUMMY) {                numWallsNearEnemy += enemy.canMoveDown(this) ? 1 : 0;
+                numWallsNearEnemy += enemy.canMoveUp(this) ? 1 : 0;
             }
         }
         return numWallsNearEnemy;
@@ -283,11 +268,11 @@ public class MummyMazeState extends State implements Cloneable {
         //TODO
         int tileDistance = 0;
 
-        for (int i=0;i<this.matrix.length;i++){
-            for (int j=0;j<this.matrix.length;j++){
+        for (int i = 0; i < this.matrix.length; i++) {
+            for (int j = 0; j < this.matrix.length; j++) {
 
                 // nao contabilizar a distancia da peça vazia
-                if (matrix[i][j] != 0){
+                if (matrix[i][j] != 0) {
                     //tileDistance += Math.abs(i-linesfinalMatrix[matrix[i][j]]) + Math.abs(j-colsfinalMatrix[matrix[i][j]]);
                 }
             }
@@ -297,35 +282,36 @@ public class MummyMazeState extends State implements Cloneable {
         return tileDistance;
     }
 
-    public double getNumberOfWallAllEnemies(){
-        int numWallsNearEnemy = 0;
-        for (Enemy enemy : enemies){
-            if ((matrix[enemy.cell.getLine()][enemy.cell.getColumn()-1] == VERTICAL_WALL ||
-                matrix[enemy.cell.getLine()][enemy.cell.getColumn()+1] == VERTICAL_WALL) ||
-                (matrix[enemy.cell.getLine()-1][enemy.cell.getColumn()] == HORIZONTAL_WALL ||
-                matrix[enemy.cell.getLine()+1][enemy.cell.getColumn()] == HORIZONTAL_WALL)) {
+    public double getNumberOfEnemiesPossibleMoves() {
+        int numEnemyPossibleMoves = 0;
+        for (Enemy enemy : enemies) {
+            // nesta heuristica um estado é quanto melhor quanto menor for o número de movimentos
+            // que um inimigo possa fazer
+            numEnemyPossibleMoves += enemy.canMoveUp(this) ? 1 : 0;
+            numEnemyPossibleMoves += enemy.canMoveDown(this) ? 1 : 0;
+            numEnemyPossibleMoves += enemy.canMoveLeft(this) ? 1 : 0;
+            numEnemyPossibleMoves += enemy.canMoveRight(this) ? 1 : 0;
 
-                numWallsNearEnemy++;
-            }
         }
-        return numWallsNearEnemy;
+        return numEnemyPossibleMoves;
     }
 
 
-    public double getNumberOfWallsHero(){
-        int numWallsNearHero = 0;
-            if ((matrix[hero.cell.getLine()][hero.cell.getColumn()-1] == VERTICAL_WALL ||
-                matrix[hero.cell.getLine()][hero.cell.getColumn()+1] == VERTICAL_WALL) ||
-               (matrix[hero.cell.getLine()-1][hero.cell.getColumn()] == HORIZONTAL_WALL ||
-                matrix[hero.cell.getLine()+1][hero.cell.getColumn()] == HORIZONTAL_WALL)) {
-                numWallsNearHero++;
-            }
-        return numWallsNearHero;
+    public double getNumberHeroPossibleMoves() {
+        int numPossibleHeroMoves = 0;
+        // nesta heuristica um estado é quanto melhor quanto maior for o número de movimentos
+        // possiveis do heroi
+        numPossibleHeroMoves += canMoveUp() ? 1 : 0;
+        numPossibleHeroMoves += canMoveDown() ? 1 : 0;
+        numPossibleHeroMoves += canMoveLeft() ? 1 : 0;
+        numPossibleHeroMoves += canMoveRight() ? 1 : 0;
+
+        return -numPossibleHeroMoves;
     }
 
     //endregion
 
-    public boolean heroInExit(){
+    public boolean heroInExit() {
         return cellHeroShouldBe.equals(hero.cell);
     }
 
@@ -350,9 +336,9 @@ public class MummyMazeState extends State implements Cloneable {
 
     @Override
     public String toString() {
-        String s="";
+        String s = "";
         for (int k = 0; k < 13; k++) {
-            s+=String.valueOf(matrix[k])+"\n";
+            s += String.valueOf(matrix[k]) + "\n";
         }
 
 
@@ -387,16 +373,16 @@ public class MummyMazeState extends State implements Cloneable {
 
     // transforma a string dada numa matriz facilitando os calculos das posicoes
 
-    public static char[][] convertToMatrix(String string){
-        int i=0, j=0;
+    public static char[][] convertToMatrix(String string) {
+        int i = 0, j = 0;
 
         char[][] matrix = new char[13][13];
-        for (char t :  string.toCharArray()){
-            if(t!='\n') {
+        for (char t : string.toCharArray()) {
+            if (t != '\n') {
                 matrix[i][j] = t;
                 j++;
-            }else{
-                j=0;
+            } else {
+                j = 0;
                 i++;
             }
         }

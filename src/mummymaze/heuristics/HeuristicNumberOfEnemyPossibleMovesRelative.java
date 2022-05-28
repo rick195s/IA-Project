@@ -4,15 +4,15 @@ import agent.Heuristic;
 import mummymaze.MummyMazeProblem;
 import mummymaze.MummyMazeState;
 
-public class HeuristicNumeroOfWallsAllEnemies extends Heuristic<MummyMazeProblem, MummyMazeState>{
+public class HeuristicNumberOfEnemyPossibleMovesRelative extends Heuristic<MummyMazeProblem, MummyMazeState>{
 
     @Override
     public double compute(MummyMazeState state){
-        return state.getNumberOfWallAllEnemies();
+        return state.getNumberOfEnemyPossibleMovesRelative();
     }
     
     @Override
     public String toString(){
-        return "All Enemy wall";
+        return "Possible Moves Relative To Enemy Typegit ";
     }
 }
