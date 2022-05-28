@@ -3,88 +3,93 @@ package mummymaze.entities;
 import mummymaze.Cell;
 import mummymaze.entities.enemies.Enemy;
 import mummymaze.MummyMazeState;
-import mummymaze.StateRepresentation;
-
 import java.util.LinkedList;
 
+import static mummymaze.StateRepresentation.*;
+
 public abstract class Entity {
-    public Cell cellBeing;
+    public Cell cell;
     public char symbol;
     private char onTopOf;
 
     public Entity(int line, int column, char symbol) {
-        cellBeing = new Cell(line, column);
+        cell = new Cell(line, column);
         this.symbol = symbol;
         onTopOf = '.';
     }
 
-    public boolean canMoveUp(char[][] matrix) {
+    public boolean canMoveUp(MummyMazeState state) {
         // so pode ir para cima se nao estiver na primeira linha jogavel
         // se na linha acima estiver uma parede '-' o heroi nao pode subir
         // se tiver uma porta em cima nao pode mover para cima
-        return  cellBeing.getLine() > 2 && matrix[cellBeing.getLine()-1][cellBeing.getColumn()] != '-'
-                && matrix[cellBeing.getLine()-1][cellBeing.getColumn()] != '=';
+        return  cell.getLine() > 2 &&
+                !state.isMatrixCellEquals(cell.getLine()-1, cell.getColumn(), HORIZONTAL_WALL) &&
+                !state.isMatrixCellEquals(cell.getLine()-1, cell.getColumn(), HORIZONTAL_CLOSE);
     }
-    public boolean canMoveRight(char[][] matrix) {
+    public boolean canMoveRight(MummyMazeState state) {
         // so pode ir para a direita se nao estiver na última coluna jogavel
         // se tiver uma parede à direita nao pode mover para a direita
         // se tiver uma porta à diretia nao pode mover para a direita
-        return cellBeing.getColumn() < matrix.length - 2 && matrix[cellBeing.getLine()][cellBeing.getColumn()+1] != '|'
-                && matrix[cellBeing.getLine()][cellBeing.getColumn()+1] != '"';
+        return  cell.getColumn() < state.matrix.length - 2 &&
+                !state.isMatrixCellEquals(cell.getLine(), cell.getColumn()+1, VERTICAL_WALL) &&
+                !state.isMatrixCellEquals(cell.getLine(), cell.getColumn()+1, VERTICAL_CLOSE);
     }
-    public boolean canMoveDown(char[][] matrix) {
+    public boolean canMoveDown(MummyMazeState state) {
         // so pode ir para baixo se nao estiver na última linha jogavel
         // se tiver na ultima linha nao pode mover para baixo
         // se tiver uma porta abaxio nao pode mover para baixo
-        return cellBeing.getLine() < matrix.length - 2 && matrix[cellBeing.getLine()+1][cellBeing.getColumn()] != '-'
-                && matrix[cellBeing.getLine()+1][cellBeing.getColumn()] != '=';
+        return  cell.getLine() <  state.matrix.length - 2 &&
+                !state.isMatrixCellEquals(cell.getLine()+1, cell.getColumn(), HORIZONTAL_WALL) &&
+                !state.isMatrixCellEquals(cell.getLine()+1, cell.getColumn(), HORIZONTAL_CLOSE);
     }
 
-    public boolean canMoveLeft(char[][] matrix) {
+    public boolean canMoveLeft(MummyMazeState state) {
         // so pode ir para a esquerda se nao estiver na primeira coluna jogavel
         // se tiver uma parede à esquerda nao pode mover para a esquerda
         // se tiver uma porta à esquerda nao pode mover para a esquerda
-        return cellBeing.getColumn() > 2 && matrix[cellBeing.getLine()][cellBeing.getColumn()-1] != '|'
-                && matrix[cellBeing.getLine()][cellBeing.getColumn()-1] != '"';
+        return  cell.getColumn() > 2 &&
+                !state.isMatrixCellEquals(cell.getLine(), cell.getColumn()-1, VERTICAL_WALL) &&
+                !state.isMatrixCellEquals(cell.getLine(), cell.getColumn()-1, VERTICAL_CLOSE);
     }
 
 
     public void move(int number, String direction, MummyMazeState state) {
         char[][] matrix = state.getMatrix();
-        Cell oldCell = cellBeing.clone();
+        Cell oldCell = cell.clone();
 
-        // se o "ser" quando se mexeu ficou em cima de algum elemento diferente de '.'
-        // o elemento é reposto onde estava
-        matrix[cellBeing.getLine()][cellBeing.getColumn()] = onTopOf;
+        // repor o elemento que estava na posicao onde a entidade está
+        state.changeMatrixCell(cell, onTopOf, false);
 
-        if (direction.equals(StateRepresentation.COLUMN)){
-            cellBeing.setColumn(cellBeing.getColumn() + number);
-        }else if (direction.equals(StateRepresentation.LINE)){
-            cellBeing.setLine(cellBeing.getLine() + number);
+        if (direction.equals(COLUMN)){
+            cell.setColumn(cell.getColumn() + number);
+        }else if (direction.equals(LINE)){
+            cell.setLine(cell.getLine() + number);
         }
 
         // se um "inimigo" depois de se mexer ficar em cima de um outro "inimigo"
         // o "inimigo" que se mexeu mata o outro
-        boolean onTopOfBeing = false;
+        boolean onTopOfEntity = false;
         LinkedList<Enemy> auxEnemies = new LinkedList<> (state.enemies);
 
         for (Enemy enemy : auxEnemies) {
-            if (this != enemy && this != state.hero && cellBeing.equals(enemy.cellBeing)){
-               onTopOfBeing = true;
+            if (this != enemy && this != state.hero && cell.equals(enemy.cell)){
+               onTopOfEntity = true;
                state.enemies.remove(enemy);
             }
         }
 
-        if (!onTopOfBeing) {
-            onTopOf = matrix[cellBeing.getLine()][cellBeing.getColumn()];
+        // guardar elemento que está na posição para onde a entidade vai
+        // só guardamos o elemento se esse elemento nao for uma entidade
+        if (!onTopOfEntity) {
+            onTopOf = matrix[cell.getLine()][cell.getColumn()];
         }
 
-        if(onTopOf == StateRepresentation.KEY){
+        if(onTopOf == KEY){
             state.changeDoorState();
         }
 
-        if (!oldCell.equals(cellBeing)){
-            state.changeMatrixCell(this.cellBeing, this.symbol, true);
+        if (!oldCell.equals(cell)){
+            state.changeMatrixCell(this.cell, this.symbol, true);
         }
     }
 

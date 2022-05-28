@@ -1,26 +1,27 @@
 package mummymaze.entities.enemies;
 
 import mummymaze.MummyMazeState;
-import mummymaze.StateRepresentation;
+
+import static mummymaze.StateRepresentation.*;
 
 public class RedMummy extends Enemy {
     public RedMummy(int line, int column) {
-        super(line, column, StateRepresentation.REDMUMMY, 2);
+        super(line, column, REDMUMMY, 2);
     }
 
 
     @Override
     public void particularMove(MummyMazeState state) {
 
-        if(state.getLineHero() < cellBeing.getLine()){
-            if (canMoveUp(state.getMatrix())){
-                move(-2, StateRepresentation.LINE, state);
+        if(state.getLineHero() < cell.getLine()){
+            if (canMoveUp(state)){
+                move(-2, LINE, state);
             }else {
                 moveInColumn(state);
             }
-        }else if (state.getLineHero() > cellBeing.getLine()){
-            if (canMoveDown(state.getMatrix())){
-                move(2, StateRepresentation.LINE, state);
+        }else if (state.getLineHero() > cell.getLine()){
+            if (canMoveDown(state)){
+                move(2, LINE, state);
             }else {
                 moveInColumn(state);
             }
@@ -32,15 +33,13 @@ public class RedMummy extends Enemy {
 
 
     private void moveInColumn(MummyMazeState state){
-        char[][] matrix = state.getMatrix();
-
-        if(state.getColumnHero() < cellBeing.getColumn()){
-            if (canMoveLeft(matrix)){
-                move(-2, StateRepresentation.COLUMN, state);
+        if(state.getColumnHero() < cell.getColumn()){
+            if (canMoveLeft(state)){
+                move(-2, COLUMN, state);
             }
-        }else if (state.getColumnHero() > cellBeing.getColumn()) {
-            if (canMoveRight(matrix)){
-                move(2, StateRepresentation.COLUMN, state);
+        }else if (state.getColumnHero() > cell.getColumn()) {
+            if (canMoveRight(state)){
+                move(2, COLUMN, state);
             }
         }
     }

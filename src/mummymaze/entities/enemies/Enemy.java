@@ -2,7 +2,6 @@ package mummymaze.entities.enemies;
 
 import mummymaze.MummyMazeState;
 import mummymaze.entities.Entity;
-import mummymaze.Cell;
 
 public abstract class Enemy extends Entity {
 
@@ -20,7 +19,7 @@ public abstract class Enemy extends Entity {
     @Override
     public boolean isBeingDead(MummyMazeState state) {
         for (Enemy enemy : state.enemies) {
-            if (this != enemy && this.cellBeing.equals(enemy.cellBeing)) {
+            if (this != enemy && this.cell.equals(enemy.cell)) {
                 return true;
             }
         }
