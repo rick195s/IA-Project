@@ -33,7 +33,6 @@ public class MainFrame extends JFrame {
                             "         -   \n" +
                             " . . . . . . \n" +
                             "             \n";
-    private int[][] initialMatrix = {{8, 7, 6}, {5, 4, 3}, {2, 1, 0}};
 
     private MummyMazeAgent agent = new MummyMazeAgent(new MummyMazeState(MummyMazeState.convertToMatrix(initialString)));
     private JComboBox comboBoxSearchMethods;

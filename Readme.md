@@ -16,6 +16,8 @@ a mumia nao esta a desaparecer no nivel 1 quando uma mumia fica em cima dela por
 
 o inimigo que se mexer para cima de outro inimigo é que morre
 
+o inimigo que se mexe primeiro é o que esta mais perto do heroi ou simplesmente pela ordem que foram inseridos na lista ligada?
+
 Heuristicas:
     
     se a mumia for branca move nas laterais e se for vermelha mover para as horizontais;
@@ -25,6 +27,8 @@ Heuristicas:
 	menor numero de inimigos possiveis;
     manhathan distance;
     
+    ver se o inimigos tem para parede na mesma direcao que a saida
+
     Atraves da funcao heorInExit conseguimos criar outra heuristica
 
     

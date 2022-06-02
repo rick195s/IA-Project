@@ -18,7 +18,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     public char[][] matrix;
     Cell cellExit;
-    Cell cellDoor;
+    public LinkedList<Cell> doors;
 
     Cell cellHeroShouldBe;
     private boolean key = false;
@@ -50,10 +50,8 @@ public class MummyMazeState extends State implements Cloneable {
         }
 
         this.traps = new LinkedList<>(state.traps);
+        this.doors = new LinkedList<>(state.doors);
         this.cellExit = state.cellExit.clone();
-
-        if (state.cellDoor != null)
-            this.cellDoor = state.cellDoor.clone();
 
         if (state.cellKey != null) {
             this.cellKey = state.cellKey.clone();
@@ -70,6 +68,7 @@ public class MummyMazeState extends State implements Cloneable {
         this.matrix = new char[matrix.length][matrix.length];
         enemies = new LinkedList<>();
         traps = new LinkedList<>();
+        doors = new LinkedList<>();
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
@@ -122,7 +121,7 @@ public class MummyMazeState extends State implements Cloneable {
             case HORIZONTAL_OPEN:
             case VERTICAL_CLOSE:
             case VERTICAL_OPEN:
-                cellDoor = new Cell(i, j);
+                doors.add(new Cell(i, j));
                 break;
         }
     }
@@ -218,26 +217,29 @@ public class MummyMazeState extends State implements Cloneable {
     public void changeDoorState() {
         key = !key;
 
-        // se a chave estiver ativa, as portas sao abertas senao sao fechadas
-        if (key) {
-            if (isMatrixCellEquals(cellDoor, HORIZONTAL_CLOSE)) {
-                changeMatrixCell(cellDoor, HORIZONTAL_OPEN, false);
-                return;
+        for (Cell door : doors) {
+            // se a chave estiver ativa, as portas sao abertas senao sao fechadas
+            if (key) {
+                if (isMatrixCellEquals(door, HORIZONTAL_CLOSE)) {
+                    changeMatrixCell(door, HORIZONTAL_OPEN, false);
+                    continue;
+                }
+                if (isMatrixCellEquals(door, VERTICAL_CLOSE)) {
+                    changeMatrixCell(door, VERTICAL_OPEN, false);
+                    continue;
+                }
             }
-            if (isMatrixCellEquals(cellDoor, VERTICAL_CLOSE)) {
-                changeMatrixCell(cellDoor, VERTICAL_OPEN, false);
-                return;
+
+            if (isMatrixCellEquals(door, HORIZONTAL_OPEN)) {
+                changeMatrixCell(door, HORIZONTAL_CLOSE, false);
+                continue;
+            }
+            if (isMatrixCellEquals(door, VERTICAL_OPEN)) {
+                changeMatrixCell(door, VERTICAL_CLOSE, false);
+                continue;
             }
         }
 
-        if (isMatrixCellEquals(cellDoor, HORIZONTAL_OPEN)) {
-            changeMatrixCell(cellDoor, HORIZONTAL_CLOSE, false);
-            return;
-        }
-        if (isMatrixCellEquals(cellDoor, VERTICAL_OPEN)) {
-            changeMatrixCell(cellDoor, VERTICAL_CLOSE, false);
-            return;
-        }
     }
 
 
