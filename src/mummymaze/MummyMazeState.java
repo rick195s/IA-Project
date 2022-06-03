@@ -270,22 +270,15 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public double computeTileDistances() {
-
-        //TODO
-        int tileDistance = 0;
-
+        int distance = 0;
         for (int i = 0; i < this.matrix.length; i++) {
             for (int j = 0; j < this.matrix.length; j++) {
-
-                // nao contabilizar a distancia da peça vazia
-                if (matrix[i][j] != 0) {
-                    //tileDistance += Math.abs(i-linesfinalMatrix[matrix[i][j]]) + Math.abs(j-colsfinalMatrix[matrix[i][j]]);
+                if (cellHeroShouldBe.equals(new Cell(i, j))) {
+                    distance += Math.abs(i - hero.cell.getLine()) + Math.abs(j - hero.cell.getColumn());
                 }
             }
         }
-
-        // sum of manhattan distance between the piece place and the place it should be
-        return tileDistance;
+        return distance;
     }
 
     public double getNumberOfEnemiesPossibleMoves() {
@@ -314,6 +307,18 @@ public class MummyMazeState extends State implements Cloneable {
 
         return -numPossibleHeroMoves;
     }
+
+    public double getNumberFromHeroToKeyAndKeyToExit(){
+        int distance = 0;
+
+        if(cellKey != null){
+            distance += Math.abs(cellKey.getLine() - cellHeroShouldBe.getLine()) + Math.abs(cellKey.getColumn() - cellHeroShouldBe.getColumn());
+        }
+        distance += Math.abs(cellHeroShouldBe.getLine() - cellKey.getLine()) + Math.abs(cellHeroShouldBe.getColumn() - cellKey.getColumn());
+
+        return distance;
+    }
+
 
     //endregion
 
