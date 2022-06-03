@@ -273,7 +273,7 @@ public class MummyMazeState extends State implements Cloneable {
         int distance = 0;
         for (int i = 0; i < this.matrix.length; i++) {
             for (int j = 0; j < this.matrix.length; j++) {
-                if (cellHeroShouldBe.equals(new Cell(i, j))) {
+                if (cellHeroShouldBe.equals(new Cell(i, j, HERO))) {
                     distance += Math.abs(i - hero.cell.getLine()) + Math.abs(j - hero.cell.getColumn());
                 }
             }

@@ -86,8 +86,8 @@ public abstract class Entity {
         }
 
 
+        // so atualizamos a GUI se a entidade se mexer
         if (!oldCell.equals(cell)){
-
             state.changeMatrixCell(cell, cell.getSymbol(),  true);
         }
     }
