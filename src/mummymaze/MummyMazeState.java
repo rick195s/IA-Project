@@ -304,6 +304,18 @@ public class MummyMazeState extends State implements Cloneable {
         return -numPossibleHeroMoves;
     }
 
+    public double getNumberFromHeroToKeyAndKeyToExit(){
+        int distance = 0;
+
+        if(cellKey != null){
+            distance += Math.abs(cellKey.getLine() - cellHeroShouldBe.getLine()) + Math.abs(cellKey.getColumn() - cellHeroShouldBe.getColumn());
+        }
+        distance += Math.abs(cellHeroShouldBe.getLine() - cellKey.getLine()) + Math.abs(cellHeroShouldBe.getColumn() - cellKey.getColumn());
+
+        return distance;
+    }
+
+
     //endregion
 
     public boolean heroInExit() {
