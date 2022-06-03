@@ -9,13 +9,11 @@ import static mummymaze.StateRepresentation.*;
 
 public abstract class Entity {
     public Cell cell;
-    public char symbol;
-    private char onTopOf;
+    private Cell onTopOf;
 
     public Entity(int line, int column, char symbol) {
-        cell = new Cell(line, column);
-        this.symbol = symbol;
-        onTopOf = '.';
+        cell = new Cell(line, column, symbol);
+        onTopOf = new Cell(0,0,EMPTY);
     }
 
     public boolean canMoveUp(MummyMazeState state) {
@@ -58,7 +56,7 @@ public abstract class Entity {
         Cell oldCell = cell.clone();
 
         // repor o elemento que estava na posicao onde a entidade está
-        state.changeMatrixCell(cell, onTopOf, false);
+        state.changeMatrixCell(oldCell, onTopOf.getSymbol(),  false);
 
         if (direction.equals(COLUMN)){
             cell.setColumn(cell.getColumn() + number);
@@ -81,15 +79,16 @@ public abstract class Entity {
         // guardar elemento que está na posição para onde a entidade vai
         // só guardamos o elemento se esse elemento nao for uma entidade
         if (!onTopOfEntity) {
-            onTopOf = matrix[cell.getLine()][cell.getColumn()];
+            onTopOf = new Cell(cell.getLine(), cell.getColumn(), matrix[cell.getLine()][cell.getColumn()]);
+            if(onTopOf.equals(state.cellKey)){
+                state.changeDoorState();
+            }
         }
 
-        if(onTopOf == KEY){
-            state.changeDoorState();
-        }
 
         if (!oldCell.equals(cell)){
-            state.changeMatrixCell(this.cell, this.symbol, true);
+
+            state.changeMatrixCell(cell, cell.getSymbol(),  true);
         }
     }
 

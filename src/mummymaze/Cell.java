@@ -3,10 +3,12 @@ package mummymaze;
 public class Cell {
     private int column;
     private int line;
+    private char symbol;
 
-    public Cell(int line, int column) {
+    public Cell(int line, int column, char symbol) {
         this.column = column;
         this.line = line;
+        this.symbol = symbol;
     }
 
     public int getColumn() {
@@ -15,6 +17,14 @@ public class Cell {
 
     public int getLine() {
         return line;
+    }
+
+    public char getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(char symbol) {
+        this.symbol = symbol;
     }
 
     public void setColumn(int column) {
@@ -26,7 +36,7 @@ public class Cell {
     }
 
     public Cell clone() {
-        return new Cell(this.getLine(), this.getColumn());
+        return new Cell(this.getLine(), this.getColumn(), this.getSymbol());
     }
 
     public boolean equals(Cell cell) {

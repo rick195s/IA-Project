@@ -31,4 +31,4 @@ Heuristicas:
 
     Atraves da funcao heorInExit conseguimos criar outra heuristica
 
-    
+Mandar estatisticas das heuristicas para excel
