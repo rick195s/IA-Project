@@ -328,6 +328,18 @@ public class MummyMazeState extends State implements Cloneable {
         return -distance;
     }
 
+    // distancia entre inimigos
+    public double getDistanceBetweenEnemies(){
+        double distance = 0;
+
+        for (int i = 0; i < enemies.size(); i++) {
+            for (int j = i + 1; j < enemies.size(); j++) {
+                distance += Math.abs(enemies.get(i).cell.getLine() - enemies.get(j).cell.getLine()) + Math.abs(enemies.get(i).cell.getColumn() - enemies.get(j).cell.getColumn());
+            }
+        }
+        return distance;
+    }
+
     //endregion
 
     public boolean heroInExit() {

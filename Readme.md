@@ -33,7 +33,7 @@ Heuristicas:
 
     quanto maior a distancia do heroi aos inimigos melhor
 
-    quanto menor a distancia entre inimigos melhor (mais probabilidade de se matarem)
+    quanto menor a distancia entre inimigos melhor (mais probabilidade de se matarem) (heuristica nao admisivel nivel 11)
 
 Mandar estatisticas das heuristicas para excel:
 

@@ -20,6 +20,7 @@ public class MummyMazeAgent extends Agent<MummyMazeState>{
         heuristics.add(new HeuristicNumberOfEnemies());
         heuristics.add(new HeuristicEnemiesWallInDirectionExit());
         heuristics.add(new HeuristicDistanceBetweenHeroAndEnemies());
+        heuristics.add(new HeuristicDistanceBetweenEnemies());
         heuristic = heuristics.get(0);
     }
             
