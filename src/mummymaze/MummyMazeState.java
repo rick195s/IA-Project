@@ -305,6 +305,19 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
 
+    // heuristica que vê se os inimigos têm parede na mesma
+    // direção que a saida
+    public double enemiesWallInDirectionOfExit(){
+        double numEnemiesWithWallInDirectionOfExit = 0;
+
+        for (Enemy enemy : enemies) {
+            if (enemy.cell.getLine() == cellExit.getLine() || enemy.cell.getColumn() == cellExit.getColumn()) {
+                numEnemiesWithWallInDirectionOfExit++;
+            }
+        }
+
+        return numEnemiesWithWallInDirectionOfExit;
+    }
     //endregion
 
     public boolean heroInExit() {
