@@ -31,4 +31,16 @@ Heuristicas:
 
     Atraves da funcao heorInExit conseguimos criar outra heuristica
 
-Mandar estatisticas das heuristicas para excel
+    quanto maior a distancia do heroi aos inimigos melhor
+
+    quanto menor a distancia entre inimigos melhor (mais probabilidade de se matarem)
+
+Mandar estatisticas das heuristicas para excel:
+
+    Qual a melhor heuristica para cada nivel;
+
+    Qual a pior heuristica para cada nivel;
+
+    Qual a melhor heuristica em todos os niveis (pode ser ma num nivel mas boa em maior parte dos niveis)
+
+    Verificar se as heuristicas sao admissiveis
