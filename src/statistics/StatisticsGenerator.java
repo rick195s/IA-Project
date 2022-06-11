@@ -112,11 +112,13 @@ public class StatisticsGenerator {
     }
 
     private void addStatisticValueToFile(SearchMethod searchMethod){
-        if (agent.hasSolution()){
             for (Statistic statistic : statisticsList) {
-                utils.FileOperations.appendToTextFile(folder + statistic.fileName, searchMethod.toString() + statistic.getStatisticValue(searchMethod) + "\t");
+                if (agent.hasSolution()){
+                    utils.FileOperations.appendToTextFile(folder + statistic.fileName, statistic.getStatisticValue(searchMethod) + "\t");
+                }else {
+                    utils.FileOperations.appendToTextFile(folder + statistic.fileName, "\t");
+                }
             }
-        }
 
     }
 
