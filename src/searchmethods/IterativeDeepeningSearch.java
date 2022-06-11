@@ -26,6 +26,7 @@ public class IterativeDeepeningSearch extends DepthFirstSearch {
         statistics.reset();
         stopped = false;
         limit = 0;
+        int limitDuration = 1000;
 
         //TODO
         // procura limitada ate nivel 0
@@ -36,9 +37,13 @@ public class IterativeDeepeningSearch extends DepthFirstSearch {
 
         Solution solution = null;
 
-        while(solution == null){
+        long start = System.currentTimeMillis();
+        long current = System.currentTimeMillis();
+
+        while(solution == null && current-start < limitDuration) {
             solution = graphSearch(problem);
             limit++;
+            current = System.currentTimeMillis();
         }
 
         return solution;
