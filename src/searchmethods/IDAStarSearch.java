@@ -17,16 +17,40 @@ public class IDAStarSearch extends InformedSearch {
     public Solution search(Problem problem) {
         statistics.reset();        
         stopped = false;
+        this.heuristic = problem.getHeuristic();
+        limit = heuristic.compute(problem.getInitialState());
 
         //TODO
+        Solution solution = null;
+        boolean stop = false;
 
-        return null;
+         while (solution == null || solution.getCost() >= limit){
+            solution = graphSearch(problem);
+            limit = newLimit;
+        }
+
+
+        return solution;
     }
 
     @Override
     protected Solution graphSearch(Problem problem) {
+        newLimit = Double.MAX_VALUE;
 
-        //TODO
+        frontier.clear();
+        frontier.add(new Node(problem.getInitialState()));
+
+        while (!frontier.isEmpty() && !stopped) {
+            Node frontierNode = frontier.remove();
+
+            if (problem.isGoal(frontierNode.getState())) {
+                return new Solution(problem, frontierNode);
+            }
+
+            List<State> successors = problem.executeActions(frontierNode.getState());
+            addSuccessorsToFrontier(successors , frontierNode);
+            computeStatistics(successors.size());
+        }
 
         return null;
     }
