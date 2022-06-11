@@ -32,6 +32,11 @@ public class StatisticsGenerator {
         statisticsList.add(statistic);
     }
 
+    /*
+    * Vamos executar todas os algoritmos em todos os niveis.
+    * Depois cada estatistica é que decide o que é quer guardar
+    *
+    * */
     public void generateStatistics(){
         File folder = new File("Niveis");
         File[] listOfFiles = folder.listFiles();
@@ -39,12 +44,14 @@ public class StatisticsGenerator {
         SearchMethod[] searchMethodsArray = agent.getSearchMethodsArray();
         createFile(searchMethodsArray);
 
+
         for (File levelFile : listOfFiles) {
             if (levelFile.isFile()) {
                 System.out.println("Level: " + levelFile.getName());
                 addToFile(""+levelFile.getName());
                 try {
                     agent.readInitialStateFromFile(levelFile);
+
                     for (SearchMethod searchMethod : searchMethodsArray) {
 
                         if (searchMethod instanceof InformedSearch) {
@@ -84,29 +91,19 @@ public class StatisticsGenerator {
             ((DepthLimitedSearch) searchMethod).setLimit(limit);
         } else if (searchMethod instanceof BeamSearch) {
             ((BeamSearch) searchMethod).setBeamSize(beamSize);
-        } else if (searchMethod instanceof IterativeDeepeningSearch) {
-            ((IterativeDeepeningSearch) searchMethod).getStatistics().setDuration(1000);
         }
     }
 
     private void createFile(SearchMethod[] searchMethods) {
-        String excelHeader = "\t";
-        for (SearchMethod searchMethod : searchMethods) {
-            if (searchMethod instanceof InformedSearch) {
-                for (Heuristic heuristic : agent.getHeuristicsArray()) {
-                    excelHeader += searchMethod.toString()+", "+ heuristic.toString() + "\t";
-                }
-            } else {
-                excelHeader += searchMethod.toString() + "\t";
-            }
-        }
-
         for (Statistic statistic : statisticsList) {
-            File file = new File(statistic.fileName);
-            if(!file.exists()){
+                File file = new File(statistic.fileName);
+                if(!file.exists()){
+                    utils.FileOperations.appendToTextFile(
+                            folder + statistic.fileName,
+                            "\t"+statistic.getStatisticHeader(searchMethods, agent.getHeuristicsArray()));
+                }
+            finishFileLine();
 
-                utils.FileOperations.appendToTextFile(folder + statistic.fileName, excelHeader + "\t"+"\r\n");
-            }
         }
 
     }
@@ -114,7 +111,7 @@ public class StatisticsGenerator {
     private void addStatisticValueToFile(SearchMethod searchMethod){
             for (Statistic statistic : statisticsList) {
                 if (agent.hasSolution()){
-                    utils.FileOperations.appendToTextFile(folder + statistic.fileName, statistic.getStatisticValue(searchMethod) + "\t");
+                    utils.FileOperations.appendToTextFile(folder + statistic.fileName, statistic.getStatisticValue(searchMethod) );
                 }else {
                     utils.FileOperations.appendToTextFile(folder + statistic.fileName, "\t");
                 }

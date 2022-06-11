@@ -1,6 +1,7 @@
 package statistics;
 
 
+import agent.Heuristic;
 import searchmethods.SearchMethod;
 
 public abstract class Statistic {
@@ -11,5 +12,7 @@ public abstract class Statistic {
     }
 
     public abstract String getStatisticValue(SearchMethod searchMethod);
+
+    public abstract String getStatisticHeader(SearchMethod[] searchMethods, Heuristic[] heuristics);
 
 }

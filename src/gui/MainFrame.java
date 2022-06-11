@@ -236,7 +236,10 @@ public class MainFrame extends JFrame {
             public Void doInBackground() {
                 buttonGenerateStatistics.setEnabled(false);
 
-                StatisticsGenerator statisticsGenerator = new StatisticsGenerator(new MummyMazeAgent((MummyMazeState) agent.getEnvironment().clone()), 100, 10);
+                StatisticsGenerator statisticsGenerator = new StatisticsGenerator(
+                        new MummyMazeAgent((MummyMazeState) agent.getEnvironment().clone()),
+                        100,
+                        100);
                 statisticsGenerator.addStatistics(new StatisticNumGeneratedNodes("statistics_num_generated_nodes.xls"));
                 statisticsGenerator.generateStatistics();
 
