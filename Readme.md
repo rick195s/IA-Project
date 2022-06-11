@@ -1,4 +1,6 @@
 
+iterative deepening search com tempo limite ao fazer estatisticas
+
 O que esta a fazer:
 
 	Atraves da funcao heroInExit() ele consegue perceber quando é que está na saida ou nao (logo percebe se um estado é bom ou mau);
@@ -31,7 +33,7 @@ Heuristicas:
 
     Atraves da funcao heorInExit conseguimos criar outra heuristica
 
-    quanto maior a distancia do heroi aos inimigos melhor
+    quanto maior a distancia do heroi aos inimigos melhor (nao admissivel nivel 11)
 
     quanto menor a distancia entre inimigos melhor (mais probabilidade de se matarem) (heuristica nao admisivel nivel 11)
 

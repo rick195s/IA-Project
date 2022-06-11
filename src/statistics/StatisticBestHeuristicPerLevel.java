@@ -1,2 +1,4 @@
-package statistics;public class StatisticBestHeuristicPerLevel {
+package statistics;
+
+public class StatisticBestHeuristicPerLevel {
 }

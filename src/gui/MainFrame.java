@@ -8,6 +8,9 @@ import mummymaze.MummyMazeState;
 import searchmethods.BeamSearch;
 import searchmethods.DepthLimitedSearch;
 import searchmethods.SearchMethod;
+import statistics.Statistic;
+import statistics.StatisticNumGeneratedNodes;
+import statistics.StatisticsGenerator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,6 +50,7 @@ public class MainFrame extends JFrame {
     private JButton buttonStop = new JButton("Stop");
     private JButton buttonShowSolution = new JButton("Show solution");
     private JButton buttonReset = new JButton("Reset to initial state");
+    private JButton buttonGenerateStatistics = new JButton("Generate Statistics");
     private JTextArea textArea;
 
     public MainFrame() {
@@ -78,6 +82,8 @@ public class MainFrame extends JFrame {
         panelButtons.add(buttonReset);
         buttonReset.setEnabled(false);
         buttonReset.addActionListener(new ButtonReset_ActionAdapter(this));
+        panelButtons.add(buttonGenerateStatistics);
+        buttonGenerateStatistics.addActionListener(new ButtonGenerateStatistics_ActionAdapter(this));
 
         JPanel panelSearchMethods = new JPanel(new FlowLayout());
         comboBoxSearchMethods = new JComboBox(agent.getSearchMethodsArray());
@@ -225,6 +231,28 @@ public class MainFrame extends JFrame {
         buttonReset.setEnabled(false);
     }
 
+    public void buttonGenerateStatistics_ActionPerformed(ActionEvent e) {
+        SwingWorker worker = new SwingWorker<Void, Void>() {
+            @Override
+            public Void doInBackground() {
+                buttonGenerateStatistics.setEnabled(false);
+
+                StatisticsGenerator statisticsGenerator = new StatisticsGenerator(new MummyMazeAgent((MummyMazeState) agent.getEnvironment().clone()), 100, 10);
+                statisticsGenerator.addStatistics(new StatisticNumGeneratedNodes("statistics_num_generated_nodes.xls"));
+                statisticsGenerator.generateStatistics();
+
+                return null;
+            }
+
+            @Override
+            public void done() {
+                buttonGenerateStatistics.setEnabled(true);
+            }
+        };
+        worker.execute();
+
+    }
+
     private void prepareSearchAlgorithm() {
         if (agent.getSearchMethod() instanceof DepthLimitedSearch) {
             DepthLimitedSearch searchMethod = (DepthLimitedSearch) agent.getSearchMethod();
@@ -331,6 +359,20 @@ class ButtonReset_ActionAdapter implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.buttonReset_ActionPerformed(e);
+    }
+}
+
+class ButtonGenerateStatistics_ActionAdapter implements ActionListener {
+
+    private final MainFrame adaptee;
+
+    ButtonGenerateStatistics_ActionAdapter(MainFrame adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        adaptee.buttonGenerateStatistics_ActionPerformed(e);
     }
 }
 
