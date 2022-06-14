@@ -1,0 +1,33 @@
+	Breadth first search	Uniform cost search	Depth first search	Limited depth first search	Iterative deepening search	
+
+nivel1.txt	130	132	49	49	327	
+nivel10-escorpiao.txt	630	612	69	69	1010	
+nivel10-mumia_branca.txt	340	327	196	196	3645	
+nivel10.txt	401	397	668	668		
+nivel11.txt	1576	1537	128	128	1558	
+nivel12.txt	634	652	631	631	23883	
+nivel13.txt	254	251	139	139	2705	
+nivel14.txt	811	814	394	394		
+nivel15.txt	471	420	232	232	9225	
+nivel16.txt	637	634	772	772	14924	
+nivel17.txt	1723	1920	226	226		
+nivel18.txt	621	624	624	624		
+nivel19.txt	678	678	302	302	7895	
+nivel2.txt	38	38	28	28		
+nivel20.txt	163	163	117	117	1912	
+nivel21.txt	344	350	998	998		
+nivel21_v1.txt	344	350	998	998		
+nivel21_v2.txt	791	832	1147	1147		
+nivel22.txt	767	759	161	161	3427	
+nivel3.txt	209	209	167	167		
+nivel4.txt	854	848	130768	130768		
+nivel5.txt	226	226	203	203		
+nivel6.txt	340	327	196	196	3645	
+nivel7.txt	1181	1202	81	81	1139	
+nivel8.txt	277	277	149	149		
+nivel9.txt	596	592	861	861		
+nivel_com_heroi_mumia_abre_porta.txt	404	401	463	463		
+nivel_so_com_heroi.txt	154	154	32	32	131	
+nivel_so_com_heroi_e_armadilha.txt	113	108	21	21	60	
+nivel_so_com_heroi_e_paredes.txt	106	106	101	101		
+nivel_so_com_heroi_e_porta.txt	277	238	12296	12296	37938	

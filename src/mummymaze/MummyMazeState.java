@@ -21,7 +21,6 @@ public class MummyMazeState extends State implements Cloneable {
     public LinkedList<Cell> doors;
 
     Cell cellHeroShouldBe;
-    private boolean key = false;
 
     public Cell cellKey;
     public Hero hero;
@@ -55,7 +54,6 @@ public class MummyMazeState extends State implements Cloneable {
 
         if (state.cellKey != null) {
             this.cellKey = state.cellKey.clone();
-            this.key = state.key;
         }
 
         this.cellHeroShouldBe = state.cellHeroShouldBe.clone();
@@ -215,32 +213,24 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public void changeDoorState() {
-        key = !key;
-
         for (Cell door : doors) {
-            // se a chave estiver ativa, as portas sao abertas senao sao fechadas
-            if (key) {
-                if (isMatrixCellEquals(door, HORIZONTAL_CLOSE)) {
+            switch (matrix[door.getLine()][door.getColumn()]) {
+                case HORIZONTAL_CLOSE:
                     changeMatrixCell(door, HORIZONTAL_OPEN, false);
                     door.setSymbol(HORIZONTAL_OPEN);
-                    continue;
-                }
-                if (isMatrixCellEquals(door, VERTICAL_CLOSE)) {
+                    break;
+                case HORIZONTAL_OPEN:
+                    changeMatrixCell(door, HORIZONTAL_CLOSE, false);
+                    door.setSymbol(HORIZONTAL_CLOSE);
+                    break;
+                case VERTICAL_CLOSE:
                     changeMatrixCell(door, VERTICAL_OPEN, false);
                     door.setSymbol(VERTICAL_OPEN);
-                    continue;
-                }
-            }
-
-            if (isMatrixCellEquals(door, HORIZONTAL_OPEN)) {
-                changeMatrixCell(door, HORIZONTAL_CLOSE, false);
-                door.setSymbol(HORIZONTAL_CLOSE);
-                continue;
-            }
-            if (isMatrixCellEquals(door, VERTICAL_OPEN)) {
-                changeMatrixCell(door, VERTICAL_CLOSE, false);
-                door.setSymbol(VERTICAL_CLOSE);
-                continue;
+                    break;
+                case VERTICAL_OPEN:
+                    changeMatrixCell(door, VERTICAL_CLOSE, false);
+                    door.setSymbol(VERTICAL_CLOSE);
+                    break;
             }
         }
 
