@@ -204,10 +204,6 @@ public class MummyMazeState extends State implements Cloneable {
         }
     }
 
-    public boolean isMatrixCellEquals(Cell cell, char symbol) {
-        return matrix[cell.getLine()][cell.getColumn()] == symbol;
-    }
-
     public boolean isMatrixCellEquals(int line, int column, char symbol) {
         return matrix[line][column] == symbol;
     }
