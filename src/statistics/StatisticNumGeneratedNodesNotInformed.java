@@ -5,17 +5,22 @@ import agent.Heuristic;
 import searchmethods.InformedSearch;
 import searchmethods.SearchMethod;
 
-public class StatisticNumGeneratedNodes extends Statistic {
+public class StatisticNumGeneratedNodesNotInformed extends Statistic {
 
 
-    public StatisticNumGeneratedNodes(String fileName) {
+    public StatisticNumGeneratedNodesNotInformed(String fileName) {
         super(fileName);
     }
 
     @Override
-    public String getStatisticValue(SearchMethod searchMethod) {
+    public String getStatisticValue(SearchMethod searchMethod, boolean hasSolution) {
         if (!(searchMethod instanceof InformedSearch)) {
-            return searchMethod.getStatistics().numGeneratedNodes + "\t";
+            if (hasSolution){
+                return searchMethod.getStatistics().numGeneratedNodes + "\t";
+
+            }else{
+                return "\t";
+            }
         }
 
         return "";
@@ -26,10 +31,7 @@ public class StatisticNumGeneratedNodes extends Statistic {
         String header = "";
 
         for (SearchMethod searchMethod : searchMethods) {
-            if (searchMethod instanceof InformedSearch) {
-                for (Heuristic heuristic : heuristics) {
-                }
-            } else {
+            if (!(searchMethod instanceof InformedSearch)) {
                 header  += searchMethod.toString() + "\t";
             }
         }

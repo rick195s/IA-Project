@@ -110,11 +110,7 @@ public class StatisticsGenerator {
 
     private void addStatisticValueToFile(SearchMethod searchMethod){
             for (Statistic statistic : statisticsList) {
-                if (agent.hasSolution()){
-                    utils.FileOperations.appendToTextFile(folder + statistic.fileName, statistic.getStatisticValue(searchMethod) );
-                }else {
-                    utils.FileOperations.appendToTextFile(folder + statistic.fileName, "\t");
-                }
+                    utils.FileOperations.appendToTextFile(folder + statistic.fileName, statistic.getStatisticValue(searchMethod, agent.hasSolution()));
             }
 
     }

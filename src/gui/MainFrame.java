@@ -8,8 +8,8 @@ import mummymaze.MummyMazeState;
 import searchmethods.BeamSearch;
 import searchmethods.DepthLimitedSearch;
 import searchmethods.SearchMethod;
-import statistics.Statistic;
-import statistics.StatisticNumGeneratedNodes;
+import statistics.StatisticNumGeneratedNodesInformed;
+import statistics.StatisticNumGeneratedNodesNotInformed;
 import statistics.StatisticsGenerator;
 
 import javax.swing.*;
@@ -240,7 +240,8 @@ public class MainFrame extends JFrame {
                         new MummyMazeAgent((MummyMazeState) agent.getEnvironment().clone()),
                         100,
                         100);
-                statisticsGenerator.addStatistics(new StatisticNumGeneratedNodes("statistics_num_generated_nodes.xls"));
+                statisticsGenerator.addStatistics(new StatisticNumGeneratedNodesNotInformed("statistics_num_generated_nodes_not_informed.xls"));
+                statisticsGenerator.addStatistics(new StatisticNumGeneratedNodesInformed("statistics_num_generated_nodes_iformed.xls"));
                 statisticsGenerator.generateStatistics();
 
                 return null;

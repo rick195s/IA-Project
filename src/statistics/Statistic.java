@@ -11,7 +11,7 @@ public abstract class Statistic {
         this.fileName = fileName;
     }
 
-    public abstract String getStatisticValue(SearchMethod searchMethod);
+    public abstract String getStatisticValue(SearchMethod searchMethod, boolean hasSolution);
 
     public abstract String getStatisticHeader(SearchMethod[] searchMethods, Heuristic[] heuristics);
 
