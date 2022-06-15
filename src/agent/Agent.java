@@ -29,6 +29,11 @@ public class Agent<E extends State> {
         heuristics = new ArrayList<>();
     }
 
+
+    public Solution getSolution() {
+        return solution;
+    }
+
     public Solution solveProblem(Problem problem) {
         if (heuristic != null) {
             problem.setHeuristic(heuristic);

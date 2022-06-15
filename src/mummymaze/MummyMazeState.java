@@ -256,7 +256,7 @@ public class MummyMazeState extends State implements Cloneable {
     }
 
     public double computeTileDistances() {
-        return Math.abs(cellExit.getLine() - hero.cell.getLine()) + Math.abs(cellExit.getLine() - hero.cell.getColumn());
+        return Math.abs(cellHeroShouldBe.getLine() - hero.cell.getLine()) + Math.abs(cellHeroShouldBe.getColumn() - hero.cell.getColumn());
     }
 
     public double getNumberOfEnemiesPossibleMoves() {

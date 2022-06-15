@@ -2,19 +2,25 @@ package statistics;
 
 import agent.Heuristic;
 import mummymaze.MummyMazeAgent;
-import searchmethods.InformedSearch;
+import searchmethods.AStarSearch;
+import searchmethods.BreadthFirstSearch;
 import searchmethods.SearchMethod;
 
-public class StatisticNumGeneratedNodesInformed extends Statistic{
-    public StatisticNumGeneratedNodesInformed(String fileName) {
+public class StatisticAStar extends Statistic {
+
+    public StatisticAStar(String fileName) {
         super(fileName);
     }
 
     @Override
     public String getStatisticValue(SearchMethod searchMethod, MummyMazeAgent agent) {
-        if ((searchMethod instanceof InformedSearch)) {
+        if ((searchMethod instanceof AStarSearch)) {
             if (agent.hasSolution()){
-                return searchMethod.getStatistics().numGeneratedNodes + "\t";
+                String s = agent.getSolution().getCost() + ":";
+                s+=searchMethod.getStatistics().numGeneratedNodes ;
+                s+="-admissivel:" + agent.getHeuristic().isAdmissivel();
+                s+= '\t';
+                return s;
 
             }else{
                 return "\t";
@@ -27,15 +33,14 @@ public class StatisticNumGeneratedNodesInformed extends Statistic{
     @Override
     public String getStatisticHeader(SearchMethod[] searchMethods, Heuristic[] heuristics) {
         String header = "";
-
         for (SearchMethod searchMethod : searchMethods) {
-            if ((searchMethod instanceof InformedSearch)) {
+            if (searchMethod instanceof AStarSearch) {
                 for (Heuristic heuristic : heuristics) {
-                    header  += searchMethod.toString() +", " + heuristic.toString() + "\t";
+                    header += "A*, "+ heuristic.toString() +"\t";
+
                 }
             }
         }
-
         return header;
     }
 }

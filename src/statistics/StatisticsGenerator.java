@@ -1,5 +1,6 @@
 package statistics;
 
+import agent.Action;
 import agent.Heuristic;
 import mummymaze.MummyMazeAgent;
 import mummymaze.MummyMazeProblem;
@@ -14,6 +15,7 @@ public class StatisticsGenerator {
     int limit = 100;
     int beamSize = 100;
     String folder = "statistics/";
+    double costToSolution = 0;
     LinkedList<Statistic> statisticsList = new LinkedList<>();
 
     public StatisticsGenerator(MummyMazeAgent agent, int limitDepthSearch, int beamSize) {
@@ -57,13 +59,25 @@ public class StatisticsGenerator {
                         if (searchMethod instanceof InformedSearch) {
                             for (Heuristic heuristic : agent.getHeuristicsArray()) {
                                 System.out.println("Heuristic: " + heuristic.toString());
+                                heuristic.setAdmissivel(true);
                                 agent.setHeuristic(heuristic);
                                 run(searchMethod);
+                                if (costToSolution != agent.getSolution().getCost()) {
+                                    heuristic.setAdmissivel(false);
+
+                                }
+                                addStatisticValueToFile(searchMethod);
+                                heuristic.setAdmissivel(true);
+
                             }
                         }else{
                             run(searchMethod);
                         }
-
+                        // guardar custo de solucao numa pasta para depois
+                        // conseguirmos saber se uma heuristica é admissivel
+                        if (searchMethod instanceof BreadthFirstSearch) {
+                            costToSolution = agent.hasSolution() ? agent.getSolution().getCost() : 0;
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -82,7 +96,6 @@ public class StatisticsGenerator {
         MummyMazeProblem problem = new MummyMazeProblem((MummyMazeState) agent.getEnvironment().clone());
         agent.solveProblem(problem);
         System.out.println(agent.getSearchReport());
-        addStatisticValueToFile(searchMethod);
 
     }
 
@@ -110,7 +123,7 @@ public class StatisticsGenerator {
 
     private void addStatisticValueToFile(SearchMethod searchMethod){
             for (Statistic statistic : statisticsList) {
-                    utils.FileOperations.appendToTextFile(folder + statistic.fileName, statistic.getStatisticValue(searchMethod, agent.hasSolution()));
+                    utils.FileOperations.appendToTextFile(folder + statistic.fileName, statistic.getStatisticValue(searchMethod, agent));
             }
 
     }
