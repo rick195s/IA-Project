@@ -13,6 +13,6 @@ public class HeuristicEnemiesWallInDirectionExit extends Heuristic<MummyMazeProb
     
     @Override
     public String toString(){
-        return "Numero de inimigos com parede na direção da saída";
+        return "Enemies Wall In Direction Exit";
     }
 }

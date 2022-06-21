@@ -13,6 +13,6 @@ public class HeuristicDistanceBetweenEnemies extends Heuristic<MummyMazeProblem,
     
     @Override
     public String toString(){
-        return "Distanca entre inimigos";
+        return "Distance Between Enemies";
     }
 }

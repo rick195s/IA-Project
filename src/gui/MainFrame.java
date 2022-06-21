@@ -242,6 +242,7 @@ public class MainFrame extends JFrame {
                 statisticsGenerator.addStatistics(new StatisticNumGeneratedNodesInformed("statistics_num_generated_nodes_iformed.xls"));
                 statisticsGenerator.addStatistics(new StatisticBreathFirstPerLevel("statistics_breadth_first_search.xls"));
                 statisticsGenerator.addStatistics(new StatisticAStar("statistics_a_star_search.xls"));
+                statisticsGenerator.addStatistics(new StatisticSolutionCostPerAlgo("statistics_cost_per_algo.xls"));
                 statisticsGenerator.generateStatistics();
 
                 return null;
